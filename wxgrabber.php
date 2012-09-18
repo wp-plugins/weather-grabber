@@ -488,7 +488,17 @@ ksort($weatherArray); //Sort the Array Alphabetically
 	register_activation_hook( __FILE__, array('wxGrabber_main_values_widget', 'install') );
 	add_action('init', 'wxGrabber_main_values_widget_request_handler');
 
-
+function no_param_file(){
+	$options = get_option('wxgrabber_options');
+	$wviewparamslist = $options['paramFile'];
+	$wviewparamslist = (ABSPATH . $wviewparamslist);
+	if (!file_exists($wviewparamslist)){
+    echo '<div class="error">
+       <p>No Parameter file has been found for Weather-Grabber.  You or your weather server must upload phpparameter.htm to your root webfolder or make sure it is set in <a href="http://www.alberniweather.ca/developer/wp-admin/options-general.php?page=wxgrabber">Settings</a>.</p>  <p>There is a sample phpparameter.htx file in the plugin directory ready for WView or to show you the convention to create your own file. </p>
+    </div>';
+    }
+}
+add_action('admin_notices', 'no_param_file');
 
 	
 	?>
