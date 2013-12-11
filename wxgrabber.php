@@ -21,7 +21,7 @@ INSTALL:
 
 
 Author: Chris Alemany
-Version: 0.7
+Version: 0.8
 Author URI: http://www.alberniweather.ca/
 */
 /*  Copyright 2012  Chris Alemany  (email : chrisale@gmail.com)
