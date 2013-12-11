@@ -2,6 +2,7 @@
 
 /**** Registering the admin options page with Wordpress *****/
 
+
 add_action('admin_menu', 'wxgrabber_admin_add_page');
 function wxgrabber_admin_add_page() {
 add_options_page('Weather Grabber Plugin Options', 'Weather Grabber', 'manage_options', 'wxgrabber', 'wxgrabber_options_page');

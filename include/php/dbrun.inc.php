@@ -74,6 +74,7 @@ return $weatherArray;
 
 function dbextendedrun($weatherArray) {//The DB queries for extended sensor support
 
+
 if ($weatherArray['weatherperiod']['Custom'] != TRUE) {
 	
 	switch  ($weatherArray['weatherperiod']) { 

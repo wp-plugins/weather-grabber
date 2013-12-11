@@ -18,10 +18,8 @@ INSTALL:
 4: add and setup a Widget
 5: You're done!
 
-
-
 Author: Chris Alemany
-Version: 0.8.2
+Version: 0.8.3
 Author URI: http://www.alberniweather.ca/
 */
 /*  Copyright 2012  Chris Alemany  (email : chrisale@gmail.com)
@@ -38,8 +36,6 @@ Author URI: http://www.alberniweather.ca/
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-
-
 */
 
 /**/
