@@ -3,12 +3,12 @@ Contributors: chrisale2
 Donate link: http://www.alberniweather.ca/
 Tags: weather, live
 Requires at least: 3.0.1
-Tested up to: 3.4
-Stable tag: 0.7.1
+Tested up to: 3.7.1
+Stable Tag: 0.7.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Here is a short description of the plugin.  This should be no more than 150 characters.  No markup here.
+A plugin to connect your Wview-enabled weather station to your Wordpress site with Widgets!
 
 == Description ==
 
@@ -29,16 +29,27 @@ Requirements for pre-1.0 release:
 
 == Frequently Asked Questions ==
 
+Please send questions!
+
 = Coming Soon =
 
-Very Soon
-
-
+Oh it's coming.
 
 == Screenshots ==
 
+1. widgetadmin.png
+2. widgetfront.png
 
 == Changelog ==
+
+= 0.7.3 = 
+* Cleaned up description
+
+= 0.7.2 =
+* So Many Bugs introduced from port from standalone
+* More Bugs
+* It ain't perfect... at all. 
+* Onward and Upward!
 
 = 0.7.1 =
 * Fixing Bugs....

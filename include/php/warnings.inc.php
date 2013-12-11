@@ -424,6 +424,7 @@ if ($key != 'windChill') {
 	//////////////Temperature Hot Warning/////////////////////////
 	if ($val >= 20 && $val < 30) {
 		if ($key == 'heatIndex' || $key == 'outsideHeatIndex' ) {
+/*	Bug Here		
 			if ($weatherArray['heatIndex'] > $weatherArray['outTemp']) {
 					$weatherArray['heatIndexCSS'] = $CSSstyletag . $warncolorlow;
 				}
@@ -434,7 +435,7 @@ if ($key != 'windChill') {
 				$weatherArray['outsideHeatIndexCSS'] = $CSSstyletag . $CSSdefaultvalue;
 				$weatherArray['outsideHeatIndex'] = 'N/A';
 				}	
-			
+*/			
 			}
 		}
 	elseif ($val >= 30 && $val < 35) {

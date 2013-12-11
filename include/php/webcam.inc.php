@@ -69,13 +69,13 @@ $nightcam= $webcamprefix . "/" . $yesterdaytime . "/" . $yesterdaytime . $webcam
 
 if ($curhour == 1 || $curhour == 2 || $curhour == 3 || $curhour == 4 || $curhour == 5 || $curhour == 6 || $curhour == 7 || $curhour == 8 || $curhour == 9 || $curhour == 10 || $curhour == 11 || $curhour == 12 || $curhour == 13 || $curhour == 14 || $curhour == 15 || $curhour == 16 || $curhour == 17 || $curhour == 18) 
 {
-echo 'HELLO';
+//echo 'HELLO';
 $dayfolderday=$todaytime . '/';
 $daytimeday=$yesterdaytime;
 $daycam = $webcamprefix . "/" . $yesterdaytime . "/" . $yesterdaytime . $webcam18suffix;
 }
 else {
-echo 'HELL02';
+//echo 'HELL02';
 $dayfolderday='';
 $daytimeday=$todaytime;
 $daycam = $webcamprefix . "/" . $todaytime . "/" . $todaytime . $webcam18suffix;
