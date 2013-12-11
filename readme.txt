@@ -4,7 +4,7 @@ Donate link: http://www.alberniweather.ca/
 Tags: weather, live
 Requires at least: 3.0.1
 Tested up to: 3.7.1
-Stable Tag: 0.7.5
+Stable Tag: 0.8.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -41,6 +41,15 @@ Oh it's coming.
 2. widgetfront.png
 
 == Changelog ==
+= 0.8.2 = 
+* More Bug Fixes
+
+= 0.8.1 = 
+* Bug Fixes
+
+= 0.8 = 
+* Getting back into the groove cleaning up and squishing bugs
+* Database support is back.
 
 = 0.7.3 = 
 * Cleaned up description

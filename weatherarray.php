@@ -9,7 +9,6 @@ $weatherperiod = $weatherperiod;
 else {
 $weatherperiod = 0;
 }
-
 $websiteFolder = $_SERVER['DOCUMENT_ROOT'];
 $options = get_option('wxgrabber_options');
 $weatherArray['wordpressFolder'] = WXGRABBER_PATH;
@@ -154,17 +153,19 @@ date_default_timezone_set($timeOffsetSymbol);
 
 
 
+
 if ($weatherArray['sensors'] == 0){ //Checking for Standard (0) vs. Extended (1) sensors/mode...
 	if ($wviewdbtoggle == 1) { // DATABASE OPTION IS CHECKED?
 	
 	$weatherArray = dbstandardrun($weatherArray); //LOTS TO DO dbrun.inc.php
-	
+	$weatherArray['db']->close();
 	}//END DATABASE CHECK
 }// END SENSORS 0 IF
 
 else { 
 		if ($wviewdbtoggle == 1) { 
 		$weatherArray = dbextendedrun($weatherArray); //LOTS TO DO HERE in dbrun.inc.php
+		$weatherArray['db']->close();
 		}
 		//$weatherArray = dayTempChillHeat($weatherArray);
 		

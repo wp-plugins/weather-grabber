@@ -21,7 +21,7 @@ INSTALL:
 
 
 Author: Chris Alemany
-Version: 0.7
+Version: 0.8.2
 Author URI: http://www.alberniweather.ca/
 */
 /*  Copyright 2012  Chris Alemany  (email : chrisale@gmail.com)
@@ -168,6 +168,7 @@ strip_tags($_GET['wxGrabber_main_values_widget_weatherperiod']));
 /********************************************************
 ********************************************************/
 class wxGrabber_main_values_widget extends WP_Widget {
+
 static function install() {
 
 	$defaultoptions = Array('webTime'=>'America/New_York','paramFile'=>'phpparameterlist.htm','weatherTime'=>'America/New_York','wviewdbtoggle'=>'no','wviewsensors'=>'0','currentSys'=>'1','timedelay'=>'0','mysqltable'=>'archive','mysqlpass'=>'passwordhere','mysqluser'=>'username','mysqldbname'=>'yourdatabasename','mysqlhost'=>'localhost');
@@ -177,15 +178,21 @@ static function install() {
 /*constructor - This creates the widget.  You can create as many of these as you want by copying the function and changing the name to suit the new widget you create. */
 
 public function wxGrabber_main_values_widget() {
-parent::WP_Widget(false, $name = 'Weather Widget');
+parent::WP_Widget(false, $name = 'Custom Weather Values');
 // Load jQuery
 wp_enqueue_script('jquery');
+}
 
+public function wxGrabber_current_values_widget() {
+parent::WP_Widget(false, $name = 'Current Conditions');
+// Load jQuery
+wp_enqueue_script('jquery');
 }
 
 /* This controls what the widget actually does.  Gets stuff for it and displays it on the website.
 
 /** @see WP_Widget::widget */
+
 public function widget($args, $instance) {
 extract( $args ); //This gets arguments and grabs the options that are set in the admin panel for the widget in Wordpress
 
