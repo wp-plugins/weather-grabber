@@ -128,6 +128,7 @@ $weatherArray['timeOffsetSymbol'] = $timeOffsetSymbol;
 if ($timeOffsetSign == '+') {
 $weatherArray['mySQLDateMod'] = 'DATE_ADD';
 }
+
 else {
 $weatherArray['mySQLDateMod'] = 'DATE_SUB';
 }
@@ -147,9 +148,6 @@ $weatherArray['almanacPeriod'] = $weatherArray['weatherperiod'];
 
 
 date_default_timezone_set($timeOffsetSymbol);
-
-
-
 
 
 
