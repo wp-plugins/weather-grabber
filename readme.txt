@@ -41,6 +41,9 @@ Oh it's coming.
 2. widgetfront.png
 
 == Changelog ==
+= 0.8 = 
+* Getting back into the groove cleaning up and squishing bugs
+* Database support is back.
 
 = 0.7.3 = 
 * Cleaned up description
