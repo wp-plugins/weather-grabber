@@ -6,6 +6,8 @@
 
 
 function dbstandardrun($weatherArray) {
+
+
 if ($weatherArray['weatherperiod']['Custom'] != TRUE) { //GOOD
 	
 	switch  ($weatherArray['weatherperiod']) { //GOOD
@@ -39,6 +41,7 @@ if ($weatherArray['weatherperiod']['Custom'] != TRUE) { //GOOD
 		
 		default; //Everything Else Defaults to just 24hr.
 			
+			
 			$weatherArray = runDB24hrQuery($weatherArray);
 			$weatherArray = runHiLo24hr($weatherArray);
 			$weatherArray = runRain24hrQuery($weatherArray);
@@ -46,6 +49,7 @@ if ($weatherArray['weatherperiod']['Custom'] != TRUE) { //GOOD
 			$weatherArray = sql24hrProcessors($weatherArray); // holds functions processing 24hr data from MySQL database
 			$weatherArray = dayRain($weatherArray);
 			$weatherArray = findtrend($weatherArray); 
+			
 			
 		break;
 		} //END OF SWITCH
@@ -111,6 +115,7 @@ if ($weatherArray['weatherperiod']['Custom'] != TRUE) {
 			
 			
 			$weatherArray = runDB24hrQuery($weatherArray);
+			
 			$weatherArray = runHiLo24hr($weatherArray);
 			
 			$weatherArray = runRain24hrQuery($weatherArray);

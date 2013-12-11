@@ -210,7 +210,7 @@ function convertdataBaromtokPa($weatherArray, $check) {
 		$weatherArray['monthtodateavgbarom'] = BaromtokpA($weatherArray['monthtodateavgbarom']);
 		$weatherArray['yeartodateavgbarom'] = BaromtokpA($weatherArray['yeartodateavgbarom']);
 		
-		/*if (($_GET['almanacPeriod'] == 'SearchGo') || $_GET['almanacPeriod'] == 'SearchGoFile') {
+		/*if (($weatherArray['weatherperiod'] == 'SearchGo') || $weatherArray['weatherperiod'] == 'SearchGoFile') {
 		foreach ($weatherArray['SQLDataCustom']['barometer'] as $key => $value) {
 			$weatherArray['SQLDataCustom']['barometer'][$key] = BaromtokpA($value);
 		}
@@ -218,14 +218,16 @@ function convertdataBaromtokPa($weatherArray, $check) {
 		
 		
 		//Database Conversions
+		if ($weatherArray['wviewdbtoggle'] == 1) {
+		
 		if ($weatherArray['weatherperiod']['Custom'] != TRUE) {
 		switch  ($weatherArray['weatherperiod']) { 
 		
-			/*default: // Weekly - will do 24hr as well
+			default: // Weekly - will do 24hr as well
 			foreach ($weatherArray['SQLData']['barometer'] as $key=>$value) {
 				$weatherArray['SQLData']['barometer'][$key] = 							BaromtokpA($weatherArray['SQLData']['barometer'][$key]);
 			}
-			break;*/
+			break;
 			case '1': // Weekly - will do 24hr as well
 			foreach ($weatherArray['SQLDataWeekly']['barometer'] as $key => $value) {
 				$weatherArray['SQLDataWeekly']['barometer'][$key] = BaromtokpA($weatherArray['SQLDataWeekly']['barometer'][$key]);
@@ -253,6 +255,8 @@ function convertdataBaromtokPa($weatherArray, $check) {
 			break;
 		
 		
+		
+		}
 		
 		}
 		
@@ -319,10 +323,10 @@ function convertdataCtoF($weatherArray) {
 		$weatherArray['monthtodatemaxtempdate'] = TemptoF($weatherArray['monthtodatemaxtempdate']);
 		$weatherArray['monthtodatemintempdate'] = TemptoF($weatherArray['monthtodatemintempdate']);
 		$weatherArray['yeartodateavgtemp'] = TemptoF($weatherArray['yeartodateavgtemp']);
-		$weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['hioutTemp'] = TemptoF($weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['hioutTemp']);
-		$weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['lowoutTemp'] = TemptoF($weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['lowoutTemp']);
-		$weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['hiinTemp'] = TemptoF($weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['hiinTemp']);
-		$weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['lowinTemp'] = TemptoF($weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['lowinTemp']);
+		$weatherArray['SQLData'][$weatherArray['almanacPeriod']]['hioutTemp'] = TemptoF($weatherArray['SQLData'][$weatherArray['almanacPeriod']]['hioutTemp']);
+		$weatherArray['SQLData'][$weatherArray['almanacPeriod']]['lowoutTemp'] = TemptoF($weatherArray['SQLData'][$weatherArray['almanacPeriod']]['lowoutTemp']);
+		$weatherArray['SQLData'][$weatherArray['almanacPeriod']]['hiinTemp'] = TemptoF($weatherArray['SQLData'][$weatherArray['almanacPeriod']]['hiinTemp']);
+		$weatherArray['SQLData'][$weatherArray['almanacPeriod']]['lowinTemp'] = TemptoF($weatherArray['SQLData'][$weatherArray['almanacPeriod']]['lowinTemp']);
 			
 	
 	//Dewpoint Conversion
@@ -341,8 +345,8 @@ function convertdataCtoF($weatherArray) {
 		$weatherArray['weekchangedewpt'] = TemptoF($weatherArray['weekchangedewpt']);
 		$weatherArray['monthtodateavgdewpt'] = TemptoF($weatherArray['monthtodateavgdewpt']);
 		$weatherArray['yeartodateavgdewpt'] = TemptoF($weatherArray['yeartodateavgdewpt']);
-		$weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['hiDewpoint'] = TemptoF($weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['hiDewpoint']);
-		$weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['lowDewpoint'] = TemptoF($weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['lowDewpoint']);
+		
+		
 		
 	//Windchill Conversions
 		$weatherArray['windChill'] = TemptoF($weatherArray['windChill']);
@@ -350,18 +354,25 @@ function convertdataCtoF($weatherArray) {
 		$weatherArray['lowWindchill'] = TemptoF($weatherArray['lowWindchill']);
 		$weatherArray['lowMonthlyWindchill'] = TemptoF($weatherArray['lowMonthlyWindchill']);
 		$weatherArray['lowYearlyWindchill'] = TemptoF($weatherArray['lowYearlyWindchill']);
-		$weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['lowWindchill'] = TemptoF($weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['lowWindchill']);
+	
 		
 	//HeatIndex Conversions
 		$weatherArray['outsideHeatIndex'] = TemptoF($weatherArray['outsideHeatIndex']);
 		$weatherArray['hiHeatindex'] = TemptoF($weatherArray['hiHeatindex']);
 		$weatherArray['hiMonthlyHeatindex'] = TemptoF($weatherArray['hiMonthlyHeatindex']);
 		$weatherArray['hiYearlyHeatindex'] = TemptoF($weatherArray['hiYearlyHeatindex']);
-		$weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['hiHeatindex'] = TemptoF($weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['hiHeatindex']);
+		
 		
 	//Database Conversions		
 	
-	if (($_GET['almanacPeriod'] == 'SearchGo') || $_GET['almanacPeriod'] == 'SearchGoFile') {
+	if ($weatherArray['wviewdbtoggle'] == 1) {
+	
+		$weatherArray['SQLData'][$weatherArray['almanacPeriod']]['hiDewpoint'] = TemptoF($weatherArray['SQLData'][$weatherArray['almanacPeriod']]['hiDewpoint']);
+		$weatherArray['SQLData'][$weatherArray['almanacPeriod']]['lowDewpoint'] = TemptoF($weatherArray['SQLData'][$weatherArray['almanacPeriod']]['lowDewpoint']);
+		$weatherArray['SQLData'][$weatherArray['almanacPeriod']]['lowWindchill'] = TemptoF($weatherArray['SQLData'][$weatherArray['almanacPeriod']]['lowWindchill']);
+		$weatherArray['SQLData'][$weatherArray['almanacPeriod']]['hiHeatindex'] = TemptoF($weatherArray['SQLData'][$weatherArray['almanacPeriod']]['hiHeatindex']);
+		
+	if (($weatherArray['weatherperiod'] == 'SearchGo') || $weatherArray['weatherperiod'] == 'SearchGoFile') {
 		foreach ($weatherArray['SQLDataCustom']['OutTemp'] as $key => $value) {
 			$weatherArray['SQLDataCustom']['OutTemp'][$key] = TemptoF($value);
 		}
@@ -379,7 +390,6 @@ function convertdataCtoF($weatherArray) {
 		}
 		
 	}
-
 	switch($weatherArray['weatherperiod']) { 
 	
 			case '*': // DEFAULT
@@ -395,7 +405,9 @@ function convertdataCtoF($weatherArray) {
 				$i++;
 			}
 			break;
-			}		
+			}
+			}
+				
 	return $weatherArray;
 }
 
@@ -422,10 +434,7 @@ function convertdataFtoC($weatherArray) {
 		$weatherArray['monthtodatemaxtempdate'] = FtoC($weatherArray['monthtodatemaxtempdate']);
 		$weatherArray['monthtodatemintempdate'] = FtoC($weatherArray['monthtodatemintempdate']);
 		$weatherArray['yeartodateavgtemp'] = FtoC($weatherArray['yeartodateavgtemp']);
-		$weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['hioutTemp'] = FtoC($weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['hioutTemp']);
-		$weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['lowoutTemp'] = FtoC($weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['lowoutTemp']);
-		$weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['hiinTemp'] = FtoC($weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['hiinTemp']);
-		$weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['lowinTemp'] = FtoC($weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['lowinTemp']);
+		
 			
 	
 	//Dewpoint Conversion
@@ -444,8 +453,7 @@ function convertdataFtoC($weatherArray) {
 		$weatherArray['weekchangedewpt'] = FtoC($weatherArray['weekchangedewpt']);
 		$weatherArray['monthtodateavgdewpt'] = FtoC($weatherArray['monthtodateavgdewpt']);
 		$weatherArray['yeartodateavgdewpt'] = FtoC($weatherArray['yeartodateavgdewpt']);
-		$weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['hiDewpoint'] = FtoC($weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['hiDewpoint']);
-		$weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['lowDewpoint'] = FtoC($weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['lowDewpoint']);
+		
 		
 	//Windchill Conversions
 		$weatherArray['windChill'] = FtoC($weatherArray['windChill']);
@@ -453,18 +461,28 @@ function convertdataFtoC($weatherArray) {
 		$weatherArray['lowWindchill'] = FtoC($weatherArray['lowWindchill']);
 		$weatherArray['lowMonthlyWindchill'] = FtoC($weatherArray['lowMonthlyWindchill']);
 		$weatherArray['lowYearlyWindchill'] = FtoC($weatherArray['lowYearlyWindchill']);
-		$weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['lowWindchill'] = FtoC($weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['lowWindchill']);
+		
 		
 	//HeatIndex Conversions
 		$weatherArray['outsideHeatIndex'] = FtoC($weatherArray['outsideHeatIndex']);
 		$weatherArray['hiHeatindex'] = FtoC($weatherArray['hiHeatindex']);
 		$weatherArray['hiMonthlyHeatindex'] = FtoC($weatherArray['hiMonthlyHeatindex']);
 		$weatherArray['hiYearlyHeatindex'] = FtoC($weatherArray['hiYearlyHeatindex']);
-		$weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['hiHeatindex'] = FtoC($weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['hiHeatindex']);
+		
 		
 	//Database Conversions		
+	if ($weatherArray['wviewdbtoggle'] == 1) {
 	
-	if (($_GET['almanacPeriod'] == 'SearchGo') || $_GET['almanacPeriod'] == 'SearchGoFile') {
+	$weatherArray['SQLData'][$weatherArray['almanacPeriod']]['hiDewpoint'] = FtoC($weatherArray['SQLData'][$weatherArray['almanacPeriod']]['hiDewpoint']);
+		$weatherArray['SQLData'][$weatherArray['almanacPeriod']]['lowDewpoint'] = FtoC($weatherArray['SQLData'][$weatherArray['almanacPeriod']]['lowDewpoint']);
+		$weatherArray['SQLData'][$weatherArray['almanacPeriod']]['hioutTemp'] = FtoC($weatherArray['SQLData'][$weatherArray['almanacPeriod']]['hioutTemp']);
+		$weatherArray['SQLData'][$weatherArray['almanacPeriod']]['lowoutTemp'] = FtoC($weatherArray['SQLData'][$weatherArray['almanacPeriod']]['lowoutTemp']);
+		$weatherArray['SQLData'][$weatherArray['almanacPeriod']]['hiinTemp'] = FtoC($weatherArray['SQLData'][$weatherArray['almanacPeriod']]['hiinTemp']);
+		$weatherArray['SQLData'][$weatherArray['almanacPeriod']]['lowinTemp'] = FtoC($weatherArray['SQLData'][$weatherArray['almanacPeriod']]['lowinTemp']);
+		$weatherArray['SQLData'][$weatherArray['almanacPeriod']]['lowWindchill'] = FtoC($weatherArray['SQLData'][$weatherArray['almanacPeriod']]['lowWindchill']);
+		$weatherArray['SQLData'][$weatherArray['almanacPeriod']]['hiHeatindex'] = FtoC($weatherArray['SQLData'][$weatherArray['almanacPeriod']]['hiHeatindex']);
+		
+	if (($weatherArray['weatherperiod'] == 'SearchGo') || $weatherArray['weatherperiod'] == 'SearchGoFile') {
 		foreach ($weatherArray['SQLDataCustom']['OutTemp'] as $key => $value) {
 			$weatherArray['SQLDataCustom']['OutTemp'][$key] = FtoC($value);
 		}
@@ -498,7 +516,10 @@ function convertdataFtoC($weatherArray) {
 				$i++;
 			}
 			break;
-			}		
+			}	
+			
+			}
+				
 	return $weatherArray;
 }
 
@@ -522,16 +543,7 @@ function convertdataBaromtoInch($weatherArray) {
 		$weatherArray['weekchangebarom'] = Baromtoinch($weatherArray['weekchangebarom']);
 		$weatherArray['monthtodateavgbarom'] = Baromtoinch($weatherArray['monthtodateavgbarom']);
 		$weatherArray['yeartodateavgbarom'] =  Baromtoinch($weatherArray['yeartodateavgbarom']);
-		$weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['hiBarometer'] = Baromtoinch($weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['hiBarometer']);
-		$weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['lowBarometer'] = Baromtoinch($weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['lowBarometer']);
-	
-	
-		if (($_GET['almanacPeriod'] == 'SearchGo') || $_GET['almanacPeriod'] == 'SearchGoFile') {
-		foreach ($weatherArray['SQLDataCustom']['barometer'] as $key => $value) {
-			$weatherArray['SQLDataCustom']['barometer'][$key] = Baromtoinch($value);
-		}
 		
-	}
 	
 	
 		switch ($weatherArray['baromtrend']) { //I like arrows instead of plus and minus signs for the barometer trend.
@@ -545,11 +557,26 @@ function convertdataBaromtoInch($weatherArray) {
 				$weatherArray['baromtrend'] = '&harr;';
 				break;
 			}
-		//Database Conversions		
+		//Database Conversions	
+		
+		if ($weatherArray['wviewdbtoggle'] == 1) {
+		
+		$weatherArray['SQLData'][$weatherArray['almanacPeriod']]['hiBarometer'] = Baromtoinch($weatherArray['SQLData'][$weatherArray['almanacPeriod']]['hiBarometer']);
+		$weatherArray['SQLData'][$weatherArray['almanacPeriod']]['lowBarometer'] = Baromtoinch($weatherArray['SQLData'][$weatherArray['almanacPeriod']]['lowBarometer']);
+	
+	
+		if (($weatherArray['weatherperiod'] == 'SearchGo') || $weatherArray['weatherperiod'] == 'SearchGoFile') {
+		foreach ($weatherArray['SQLDataCustom']['barometer'] as $key => $value) {
+			$weatherArray['SQLDataCustom']['barometer'][$key] = Baromtoinch($value);
+		}
+		
+	}	
 		$i = 0;
 			while ($i < 288) {
-				$weatherArray['SQLData']['barometer'][$i] = Baromtoinch($weatherArray['SQLData']['barometer'][$i]);
+				$weatherArray['SQLData']['Barometer'][$i] = Baromtoinch($weatherArray['SQLData']['Barometer'][$i]);
 				$i++;
+			}
+			
 			}
 	return $weatherArray;
 }
@@ -569,14 +596,17 @@ function convertdataMMtoInch($weatherArray) {
 		$weatherArray['hiYearlyRainRate'] = RaintoInch($weatherArray['hiYearlyRainRate']);
 		$weatherArray['hourrain'] = RaintoInch($weatherArray['hourrain']);
 		$weatherArray['ET'] = RaintoInch($weatherArray['ET']);
-		$weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['RainSum'] = RaintoInch($weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['RainSum']);
-		$weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['ETSum'] = RaintoInch($weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['ETSum']);
-		$weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['NetMoisture'] = RaintoInch($weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['NetMoisture']);
-		$weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['hiRainRate'] = RaintoInch($weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['hiRainRate']);
+		
 		
 		//Database Conversions		
+		if ($weatherArray['wviewdbtoggle'] == 1) {
 		
-		if (($_GET['almanacPeriod'] == 'SearchGo') || $_GET['almanacPeriod'] == 'SearchGoFile') {
+		$weatherArray['SQLData'][$weatherArray['almanacPeriod']]['RainSum'] = RaintoInch($weatherArray['SQLData'][$weatherArray['almanacPeriod']]['RainSum']);
+		$weatherArray['SQLData'][$weatherArray['almanacPeriod']]['ETSum'] = RaintoInch($weatherArray['SQLData'][$weatherArray['almanacPeriod']]['ETSum']);
+		$weatherArray['SQLData'][$weatherArray['almanacPeriod']]['NetMoisture'] = RaintoInch($weatherArray['SQLData'][$weatherArray['almanacPeriod']]['NetMoisture']);
+		$weatherArray['SQLData'][$weatherArray['almanacPeriod']]['hiRainRate'] = RaintoInch($weatherArray['SQLData'][$weatherArray['almanacPeriod']]['hiRainRate']);
+		
+		if (($weatherArray['weatherperiod'] == 'SearchGo') || $weatherArray['weatherperiod'] == 'SearchGoFile') {
 		foreach ($weatherArray['SQLDataCustom']['Rain'] as $key => $value) {
 			$weatherArray['SQLDataCustom']['Rain'][$key] = RaintoInch($value);
 		}
@@ -594,14 +624,14 @@ function convertdataMMtoInch($weatherArray) {
 		
 		$i = 0;
 			while ($i < 288) {
-				$weatherArray['SQLData']['Rain'][$i] = RaintoInch($weatherArray['SQLData']['Rain'][$i]);
+				$weatherArray['SQLData']['rain'][$i] = RaintoInch($weatherArray['SQLData']['rain'][$i]);
 				if ($i < 24) {
 				$weatherArray['SQLData']['Rain24HourlySum'][$i] = RaintoInch($weatherArray['SQLData']['Rain24HourlySum'][$i]);
 				}
 				$i++;
 			}
 
-
+	}
 	return $weatherArray;
 }
 
@@ -624,13 +654,12 @@ function convertdatakphtomph($weatherArray) {
 		$weatherArray['weekchangewind'] = kphtomph($weatherArray['weekchangewind']);
 		$weatherArray['monthtodateavgwind'] = kphtomph($weatherArray['monthtodateavgwind']);
 		$weatherArray['yeartodateavgwind'] = kphtomph($weatherArray['yeartodateavgwind']);
-		$weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['hiwindGust'] = kphtomph($weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['hiwindGust']);
-		$weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['hiWindSpeed'] = kphtomph($weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['hiWindSpeed']);
 		
-		
-		//Database Conversions		
-		
-		if (($_GET['almanacPeriod'] == 'SearchGo') || $_GET['almanacPeriod'] == 'SearchGoFile') {
+		//Database Conversions
+		if ($weatherArray['wviewdbtoggle'] == 1) {
+		$weatherArray['SQLData'][$weatherArray['almanacPeriod']]['hiwindGust'] = kphtomph($weatherArray['SQLData'][$weatherArray['almanacPeriod']]['hiwindGust']);
+		$weatherArray['SQLData'][$weatherArray['almanacPeriod']]['hiWindSpeed'] = kphtomph($weatherArray['SQLData'][$weatherArray['almanacPeriod']]['hiWindSpeed']);
+		if (($weatherArray['weatherperiod'] == 'SearchGo') || $weatherArray['weatherperiod'] == 'SearchGoFile') {
 		foreach ($weatherArray['SQLDataCustom']['windSpeed'] as $key => $value) {
 			$weatherArray['SQLDataCustom']['windSpeed'][$key] = kphtomph($value);
 		}
@@ -641,15 +670,14 @@ function convertdatakphtomph($weatherArray) {
 		
 		}
 		
-		
 		$i = 0;
 			while ($i < 288) {
-				$weatherArray['SQLData']['windSpeed'][$i] = kphtomph($weatherArray['SQLData']['windSpeed'][$i]);
+				$weatherArray['SQLData']['WindSpeed'][$i] = kphtomph($weatherArray['SQLData']['WindSpeed'][$i]);
 				$weatherArray['SQLData']['hiWindSpeed'][$i] = kphtomph($weatherArray['SQLData']['hiWindSpeed'][$i]);
 				$i++;
 			}
 
-		
+		}
 	return $weatherArray;
 }
 
@@ -672,10 +700,13 @@ function convertdatakphtoknot($weatherArray) {
 		$weatherArray['weekchangewind'] = kphtoknot($weatherArray['weekchangewind']);
 		$weatherArray['monthtodateavgwind'] = kphtoknot($weatherArray['monthtodateavgwind']);
 		$weatherArray['yeartodateavgwind'] = kphtoknot($weatherArray['yeartodateavgwind']);
-		$weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['hiWindSpeed'] = kphtoknot($weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['hiWindSpeed']);
-		$weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['hiwindGust'] = kphtoknot($weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['hiwindGust']);
 		
-		if (($_GET['almanacPeriod'] == 'SearchGo') || $_GET['almanacPeriod'] == 'SearchGoFile') {
+		if ($weatherArray['wviewdbtoggle'] == 1) { 
+		
+		$weatherArray['SQLData'][$weatherArray['almanacPeriod']]['hiWindSpeed'] = kphtoknot($weatherArray['SQLData'][$weatherArray['almanacPeriod']]['hiWindSpeed']);
+		$weatherArray['SQLData'][$weatherArray['almanacPeriod']]['hiwindGust'] = kphtoknot($weatherArray['SQLData'][$weatherArray['almanacPeriod']]['hiwindGust']);
+		
+		if (($weatherArray['weatherperiod'] == 'SearchGo') || $weatherArray['weatherperiod'] == 'SearchGoFile') {
 		foreach ($weatherArray['SQLDataCustom']['windSpeed'] as $key => $value) {
 			$weatherArray['SQLDataCustom']['windSpeed'][$key] = kphtoknot($value);
 		}
@@ -685,13 +716,12 @@ function convertdatakphtoknot($weatherArray) {
 		}
 		
 		}
-		
-		
 		$i = 0;
 			while ($i < 288) {
-				$weatherArray['SQLData']['windSpeed'][$i] = kphtoknot($weatherArray['SQLData']['windSpeed'][$i]);
+				$weatherArray['SQLData']['WindSpeed'][$i] = kphtoknot($weatherArray['SQLData']['WindSpeed'][$i]);
 				$weatherArray['SQLData']['hiWindSpeed'][$i] = kphtoknot($weatherArray['SQLData']['hiWindSpeed'][$i]);
 				$i++;
+			}
 			}
 	return $weatherArray;
 }
@@ -715,10 +745,14 @@ function convertdatakphtomps($weatherArray) {
 		$weatherArray['weekchangewind'] = kphtomps($weatherArray['weekchangewind']);
 		$weatherArray['monthtodateavgwind'] = kphtomps($weatherArray['monthtodateavgwind']);
 		$weatherArray['yeartodateavgwind'] = kphtomps($weatherArray['yeartodateavgwind']);
-		$weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['hiwindGust'] = kphtomps($weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['hiwindGust']);
-		$weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['hiWindSpeed'] = kphtomps($weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['hiWindSpeed']);
 		
-		if (($_GET['almanacPeriod'] == 'SearchGo') || $_GET['almanacPeriod'] == 'SearchGoFile') {
+		
+		if ($weatherArray['wviewdbtoggle'] == 1) {
+		
+		$weatherArray['SQLData'][$weatherArray['almanacPeriod']]['hiwindGust'] = kphtomps($weatherArray['SQLData'][$weatherArray['almanacPeriod']]['hiwindGust']);
+		$weatherArray['SQLData'][$weatherArray['almanacPeriod']]['hiWindSpeed'] = kphtomps($weatherArray['SQLData'][$weatherArray['almanacPeriod']]['hiWindSpeed']);
+		
+		if (($weatherArray['weatherperiod'] == 'SearchGo') || $weatherArray['weatherperiod'] == 'SearchGoFile') {
 		foreach ($weatherArray['SQLDataCustom']['windSpeed'] as $key => $value) {
 			$weatherArray['SQLDataCustom']['windSpeed'][$key] = kphtomps($value);
 		}
@@ -732,9 +766,10 @@ function convertdatakphtomps($weatherArray) {
 		
 		$i = 0;
 			while ($i < 288) {
-				$weatherArray['SQLData']['windSpeed'][$i] = kphtomps($weatherArray['SQLData']['windSpeed'][$i]);
+				$weatherArray['SQLData']['WindSpeed'][$i] = kphtomps($weatherArray['SQLData']['WindSpeed'][$i]);
 				$weatherArray['SQLData']['hiWindSpeed'][$i] = kphtomps($weatherArray['SQLData']['hiWindSpeed'][$i]);
 				$i++;
+			}
 			}
 	return $weatherArray;
 }
@@ -746,15 +781,18 @@ function convertdatawattMetertoft($weatherArray) {
 		$weatherArray['solarRad'] = wattmetertowattft($weatherArray['solarRad']);
 		$weatherArray['windPowerDensity'] = wattmetertowattft($weatherArray['windPowerDensity']);
 		$weatherArray['hiRadiation'] = wattmetertowattft($weatherArray['hiRadiation']);
-		$weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['hiRadiation'] = wattmetertowattft($weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['hiRadiation']);
+		
+		if ($weatherArray['wviewdbtoggle'] == 1) {
+		
+		$weatherArray['SQLData'][$weatherArray['almanacPeriod']]['hiRadiation'] = wattmetertowattft($weatherArray['SQLData'][$weatherArray['almanacPeriod']]['hiRadiation']);
 	
-		if (($_GET['almanacPeriod'] == 'SearchGo') || $_GET['almanacPeriod'] == 'SearchGoFile') {
+		if (($weatherArray['weatherperiod'] == 'SearchGo') || $weatherArray['weatherperiod'] == 'SearchGoFile') {
 		foreach ($weatherArray['SQLDataCustom']['SolarRadSQL'] as $key => $value) {
 			$weatherArray['SQLDataCustom']['SolarRadSQL'][$key] = kphtomps($value);
 		}
 		
 		}
-		
+		}
 	return $weatherArray;
 }
 
@@ -785,7 +823,7 @@ function convertdatakmttonautmiles($weatherArray) {
 }
 
 function findtrend($weatherArray){
-
+if ($weatherArray['wviewdbtoggle'] == 1) {
 if ($weatherArray['SQLData']['OutTemp'][287] < $weatherArray['SQLData']['OutTemp'][286]) {
 	$weatherArray['TempTrend5min'] = ' &darr;';
 	}
@@ -795,6 +833,7 @@ elseif ($weatherArray['SQLData']['OutTemp'][287] > $weatherArray['SQLData']['Out
 	}
 else {
 	$weatherArray['TempTrend5min'] = ' &harr;';
+	}
 	}
 return $weatherArray;
 }

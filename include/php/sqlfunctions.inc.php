@@ -1,14 +1,5 @@
 <?php
 
-//-------------------DATABASE ACCESS FUNCTIONS-------------------------------------------//
-function connecttoDB() {
-echo 'hello';
-mysql_connect(DBCONNECT_HOST,DBCONNECT_USER,DBCONNECT_PW) or
-   die("Could not connect: " . mysql_error());
-mysql_select_db(DBCONNECT_DBASE_NAME);
-}
-
-
 function dayRain($weatherArray){
 	
 putenv("TZ=".$weatherArray['timeOffsetSymbol']."");
@@ -16,29 +7,31 @@ $starttime = strtotime("midnight");
 $endtime = time();
 	$sql = "SELECT SUM(".$weatherArray['archiveTableArray']['rain'].") from " . $weatherArray['dbtableName'] . " WHERE ". $weatherArray['archiveTableArray']['dateTime'] ." BETWEEN " . $starttime . " AND " . $endtime;
 	//echo $sql;
-	$result = mysql_query($sql);
+	$result = $weatherArray['db']->query($sql);
 	$i = 0;
-	while ($row = mysql_fetch_array($result)) {
+	while ($row = mysqli_fetch_array($result)) {
 				$weatherArray['SQLData']['RainPeriodSum'] = InchtoMM($row[0]);
 				$i++;
 			}
-		
+$result->close();
+
 	return $weatherArray;
 }
 
 function dayET($weatherArray){
 	
-connecttoDB();
+
 putenv("TZ=".$weatherArray['timeOffsetSymbol']."");
 $starttime = strtotime("midnight");
 $endtime = time();
 	$sql = "SELECT SUM(" . $weatherArray['archiveTableArray']['ET'] . ") from " . $weatherArray['dbtableName'] . " WHERE ".$weatherArray['archiveTableArray']['dateTime']." BETWEEN " . $starttime . " AND " . $endtime;
-	$result = mysql_query($sql);
+	$result = $weatherArray['db']->query($sql);
 	$i = 0;
-	while ($row = mysql_fetch_array($result)) {
+	while ($row = mysqli_fetch_array($result)) {
 				$weatherArray['SQLData']['ETPeriodSum'] = 0 - InchtoMM($row[0]);
 				$i++;
 			}
+$result->close();
 		
 	return $weatherArray;
 }
@@ -46,15 +39,16 @@ $endtime = time();
 
 
 function runRain24hrQuery($weatherArray){
-	connecttoDB();
+	
+
 putenv("TZ=".$weatherArray['timeOffsetSymbol']."");
 $starttime = strtotime("-1 day");
 $endtime = time();
 	$sql = "SELECT SUM(" . $weatherArray['archiveTableArray']['rain'] . "), FROM_UNIXTIME(".$weatherArray['archiveTableArray']['dateTime'].",'%H')HOUR, ".$weatherArray['archiveTableArray']['dateTime']." from " . $weatherArray['dbtableName'] . " WHERE ".$weatherArray['archiveTableArray']['dateTime']." BETWEEN " . $starttime . " AND " . $endtime . " GROUP BY HOUR ORDER BY ".$weatherArray['archiveTableArray']['dateTime']." ASC;";
 	//echo $sql;
-	$result = mysql_query($sql);
+	$result = $weatherArray['db']->query($sql);
 	$i = 0;
-	while ($row = mysql_fetch_array($result)) {
+	while ($row = mysqli_fetch_array($result)) {
 				$weatherArray['SQLData']['Rain24HourlySum'][$i] = InchtoMM($row[0]);
 				$weatherArray['SQLData']['Rain24HourlyTime'][$i] = $row[1];
 				$weatherArray['SQLData']['Rain24HourlyUnixTime'][$i] = $row[2];
@@ -63,22 +57,24 @@ $endtime = time();
 				
 				$i++;
 			}
-	return $weatherArray;
+$result->close();
+
+return $weatherArray;
 }
 
 function runHiLo24hr($weatherArray){
 	putenv("TZ=".$weatherArray['timeOffsetSymbol']."");
 	$starttime = strtotime("-24 hour");
 	$endtime = time();
-	connecttoDB();
+	
 	
 	$sql = "SELECT ROUND((high * 1.609344), 1), whenHigh, FROM_UNIXTIME(timeHigh" . $weatherArray['timeOffsetSign'] . $weatherArray['timeServerOffsetUnixNum'] . ",'%H:%i') FROM windGust WHERE high = (
 SELECT max(high) FROM windGust WHERE dateTime BETWEEN " . $starttime . " AND " . $endtime . ") AND dateTime BETWEEN " . $starttime . " AND " . $endtime . ";";
 
 	//echo $sql;
-	$result = mysql_query($sql);
+	$result = $weatherArray['db']->query($sql);
 	$i = 0;
-	while ($row = mysql_fetch_array($result)) {
+	while ($row = mysqli_fetch_array($result)) {
 				$weatherArray['hiWindSpeed'] = $row[0];
 				$weatherArray['dayhighwinddir'] = $row[1];
 				$weatherArray['hiWindSpeedTime'] = $row[2];
@@ -165,9 +161,9 @@ foreach ($hiloarraynames as $key => $value) {
 	
 	//echo $sql;
 	//echo '--';
-	$result = mysql_query($sql);
+	$result = $weatherArray['db']->query($sql);
 	$i = 0;
-	while ($row = mysql_fetch_array($result)) {
+	while ($row = mysqli_fetch_array($result)) {
 				$weatherArray[$varname] = $row[0];
 				$weatherArray[$varnametime] = $row[1];
 				$i++;
@@ -251,30 +247,31 @@ $sql = "SELECT " . $sqlfunc . ", FROM_UNIXTIME(timeLow" . $weatherArray['timeOff
 SELECT min(low) FROM " . $value . " WHERE dateTime BETWEEN " . $starttime . " AND " . $endtime . ") AND dateTime BETWEEN " . $starttime . " AND " . $endtime . ";";
 
 
-$result = mysql_query($sql);
+$result = $weatherArray['db']->query($sql);
 	$i = 0;
-	while ($row = mysql_fetch_array($result)) {
+	while ($row = mysqli_fetch_array($result)) {
 				$weatherArray[$varname] = $row[0];
 				$weatherArray[$varnametime] = $row[1];
 				$i++;
 			}
 }
+$result->close();
 
 return $weatherArray;
 }
 
 function runET24hrQuery($weatherArray){
 	
-	connecttoDB();
+	
 	
 putenv("TZ=".$weatherArray['timeOffsetSymbol']."");
 $starttime = strtotime("-1 day");
 $endtime = time();
 	$sql = "SELECT SUM(" . $weatherArray['archiveTableArray']['ET'] . "), FROM_UNIXTIME(".$weatherArray['archiveTableArray']['dateTime'].",'%H')HOUR, ".$weatherArray['archiveTableArray']['dateTime']." from " . $weatherArray['dbtableName'] . " WHERE ".$weatherArray['archiveTableArray']['dateTime']." BETWEEN " . $starttime . " AND " . $endtime . " GROUP BY HOUR ORDER BY ".$weatherArray['archiveTableArray']['dateTime']." ASC;";
-	$result = mysql_query($sql);
+	$result = $weatherArray['db']->query($sql);
 	$i = 0;
 //	echo $sql;
-	while ($row = mysql_fetch_array($result)) {
+	while ($row = mysqli_fetch_array($result)) {
 				if (isset($row[0])&&isset($row[1])&&isset($row[2]))
 				{
 				$weatherArray['SQLData']['ET24HourlySum'][$i] = 0 - InchtoMM($row[0]);
@@ -296,21 +293,23 @@ $endtime = time();
 	$reversal++;
 	}
 	
-	return $weatherArray;
+$result->close();
+
+return $weatherArray;
 }
 
 function runRain7DayQuery($weatherArray){
 
-connecttoDB();
+
 putenv("TZ=".$weatherArray['timeOffsetSymbol']."");
 $starttime = strtotime("-6 day");
 $endtime = time();
 
 	$sql = "SELECT SUM(" . $weatherArray['archiveTableArray']['rain'] . "), FROM_UNIXTIME(".$weatherArray['archiveTableArray']['dateTime'].",'%d')DAY from " . $weatherArray['dbtableName'] . " WHERE ".$weatherArray['archiveTableArray']['dateTime']." BETWEEN " . $starttime . " AND " . $endtime . " GROUP BY DAY ORDER BY ".$weatherArray['archiveTableArray']['dateTime']." ASC;";
 	//echo $sql;
-	$result = mysql_query($sql);
+	$result = $weatherArray['db']->query($sql);
 	$i = 0;
-	while ($row = mysql_fetch_array($result)) {
+	while ($row = mysqli_fetch_array($result)) {
 				$weatherArray['SQLDataWeekly']['Rain7DaySum'][$i] = InchtoMM($row[0]);
 				$weatherArray['SQLDataWeekly']['Rain7DayTime'][$i] = $row[1];
 				//echo ','.$i.',';
@@ -319,21 +318,23 @@ $endtime = time();
 				
 				$i++;
 			}
-	return $weatherArray;
+$result->close();
+
+return $weatherArray;
 }
 
 function runRainMonthQuery($weatherArray){
 
-connecttoDB();
+
 putenv("TZ=".$weatherArray['timeOffsetSymbol']."");
 $starttime = strtotime("-30 day");
 $endtime = time();
 
 	$sql = "SELECT SUM(" . $weatherArray['archiveTableArray']['rain'] . "), FROM_UNIXTIME(".$weatherArray['archiveTableArray']['dateTime'].",'%d')DAY from " . $weatherArray['dbtableName'] . " WHERE ".$weatherArray['archiveTableArray']['dateTime']." BETWEEN " . $starttime . " AND " . $endtime . " GROUP BY DAY ORDER BY ".$weatherArray['archiveTableArray']['dateTime']." ASC;";
 	//echo $sql;
-	$result = mysql_query($sql);
+	$result = $weatherArray['db']->query($sql);
 	$i = 0;
-	while ($row = mysql_fetch_array($result)) {
+	while ($row = mysqli_fetch_array($result)) {
 				$weatherArray['SQLDataMonthly']['RainMonthSum'][$i] = InchtoMM($row[0]);
 				$weatherArray['SQLDataMonthly']['RainMonthTime'][$i] = $row[1];
 				//echo ','.$i.',';
@@ -342,21 +343,23 @@ $endtime = time();
 				
 				$i++;
 			}
-	return $weatherArray;
+$result->close();
+	
+return $weatherArray;
 }
 
 function runRainYearQuery($weatherArray){
 
-connecttoDB();
+
 putenv("TZ=".$weatherArray['timeOffsetSymbol']."");
 $starttime = strtotime("-364 day");
 $endtime = time();
 
 	$sql = "SELECT SUM(" . $weatherArray['archiveTableArray']['rain'] . "), FROM_UNIXTIME(".$weatherArray['archiveTableArray']['dateTime'].",'%d')MONTH from " . $weatherArray['dbtableName'] . " WHERE ".$weatherArray['archiveTableArray']['dateTime']." BETWEEN " . $starttime . " AND " . $endtime . " GROUP BY DAY ORDER BY ".$weatherArray['archiveTableArray']['dateTime']." ASC;";
 	//echo $sql;
-	$result = mysql_query($sql);
+	$result = $weatherArray['db']->query($sql);
 	$i = 0;
-	while ($row = mysql_fetch_array($result)) {
+	while ($row = mysqli_fetch_array($result)) {
 				$weatherArray['SQLDataYearly']['RainYearSum'][$i] = InchtoMM($row[0]);
 				$weatherArray['SQLDataYearly']['RainYearTime'][$i] = $row[1];
 				//echo ','.$i.',';
@@ -365,18 +368,20 @@ $endtime = time();
 				
 				$i++;
 			}
-	return $weatherArray;
+$result->close();
+	
+return $weatherArray;
 }
 
 function runDB24hrQuery($weatherArray){
 	if ($weatherArray['sensors'] == 0) {
-	connecttoDB();
-	
 	$sql = "SELECT ROUND(" . $weatherArray['archiveTableArray']['outTemp'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['inTemp'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['barometer'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['outHumidity'] . ",0),ROUND(" . $weatherArray['archiveTableArray']['inHumidity'] . ",2)," . $weatherArray['archiveTableArray']['rain'] . "," . $weatherArray['archiveTableArray']['rainRate'] . ",ROUND(" . $weatherArray['archiveTableArray']['windSpeed'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['windGust'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['windDir'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['windGustDir'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['dewpoint'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['windchill'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['heatindex'] . ",2)," . $weatherArray['archiveTableArray']['dateTime'] . " from " . $weatherArray['dbtableName'] . " ORDER BY ".$weatherArray['archiveTableArray']['dateTime']." DESC LIMIT 288;";
-	$result = mysql_query($sql);
+	
+	$result = $weatherArray['db']->query($sql);
 	$i = 288;
-	while ($row = mysql_fetch_array($result)) {
+	while ($row = mysqli_fetch_array($result)) {
 			$i--;
+			
 				$weatherArray['SQLData']['OutTemp'][$i] = $row[0];
 				$weatherArray['SQLData']['InTemp'][$i] = $row[1];
 				$weatherArray['SQLData']['Barometer'][$i] = $row[2];
@@ -397,18 +402,18 @@ function runDB24hrQuery($weatherArray){
 			}
 			
 			
-	//echo $sql;
+	
 	
 	return $weatherArray;
 }
 else {
-connecttoDB();
+
 	
 	$sql = "SELECT ROUND(" . $weatherArray['archiveTableArray']['outTemp'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['inTemp'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['barometer'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['outHumidity'] . ",0),ROUND(" . $weatherArray['archiveTableArray']['inHumidity'] . ",2)," . $weatherArray['archiveTableArray']['rain'] . "," . $weatherArray['archiveTableArray']['rainRate'] . ",ROUND(" . $weatherArray['archiveTableArray']['windSpeed'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['windGust'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['windDir'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['windGustDir'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['dewpoint'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['windchill'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['heatindex'] . ",2), " . $weatherArray['archiveTableArray']['dateTime'] . ",ROUND(" . $weatherArray['archiveTableArray']['radiation'] . ",1),ROUND(" . $weatherArray['archiveTableArray']['UV'] . ",1)," . $weatherArray['archiveTableArray']['ET'] . " from " . $weatherArray['dbtableName'] . " ORDER BY ".$weatherArray['archiveTableArray']['dateTime']." DESC LIMIT 288;";
 	
-	$result = mysql_query($sql);
+	$result = mysqli_query($sql);
 	$i = 288;
-	while ($row = mysql_fetch_array($result)) {
+	while ($row = mysqli_fetch_array($result)) {
 			$i--;
 				$weatherArray['SQLData']['OutTemp'][$i] = round(FtoC($row[0]),2);
 				$weatherArray['SQLData']['InTemp'][$i] = round(FtoC($row[1]),2);
@@ -440,19 +445,19 @@ connecttoDB();
 
 }
 
-
+$result->close();
 
 }
 
 function runDB7dayQuery($weatherArray){
 	
 if ($weatherArray['sensors'] == 0) {
-	connecttoDB();
+	
 	
 	$sql = "SELECT ROUND(" . $weatherArray['archiveTableArray']['outTemp'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['inTemp'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['barometer'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['outHumidity'] . ",0),ROUND(" . $weatherArray['archiveTableArray']['inHumidity'] . ",2)," . $weatherArray['archiveTableArray']['rain'] . "," . $weatherArray['archiveTableArray']['rainRate'] . ",ROUND(" . $weatherArray['archiveTableArray']['windSpeed'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['windGust'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['windDir'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['windGustDir'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['dewpoint'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['windchill'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['heatindex'] . ",2)," . $weatherArray['archiveTableArray']['dateTime'] . " from " . $weatherArray['dbtableName'] . " ORDER BY ".$weatherArray['archiveTableArray']['dateTime']." DESC LIMIT 2016;";
-	$result = mysql_query($sql);
+	$result = $weatherArray['db']->query($sql);
 	$i = 2016;
-	while ($row = mysql_fetch_array($result)) {
+	while ($row = mysqli_fetch_array($result)) {
 			$i--;
 				$weatherArray['SQLDataWeekly']['OutTemp'][$i] = $row[0];
 				$weatherArray['SQLDataWeekly']['InTemp'][$i] = $row[1];
@@ -481,13 +486,13 @@ if ($weatherArray['sensors'] == 0) {
 }
 else {
 
-connecttoDB();
+
 	
 	$sql = "SELECT ROUND(" . $weatherArray['archiveTableArray']['outTemp'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['inTemp'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['barometer'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['outHumidity'] . ",0),ROUND(" . $weatherArray['archiveTableArray']['inHumidity'] . ",2)," . $weatherArray['archiveTableArray']['rain'] . "," . $weatherArray['archiveTableArray']['rainRate'] . ",ROUND(" . $weatherArray['archiveTableArray']['windSpeed'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['windGust'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['windDir'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['windGustDir'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['dewpoint'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['windchill'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['heatindex'] . ",2)," . $weatherArray['archiveTableArray']['dateTime'] . ",ROUND(" . $weatherArray['archiveTableArray']['radiation'] . ",1),ROUND(" . $weatherArray['archiveTableArray']['UV'] . ",1)," . $weatherArray['archiveTableArray']['ET'] . " from " . $weatherArray['dbtableName'] . " ORDER BY ".$weatherArray['archiveTableArray']['dateTime']." DESC LIMIT 2016;";
 	//echo $sql;
-	$result = mysql_query($sql);
+	$result = $weatherArray['db']->query($sql);
 	$i = 2016;
-	while ($row = mysql_fetch_array($result)) {
+	while ($row = mysqli_fetch_array($result)) {
 			$i--;
 				$weatherArray['SQLDataWeekly']['OutTemp'][$i] = $row[0];
 				$weatherArray['SQLDataWeekly']['InTemp'][$i] = $row[1];
@@ -513,6 +518,7 @@ connecttoDB();
 			
 			
 	//echo $sql;
+$result->close();
 	
 	return $weatherArray;
 	
@@ -524,12 +530,12 @@ connecttoDB();
 function runDBMonthQuery($weatherArray){
 	
 	if ($weatherArray['sensors'] == 0) {
-	connecttoDB();
+	
 	
 	$sql = "SELECT ROUND(" . $weatherArray['archiveTableArray']['outTemp'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['inTemp'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['barometer'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['outHumidity'] . ",0),ROUND(" . $weatherArray['archiveTableArray']['inHumidity'] . ",2)," . $weatherArray['archiveTableArray']['rain'] . "," . $weatherArray['archiveTableArray']['rainRate'] . ",ROUND(" . $weatherArray['archiveTableArray']['windSpeed'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['windGust'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['windDir'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['windGustDir'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['dewpoint'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['windchill'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['heatindex'] . ",2)," . $weatherArray['archiveTableArray']['dateTime'] . " from " . $weatherArray['dbtableName'] . " ORDER BY ".$weatherArray['archiveTableArray']['dateTime']." DESC LIMIT 8928;";
-	$result = mysql_query($sql);
+	$result = $weatherArray['db']->query($sql);
 	$i = 8928;
-	while ($row = mysql_fetch_array($result)) {
+	while ($row = mysqli_fetch_array($result)) {
 			$i--;
 			
 				$weatherArray['SQLDataMonthly']['OutTemp'][$i] = $row[0];
@@ -558,13 +564,13 @@ function runDBMonthQuery($weatherArray){
 	
 	}
 else {
-connecttoDB();
+
 	
 	$sql = "SELECT ROUND(" . $weatherArray['archiveTableArray']['outTemp'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['inTemp'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['barometer'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['outHumidity'] . ",0),ROUND(" . $weatherArray['archiveTableArray']['inHumidity'] . ",2)," . $weatherArray['archiveTableArray']['rain'] . "," . $weatherArray['archiveTableArray']['rainRate'] . ",ROUND(" . $weatherArray['archiveTableArray']['windSpeed'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['windGust'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['windDir'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['windGustDir'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['dewpoint'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['windchill'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['heatindex'] . ",2)," . $weatherArray['archiveTableArray']['dateTime'] . ",ROUND(" . $weatherArray['archiveTableArray']['radiation'] . ",1),ROUND(" . $weatherArray['archiveTableArray']['UV'] . ",1)," . $weatherArray['archiveTableArray']['ET'] . " from " . $weatherArray['dbtableName'] . " ORDER BY ".$weatherArray['archiveTableArray']['dateTime']." DESC LIMIT 8928;";
 	
-	$result = mysql_query($sql);
+	$result = $weatherArray['db']->query($sql);
 	$i = 8928;
-	while ($row = mysql_fetch_array($result)) {
+	while ($row = mysqli_fetch_array($result)) {
 			$i--;
 				
 				$weatherArray['SQLDataMonthly']['OutTemp'][$i] = $row[0];
@@ -594,17 +600,19 @@ connecttoDB();
 	
 	return $weatherArray;
 }
+$result->close();
+
 }
 
 function runDBHourlyMonthQuery($weatherArray){
 	
 	if ($weatherArray['sensors'] == 0) {
-	connecttoDB();
+	
 	
 	$sql = "SELECT ROUND(" . $weatherArray['archiveTableArray']['outTemp'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['inTemp'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['barometer'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['outHumidity'] . ",0),ROUND(" . $weatherArray['archiveTableArray']['inHumidity'] . ",2)," . $weatherArray['archiveTableArray']['rain'] . "," . $weatherArray['archiveTableArray']['rainRate'] . ",ROUND(" . $weatherArray['archiveTableArray']['windSpeed'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['windGust'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['windDir'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['windGustDir'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['dewpoint'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['windchill'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['heatindex'] . ",2)," . $weatherArray['archiveTableArray']['dateTime'] . " from " . $weatherArray['dbtableName'] . " ORDER BY ".$weatherArray['archiveTableArray']['dateTime']." DESC LIMIT 8928;";
-	$result = mysql_query($sql);
+	$result = $weatherArray['db']->query($sql);
 	$i = 8928;
-	while ($row = mysql_fetch_array($result)) {
+	while ($row = mysqli_fetch_array($result)) {
 			$i--;
 				
 				$weatherArray['SQLDataMonthly']['OutTemp'][$i] = $row[0];
@@ -634,13 +642,13 @@ function runDBHourlyMonthQuery($weatherArray){
 	
 	}
 else {
-connecttoDB();
+
 	
 	$sql = "SELECT ROUND(" . $weatherArray['archiveTableArray']['outTemp'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['inTemp'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['barometer'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['outHumidity'] . ",0),ROUND(" . $weatherArray['archiveTableArray']['inHumidity'] . ",2)," . $weatherArray['archiveTableArray']['rain'] . "," . $weatherArray['archiveTableArray']['rainRate'] . ",ROUND(" . $weatherArray['archiveTableArray']['windSpeed'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['windGust'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['windDir'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['windGustDir'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['dewpoint'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['windchill'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['heatindex'] . ",2)," . $weatherArray['archiveTableArray']['dateTime'] . ",ROUND(" . $weatherArray['archiveTableArray']['UV'] . ",1)," . $weatherArray['archiveTableArray']['ET'] . " from " . $weatherArray['dbtableName'] . " ORDER BY ".$weatherArray['archiveTableArray']['dateTime']." DESC LIMIT 8928;";
 	
-	$result = mysql_query($sql);
+	$result = $weatherArray['db']->query($sql);
 	$i = 8928;
-	while ($row = mysql_fetch_array($result)) {
+	while ($row = mysqli_fetch_array($result)) {
 			$i--;
 				$weatherArray['SQLDataMonthly']['OutTemp'][$i] = $row[0];
 				$weatherArray['SQLDataMonthly']['InTemp'][$i] = $row[1];
@@ -669,17 +677,19 @@ connecttoDB();
 	
 	return $weatherArray;
 }
+$result->close();
+
 }
 
 function runDBYearQuery($weatherArray){
 	
 	if ($weatherArray['sensors'] == 0) {
-	connecttoDB();
+	
 	
 	$sql = "SELECT ROUND(" . $weatherArray['archiveTableArray']['outTemp'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['inTemp'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['barometer'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['outHumidity'] . ",0),ROUND(" . $weatherArray['archiveTableArray']['inHumidity'] . ",2)," . $weatherArray['archiveTableArray']['rain'] . ", " . $weatherArray['archiveTableArray']['rainRate'] . ",ROUND(" . $weatherArray['archiveTableArray']['windSpeed'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['windGust'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['windDir'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['windGustDir'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['dewpoint'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['windchill'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['heatindex'] . ",2)," . $weatherArray['archiveTableArray']['dateTime'] . " from " . $weatherArray['dbtableName'] . " ORDER BY ".$weatherArray['archiveTableArray']['dateTime']." DESC LIMIT 105129;";
-	$result = mysql_query($sql);
+	$result = $weatherArray['db']->query($sql);
 	$i = 105129;
-	while ($row = mysql_fetch_array($result)) {
+	while ($row = mysqli_fetch_array($result)) {
 			$i--;
 				$weatherArray['SQLDataYearly']['OutTemp'][$i] = $row[0];
 				$weatherArray['SQLDataYearly']['InTemp'][$i] = $row[1];
@@ -708,12 +718,12 @@ function runDBYearQuery($weatherArray){
 	
 		}
 else {
-connecttoDB();
+
 	
 	$sql = "SELECT ROUND(" . $weatherArray['archiveTableArray']['outTemp'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['inTemp'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['barometer'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['outHumidity'] . ",0),ROUND(" . $weatherArray['archiveTableArray']['inHumidity'] . ",2)," . $weatherArray['archiveTableArray']['rain'] . "," . $weatherArray['archiveTableArray']['rainRate'] . ",ROUND(" . $weatherArray['archiveTableArray']['windSpeed'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['windGust'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['windDir'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['windGustDir'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['dewpoint'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['windchill'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['heatindex'] . ",2)," . $weatherArray['archiveTableArray']['dateTime'] . ",ROUND(" . $weatherArray['archiveTableArray']['radiation'] . ",1),ROUND(" . $weatherArray['archiveTableArray']['UV'] . ",1),ROUND(" . $weatherArray['archiveTableArray']['ET'] . ",1) from " . $weatherArray['dbtableName'] . " ORDER BY ".$weatherArray['archiveTableArray']['dateTime']." DESC LIMIT 105129;";
-	$result = mysql_query($sql);
+	$result = $weatherArray['db']->query($sql);
 	$i = 105129;
-	while ($row = mysql_fetch_array($result)) {
+	while ($row = mysqli_fetch_array($result)) {
 			$i--;
 				$weatherArray['SQLDataYearly']['OutTemp'][$i] = $row[0];
 				$weatherArray['SQLDataYearly']['InTemp'][$i] = $row[1];
@@ -743,17 +753,19 @@ connecttoDB();
 	
 	return $weatherArray;
 }
+$result->close();
+
 }
 
 function runDBCustomQuery($weatherArray){
 
 	if ($weatherArray['sensors'] == 0) {
-	connecttoDB();
+	
 putenv('TZ=UTC');
 	$sql = "SELECT ROUND(" . $weatherArray['archiveTableArray']['outTemp'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['inTemp'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['barometer'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['outHumidity'] . ",0),ROUND(" . $weatherArray['archiveTableArray']['inHumidity'] . ",2)," . $weatherArray['archiveTableArray']['rain'] . "," . $weatherArray['archiveTableArray']['rainRate'] . ",ROUND(" . $weatherArray['archiveTableArray']['windSpeed'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['windGust'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['windDir'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['windGustDir'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['dewpoint'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['windchill'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['heatindex'] . ",2), FROM_UNIXTIME(".$weatherArray['archiveTableArray']['dateTime'].") from " . $weatherArray['dbtableName'] . " WHERE ".$weatherArray['archiveTableArray']['dateTime']." <= " . $weatherArray[endtime] . " AND ".$weatherArray['archiveTableArray']['dateTime']." >= " . $weatherArray[starttime] . " ORDER BY ".$weatherArray['archiveTableArray']['dateTime']." ASC;";
-	$result = mysql_query($sql);
+	$result = $weatherArray['db']->query($sql);
 	$i = 288;
-	while ($row = mysql_fetch_array($result)) {
+	while ($row = mysqli_fetch_array($result)) {
 			$i--;
 				$weatherArray['SQLDataCustom']['OutTemp'][$i] = round(FtoC($row[0]),2);
 				$weatherArray['SQLDataCustom']['InTemp'][$i] = round(FtoC($row[1]),2);
@@ -779,12 +791,12 @@ putenv('TZ=UTC');
 	return $weatherArray;
 }
 else {
-connecttoDB();
+
 	
 	
 	$sql = "SELECT " . $weatherArray['archiveTableArray']['outTemp'] . "," . $weatherArray['archiveTableArray']['inTemp'] . "," . $weatherArray['archiveTableArray']['barometer'] . ",ROUND(" . $weatherArray['archiveTableArray']['outHumidity'] . ",0),ROUND(" . $weatherArray['archiveTableArray']['inHumidity'] . ",2), SUM(" . $weatherArray['archiveTableArray']['rain'] . "), MAX(" . $weatherArray['archiveTableArray']['rainRate'] . "),ROUND(" . $weatherArray['archiveTableArray']['windSpeed'] . ",2),ROUND(MAX(" . $weatherArray['archiveTableArray']['windGust'] . "),2),ROUND(" . $weatherArray['archiveTableArray']['windDir'] . ",2),ROUND(AVG(" . $weatherArray['archiveTableArray']['windGustDir'] . "),2),ROUND(" . $weatherArray['archiveTableArray']['dewpoint'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['windchill'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['heatindex'] . ",2), FROM_UNIXTIME(".$weatherArray['archiveTableArray']['dateTime']."-(3600*3),'%Y-%M-%d %H:00')HOUR,ROUND(" . $weatherArray['archiveTableArray']['radiation'] . ",3),ROUND(" . $weatherArray['archiveTableArray']['UV'] . ",1), SUM(" . $weatherArray['archiveTableArray']['ET'] . "), ". $weatherArray['archiveTableArray']['dateTime'] . " from " . $weatherArray['dbtableName'] . " WHERE ".$weatherArray['archiveTableArray']['dateTime']." <= " . $weatherArray[endtime] . " AND ".$weatherArray['archiveTableArray']['dateTime']." >= " . $weatherArray[starttime] . " GROUP BY HOUR ORDER BY ".$weatherArray['archiveTableArray']['dateTime']." ASC;";
 	//echo $sql;
-	$result = mysql_query($sql);
+	$result = $weatherArray['db']->query($sql);
 	
 	$sql2 = "SELECT AVG(" . $weatherArray['archiveTableArray']['outTemp'] . "), AVG(" . $weatherArray['archiveTableArray']['inTemp'] . "), AVG(" . $weatherArray['archiveTableArray']['barometer'] . "),ROUND(AVG(" . $weatherArray['archiveTableArray']['outHumidity'] . "),0),ROUND(AVG(" . $weatherArray['archiveTableArray']['inHumidity'] . "),2), SUM(" . $weatherArray['archiveTableArray']['rain'] . "), MAX(" . $weatherArray['archiveTableArray']['rainRate'] . "),ROUND(AVG(" . $weatherArray['archiveTableArray']['windSpeed'] . "),2),ROUND(MAX(" . $weatherArray['archiveTableArray']['windGust'] . "),2),ROUND(AVG(" . $weatherArray['archiveTableArray']['windDir'] . "),2),ROUND(AVG(" . $weatherArray['archiveTableArray']['windGustDir'] . "),2),ROUND(AVG(" . $weatherArray['archiveTableArray']['dewpoint'] . "),2),ROUND(AVG(" . $weatherArray['archiveTableArray']['windchill'] . "),2),ROUND(AVG(" . $weatherArray['archiveTableArray']['heatindex'] . "),2), ROUND(AVG(" . $weatherArray['archiveTableArray']['radiation'] . "),3),ROUND(AVG(" . $weatherArray['archiveTableArray']['UV'] . "),1), SUM(" . $weatherArray['archiveTableArray']['ET'] . ") from " . $weatherArray['dbtableName'] . " WHERE ".$weatherArray['archiveTableArray']['dateTime']." <= " . $weatherArray[endtime] . " AND ".$weatherArray['archiveTableArray']['dateTime']." >= " . $weatherArray[starttime] . ";";
 	
@@ -792,7 +804,7 @@ connecttoDB();
 	//echo $sql2;
 	$i= 0;
 	
-	while ($row = mysql_fetch_array($result)) {
+	while ($row = mysqli_fetch_array($result)) {
 				$weatherArray['SQLDataCustom']['OutTemp'][$i] = round(FtoC($row[0]),2);
 				$weatherArray['SQLDataCustom']['InTemp'][$i] = round(FtoC($row[1]),2);
 				$weatherArray['SQLDataCustom']['Barometer'][$i] = BaromIntomb($row[2]);
@@ -856,6 +868,7 @@ $row2 = mysql_fetch_row($result2);
 
 
 }
+$result->close();
 
 }
 
@@ -982,7 +995,7 @@ function almanacSQL($weatherArray){
 	
 	
 if ($weatherArray['sensors'] == 0) {
-	connecttoDB();
+	
 	
 $starthour = 24 - $weatherArray['timeOffsetNum'];
 	
@@ -1065,9 +1078,9 @@ $starthour = 24 - $weatherArray['timeOffsetNum'];
 	$i=0;
 	while ($i <= 16) {
 	$sql = "SELECT ROUND(MAX(".$values[$i]."),2), " . $weatherArray['archiveTableArray']['timeHigh'] . " FROM " . $weatherArray['dbtableName'] . $dayInterval . $dayinterval2;	
-	$result = mysql_query($sql);
+	$result = $weatherArray['db']->query($sql);
 	
-	while ($row = mysql_fetch_array($result)) {
+	while ($row = mysqli_fetch_array($result)) {
 				$result1 = $row[0];
 			}
 
@@ -1085,9 +1098,9 @@ $starthour = 24 - $weatherArray['timeOffsetNum'];
 	// NOW WE DO THE SAME FOR LOW VALUES
 	
 	$sql = "SELECT ROUND(MIN(".$values[$i]."),2), " . $weatherArray['mySQLDateMod'] . "(" . $weatherArray['archiveTableArray']['timeHigh'] . ", INTERVAL " . $weatherArray['timeOffsetNum'] . " HOUR) FROM " . $weatherArray['dbtableName'] . $dayInterval;
-	$result = mysql_query($sql);
+	$result = $weatherArray['db']->query($sql);
 	
-	while ($row = mysql_fetch_array($result)) {
+	while ($row = mysqli_fetch_array($result)) {
 				$result1 = $row[0];
 			}
 	$resultplus = $result1 + 0.01;
@@ -1106,16 +1119,16 @@ $starthour = 24 - $weatherArray['timeOffsetNum'];
 	// NOW WE DO RAIN ACCUMULATIONS 
 	
 	$sql = "SELECT ROUND(SUM(" . $weatherArray['archiveTableArray']['rain'] . "),2), " . $weatherArray['mySQLDateMod'] . "(" . $weatherArray['archiveTableArray']['timeHigh'] . ", INTERVAL " . $weatherArray['timeOffsetNum'] . $dayInterval;
-	$result = mysql_query($sql);
+	$result = $weatherArray['db']->query($sql);
 	
-	while ($row = mysql_fetch_array($result)) {
+	while ($row = mysqli_fetch_array($result)) {
 				$weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['RainSum'] = $row[0];
 			}
 	
 	return $weatherArray;
 }
 else {
-connecttoDB();
+
 	/*********** START EXTENDED VARIABLES *************************************/
 	$values[12] = 'SELECT ROUND((';
 	$values2[12] = '),2), ';
@@ -1300,9 +1313,9 @@ connecttoDB();
 	while ($i <= 14) { // NOW RUN THE COMBINED QUERIES.	
 	$sql = $values[$i] . $high . $values2[$i] . $weatherArray['archiveTableArray']['timeHigh'] . ' FROM ' . $table[$i] . $dayWhereHigh . $table[$i] . $where . $dayIntervalHigh . ') ' . $and . $dayIntervalHigh . ';';
 	
-	$result = mysql_query($sql);
+	$result = $weatherArray['db']->query($sql);
 	
-	while ($row = mysql_fetch_array($result)) {
+	while ($row = mysqli_fetch_array($result)) {
 				$weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value][$valuesstore[$i]] = $row[0];
 				$weatherArray['SQLData'][$weatherArray['almanacPeriod']]['ClockTime'][$valuesstoretime[$i]] = $row[1];
 			}
@@ -1312,8 +1325,8 @@ connecttoDB();
 	
 	$sql = $values[$i] . $low . $values2[$i] . $weatherArray['archiveTableArray']['timeLow'] . ' FROM ' . $table[$i] . $dayWhereLow . $table[$i] . $where . $dayIntervalLow . ') ' . $and . $dayIntervalLow . ';';
 	
-	$result = mysql_query($sql);
-	while ($row = mysql_fetch_array($result)) {
+	$result = $weatherArray['db']->query($sql);
+	while ($row = mysqli_fetch_array($result)) {
 				$weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value][$valuesstorelow[$i]] = $row[0];
 				$weatherArray['SQLData'][$weatherArray['almanacPeriod']]['ClockTime'][$valuesstoretimelow[$i]] = $row[1];
 			
@@ -1329,17 +1342,17 @@ connecttoDB();
 		
 	$sql = $values[6] . 'SUM(' . $weatherArray['archiveTableArray']['rain'] . ')' . $values2[6] . $weatherArray['archiveTableArray']['dateTime'] . ' FROM archive ' . $where . ' ' . $weatherArray['archiveTableArray']['dateTime'] . ' <= ' . time() . ' AND ' . $weatherArray['archiveTableArray']['dateTime'] . ' >= ' . $finaloffset . ';';
 		
-		$result = mysql_query($sql);
+		$result = $weatherArray['db']->query($sql);
 		
 	
-		while ($row = mysql_fetch_array($result)) {
+		while ($row = mysqli_fetch_array($result)) {
 				$weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['RainSum'] = $row[0];
 			}
 			
 		$sql = $values[14] . 'SUM(' . $weatherArray['archiveTableArray']['ET'] . ')' . $values2[14] . $weatherArray['archiveTableArray']['dateTime'] . ' FROM archive ' . $where . ' ' . $weatherArray['archiveTableArray']['dateTime'] . ' <= ' . time() . ' AND ' . $weatherArray['archiveTableArray']['dateTime'] . ' >= ' . $finaloffset . ';';
-		$result = mysql_query($sql);
+		$result = $weatherArray['db']->query($sql);
 		
-while ($row = mysql_fetch_array($result)) {
+while ($row = mysqli_fetch_array($result)) {
 				$weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['ETSum'] = $row[0];
 			}
 	
@@ -1351,27 +1364,27 @@ while ($row = mysql_fetch_array($result)) {
 		//FIRST DO REGULAR ALL TIME RAIN SUM
 		$sql = $values[6] . 'SUM(' . $weatherArray['archiveTableArray']['rain'] . ')),2) FROM archive;';
 		
-		$result = mysql_query($sql);
+		$result = $weatherArray['db']->query($sql);
 		
-		while ($row = mysql_fetch_array($result)) {
+		while ($row = mysqli_fetch_array($result)) {
 				$weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['RainSum'] = $row[0];
 			}
 		
 		//NOW DO ALL TIME RAIN SUM SINCE AUGUST 2008 EXTENDED SENSOR INSTALL
 		$sql = $values[6] . "SUM(" . $weatherArray['archiveTableArray']['rain'] . ")),2) FROM archive WHERE " . $weatherArray['archiveTableArray']['dateTime'] . " <= " . time() . " AND " . $weatherArray['archiveTableArray']['dateTime'] . " >= " . $startsinceaugust08 . ";";
 		
-		$result = mysql_query($sql);
+		$result = $weatherArray['db']->query($sql);
 	
-		while ($row = mysql_fetch_array($result)) {
+		while ($row = mysqli_fetch_array($result)) {
 				$weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['RainSumSinceExtended'] = $row[0];
 			}
 		
 		//NOW GET ALL TIME ET SUM 
 		$sql = $values[14] . 'SUM(' . $weatherArray['archiveTableArray']['ET'] . ')),2) FROM archive;';
 	
-		$result = mysql_query($sql);
+		$result = $weatherArray['db']->query($sql);
 	
-		while ($row = mysql_fetch_array($result)) {
+		while ($row = mysqli_fetch_array($result)) {
 				$weatherArray['SQLData'][$weatherArray['almanacPeriod']][Value]['ETSum'] = $row[0];
 			}
 	
@@ -1385,6 +1398,7 @@ while ($row = mysql_fetch_array($result)) {
 	return $weatherArray;
 
 	}
+$result->close();
 
 }
 ?>
