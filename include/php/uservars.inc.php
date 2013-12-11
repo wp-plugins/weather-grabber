@@ -4,16 +4,33 @@
 // Change these settings for database
 //////////////////////////////////////////////////////////////////////////
 	
-	define("DBCONNECT_USER", $mysqluser);				// <-- mysql db user 
-	define("DBCONNECT_PW", $mysqlpass);				// <-- mysql db password 
-	define("DBCONNECT_DBASE_NAME", $mysqldbname);		// <-- mysql db name
-	define("DBCONNECT_HOST", $mysqlhost);				// <-- mysql server host
-	
 	if ($weatherArray['wviewdbtoggle'] == 1) {
-	$newdb = new wpdb(DBCONNECT_USER, DBCONNECT_PW, DBCONNECT_DBASE_NAME, DBCONNECT_HOST);
-	$newdb->show_errors();
+	
+	class wxg_mysqli extends mysqli {
+    public function __construct($mysqlhost, $mysqluser, $mysqlpass, $mysqldbname) {
+        parent::init();
+
+        if (!parent::options(MYSQLI_INIT_COMMAND, 'SET AUTOCOMMIT = 0')) {
+            die('Setting MYSQLI_INIT_COMMAND failed');
+        }
+
+        if (!parent::options(MYSQLI_OPT_CONNECT_TIMEOUT, 5)) {
+            die('Setting MYSQLI_OPT_CONNECT_TIMEOUT failed');
+        }
+
+        if (!parent::real_connect($mysqlhost, $mysqluser, $mysqlpass, $mysqldbname)) {
+            die('Connect Error (' . mysqli_connect_errno() . ') '
+                    . mysqli_connect_error());
+        }
+    }
+}
+	$weatherArray['db'] = new wxg_mysqli($mysqlhost, $mysqluser, $mysqlpass, $mysqldbname);
+	
 	}
 	
+	
+
+
 
 
 ?>

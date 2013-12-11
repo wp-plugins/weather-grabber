@@ -10,17 +10,19 @@ $weatherArray['dailyET'] = 0; // reset the daily ET value
 
 if ( isset($weatherArray['SQLData']) ) {
 
-if ( $weatherArray['SQLData']['Rain24HourlySum'] && $weatherArray['SQLData']['Rain24HourlySum'] ) {
+if ( isset($weatherArray['SQLData']['Rain24HourlySum'])) {
 while ($i < 288) {
 
+/*  Commenting this out for now until everything else is working
 		
 $weatherArray['dailyRain'] = $weatherArray['dailyRain'] + $weatherArray['SQLData']['Rain24HourlySum'][$i]; // First we'll do daily rain
+
 
 $weatherArray['dailyET'] = $weatherArray['dailyET'] + $weatherArray['SQLData']['ET24HourlySum'][$i]; // Next we'll do daily ET
 
 
 //Now We Do Low Outside Temp
-/*
+
 	if($weatherArray['SQLData'][OutTemp][$i] <= $weatherArray[lowOutsideTemp]) {
 		$weatherArray[lowOutsideTemp] = $weatherArray['SQLData'][OutTemp][$i];
 		$weatherArray[lowOutsideTempTime] = date('H:i',$weatherArray['SQLData'][RecordTime][$i]);
