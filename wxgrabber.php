@@ -57,16 +57,20 @@ function selectorFunction1 ($widgetArray,$weatherArray) {
 	// Output our first set of Weather Values
 	// First the Text if they'd like something describing the value
 	
-	if ($widgetArray['selectorText1']) {
-	$output = '<p><strong style="color:green">' . $widgetArray['selectorText1'] . '</strong></p>';
+	
+	
+	
+	if ($widgetArray['selectorText1'] != '') {
+	$output = '<td style="border:1px dotted black; border-right:none;"><strong style="color:'. $widgetArray['selectorTextCSS1'] .';">' . $widgetArray['selectorText1'] . '</strong></td>';
+	$border1 = 'border-left:none;';
 	}
-	if ($widgetArray['selectorText2']) {
-	$output = '<p><strong style="color:green">' . $widgetArray['selectorText2'] . '</strong></p>';
+	else {
+	$border1 = '';
 	}
-	$output = $output . '<div id="wxgbwidget1"><table style="border:1px dotted black; background-color: rgba(20%,20%,20%,0.1);"><tr>';
+	
 	//Now the Value itself in the first table row
 	if ($widgetArray['selectorFirstValue1'] != 'none') {
-	$output = $output . '<td style="padding: 2px;">'.$weatherArray[$widgetArray['selectorFirstValue1']].'';
+	$output = $output . '<td style="border:1px dotted black; '. $border1 . 'padding: 1px; padding-left: 3px;">'.$weatherArray[$widgetArray['selectorFirstValue1']].'';
 	}
 	//Now the Unit if desired
 	if ($widgetArray['selectorSecondValue1'] != 'none') {
@@ -77,9 +81,17 @@ function selectorFunction1 ($widgetArray,$weatherArray) {
 	$output = $output . $weatherArray[$widgetArray['selectorThirdValue1']].'</td>';
 	}
 	
+	if ($widgetArray['selectorText2'] != '') {
+	$output = $output . '<td style="margin-left:5px;border-top:1px dotted black;border-bottom:1px dotted black;"><strong style="color:'. $widgetArray['selectorTextCSS2'] .';">' . $widgetArray['selectorText2'] . '</strong></td>';
+	$border2 = 'border-left:none;';
+	}
+	else {
+	$border2 = '';
+	}
+	
 	//Now the Value itself in the first table row
 	if ($widgetArray['selectorFirstValue2'] != 'none') {
-	$output = $output . '<td style="padding: 2px;">'.$weatherArray[$widgetArray['selectorFirstValue2']].'';
+	$output = $output . '<td style="border:1px dotted black; '. $border2 . 'padding: 1px; padding-left: 3px;">'.$weatherArray[$widgetArray['selectorFirstValue2']].'';
 	}
 	//Now the Unit if desired
 	if ($widgetArray['selectorSecondValue2'] != 'none') {
@@ -87,11 +99,9 @@ function selectorFunction1 ($widgetArray,$weatherArray) {
 	}
 	//Now the Extra if desired
 	if ($widgetArray['selectorThirdValue2'] != 'none') {
-	$output = $output . $weatherArray[$selectorThirdValue2].'</td>';
+	$output = $output . $weatherArray[$widgetArray['selectorThirdValue2']].'</td>';
 	}
-	
-	
-	$output = $output . '<tr/></table></div>';
+
 	return $output;
 	}//END selectorFunction1
 	
@@ -99,8 +109,9 @@ function selectorFunction1 ($widgetArray,$weatherArray) {
 function mainwpwvfunc ($widgetArray) {
 
 $weatherArray = weathersetup($widgetArray['weatherperiod']);
-$output =  selectorFunction1($widgetArray,$weatherArray);
-
+$output = '<div id="wxgbwidget1"><table style="background-color: rgba(20%,20%,20%,0.1);"><tr style="">';
+$output =  $output. selectorFunction1($widgetArray,$weatherArray);
+$output = $output . '<tr/></table></div>';
 return $output;
 
 }
@@ -110,32 +121,43 @@ return $output;
 
 function wxGrabber_main_values_widget_request_handler() {
     // Check that all parameters have been passed
+   
     if ((isset($_GET['wxGrabber_main_values_widget_request']) && ($_GET['wxGrabber_main_values_widget_request'] == 'update_wxgrabber')) && 
-      isset($_GET['wxGrabber_main_values_widget_selectorText1']) && 		
+      isset($_GET['wxGrabber_main_values_widget_selectorText1']) &&
+      isset($_GET['wxGrabber_main_values_widget_selectorTextCSS1']) && 		
       isset($_GET['wxGrabber_main_values_widget_selectorFirstValue1']) && 
       isset($_GET['wxGrabber_main_values_widget_selectorSecondValue1']) &&
       isset($_GET['wxGrabber_main_values_widget_selectorThirdValue1']) &&
       isset($_GET['wxGrabber_main_values_widget_selectorText2']) &&
+      isset($_GET['wxGrabber_main_values_widget_selectorTextCSS2']) &&
       isset($_GET['wxGrabber_main_values_widget_selectorFirstValue2']) &&
       isset($_GET['wxGrabber_main_values_widget_selectorSecondValue2']) &&
       isset($_GET['wxGrabber_main_values_widget_selectorThirdValue2']) &&
       isset($_GET['wxGrabber_main_values_widget_weatherperiod']))      
 { 
 		$widgetArray = Array(strip_tags($_GET['wxGrabber_main_values_widget_selectorText1']),
+strip_tags($_GET['wxGrabber_main_values_widget_selectorTextCSS1']),
 strip_tags($_GET['wxGrabber_main_values_widget_selectorFirstValue1']),  strip_tags($_GET['wxGrabber_main_values_widget_selectorSecondValue1']),
 strip_tags($_GET['wxGrabber_main_values_widget_selectorThirdValue1']),
 strip_tags($_GET['wxGrabber_main_values_widget_selectorText2']),
+strip_tags($_GET['wxGrabber_main_values_widget_selectorTextCSS2']),
 strip_tags($_GET['wxGrabber_main_values_widget_selectorFirstValue2']),  strip_tags($_GET['wxGrabber_main_values_widget_selectorSecondValue2']),
 strip_tags($_GET['wxGrabber_main_values_widget_selectorThirdValue2']),
 strip_tags($_GET['wxGrabber_main_values_widget_weatherperiod']));
         // Output the response from your call and exit
+        
         echo mainwpwvfunc($widgetArray);
         exit();
     } elseif (isset($_GET['wxGrabber_main_values_widget_request']) && ($_GET['wxGrabber_main_values_widget_request'] == 'some_action')) {
         // Otherwise display an error and exit the call
+        
         echo "Error: Unable to display request.";
         exit();
     }
+    	else { 
+    	//echo 'Error Happening - All Parameters not Passed Live Updates Will not Work';
+    	
+    	}
 }
 
 
@@ -155,7 +177,7 @@ static function install() {
 /*constructor - This creates the widget.  You can create as many of these as you want by copying the function and changing the name to suit the new widget you create. */
 
 public function wxGrabber_main_values_widget() {
-parent::WP_Widget(false, $name = 'Main WXGrabber Values');
+parent::WP_Widget(false, $name = 'Weather Widget');
 // Load jQuery
 wp_enqueue_script('jquery');
 
@@ -185,17 +207,19 @@ extract( $args ); //This gets arguments and grabs the options that are set in th
 	
 	$weatherperiod = $instance['weatherperiod'];
 	$selectorText1 = $instance['selectorText1'];
+	$selectorTextCSS1 = $instance['selectorTextCSS1'];
 	$selectorFirstValue1 = $instance['selectorFirstValue1'];
 	$selectorSecondValue1 = $instance['selectorSecondValue1'];
 	$selectorThirdValue1 = $instance['selectorThirdValue1'];
 	$selectorText2 = $instance['selectorText2'];
+	$selectorTextCSS2 = $instance['selectorTextCSS2'];
 	$selectorFirstValue2 = $instance['selectorFirstValue2'];
 	$selectorSecondValue2 = $instance['selectorSecondValue2'];
 	$selectorThirdValue2 = $instance['selectorThirdValue2'];
 	
 	 //Now we create the container for the live stuff
     
-$widgetArray = Array('selectorText1'=>$selectorText1,'selectorFirstValue1'=>$selectorFirstValue1,'selectorSecondValue1'=>$selectorSecondValue1,'selectorThirdValue1'=>$selectorThirdValue1,'selectorText2'=>$selectorText2,'selectorFirstValue2'=>$selectorFirstValue2,'selectorSecondValue2'=>$selectorSecondValue2,'selectorThirdValue2'=>$selectorThirdValue2,'weatherperiod'=>$weatherperiod);
+$widgetArray = Array('selectorText1'=>$selectorText1,'selectorTextCSS1'=>$selectorTextCSS1,'selectorFirstValue1'=>$selectorFirstValue1,'selectorSecondValue1'=>$selectorSecondValue1,'selectorThirdValue1'=>$selectorThirdValue1,'selectorText2'=>$selectorText2,'selectorTextCSS2'=>$selectorTextCSS2,'selectorFirstValue2'=>$selectorFirstValue2,'selectorSecondValue2'=>$selectorSecondValue2,'selectorThirdValue2'=>$selectorThirdValue2,'weatherperiod'=>$weatherperiod);
     
 	
 	
@@ -237,10 +261,12 @@ SANAjax = function() {
                 url : "index.php",
                 data : { wxGrabber_main_values_widget_request      : "update_wxgrabber",
                             wxGrabber_main_values_widget_selectorText1 : "<?php echo $selectorText1; ?>",
+                            wxGrabber_main_values_widget_selectorTextCSS1 : "<?php echo $selectorTextCSS1; ?>",
                             wxGrabber_main_values_widget_selectorFirstValue1 : "<?php echo $selectorFirstValue1; ?>",
                             wxGrabber_main_values_widget_selectorSecondValue1 : "<?php echo $selectorSecondValue1; ?>",
                             wxGrabber_main_values_widget_selectorThirdValue1 : "<?php echo $selectorThirdValue1; ?>",
                             wxGrabber_main_values_widget_selectorText2 : "<?php echo $selectorText2; ?>",
+                            wxGrabber_main_values_widget_selectorTextCSS2 : "<?php echo $selectorTextCSS2; ?>",
                             wxGrabber_main_values_widget_selectorFirstValue2 : "<?php echo $selectorFirstValue2; ?>",
                             wxGrabber_main_values_widget_selectorSecondValue2 : "<?php echo $selectorSecondValue2; ?>",
                             wxGrabber_main_values_widget_selectorThirdValue2 : "<?php echo $selectorThirdValue2; ?>",
@@ -254,7 +280,7 @@ SANAjax = function() {
         });
         }
         SANAjax();
-        setInterval( "SANAjax();", 10000 );
+        setInterval( "SANAjax();", 1000 );
     </script>
 <?php
 
@@ -288,11 +314,13 @@ function update($new_instance, $old_instance) {
 	$instance['weatherperiod'] = strip_tags($new_instance['weatherperiod']);
 	
 	$instance['selectorText1'] = strip_tags($new_instance['selectorText1']);
+	$instance['selectorTextCSS1'] = strip_tags($new_instance['selectorTextCSS1']);
 	$instance['selectorFirstValue1'] = strip_tags($new_instance['selectorFirstValue1']);
     $instance['selectorSecondValue1'] = strip_tags($new_instance['selectorSecondValue1']);
     $instance['selectorThirdValue1'] = strip_tags($new_instance['selectorThirdValue1']);
     
     $instance['selectorText2'] = strip_tags($new_instance['selectorText2']);
+    $instance['selectorTextCSS2'] = strip_tags($new_instance['selectorTextCSS2']);
 	$instance['selectorFirstValue2'] = strip_tags($new_instance['selectorFirstValue2']);
     $instance['selectorSecondValue2'] = strip_tags($new_instance['selectorSecondValue2']);
     $instance['selectorThirdValue2'] = strip_tags($new_instance['selectorThirdValue2']);
@@ -314,15 +342,18 @@ $weatherperiod = isset( $instance['weatherperiod'] ) ? esc_attr( $instance['weat
 $showUpdates = isset( $instance['showUpdates'] ) ? esc_attr( $instance['showUpdates'] ) : '';
 $useAjax = isset( $instance['useAjax'] ) ? esc_attr( $instance['useAjax'] ) : '';
 $selectorText1 = isset( $instance['selectorText1'] ) ? esc_attr( $instance['selectorText1'] ) : '';
+$selectorTextCSS1 = isset( $instance['selectorTextCSS1'] ) ? esc_attr( $instance['selectorTextCSS1'] ) : '';
 $selectorFirstValue1 = isset( $instance['selectorFirstValue1'] ) ? esc_attr( $instance['selectorFirstValue1'] ) : '';
 $selectorSecondValue1 = isset( $instance['selectorSecondValue1'] ) ? esc_attr( $instance['selectorSecondValue1'] ) : '';
 $selectorThirdValue1 = isset( $instance['selectorThirdValue1'] ) ? esc_attr( $instance['selectorThirdValue1'] ) : '';
 
 $selectorText2 = isset( $instance['selectorText2'] ) ? esc_attr( $instance['selectorText2'] ) : '';
-$selectorFirstValue2 = isset( $instance['selectorText2'] ) ? esc_attr( $instance['selectorFirstValue2'] ) : '';
-$selectorSecondValue2 = isset( $instance['selectorText2'] ) ? esc_attr( $instance['selectorSecondValue2'] ) : '';
+$selectorTextCSS2 = isset( $instance['selectorTextCSS2'] ) ? esc_attr( $instance['selectorTextCSS2'] ) : '';
+$selectorFirstValue2 = isset( $instance['selectorFirstValue2'] ) ? esc_attr( $instance['selectorFirstValue2'] ) : '';
+$selectorSecondValue2 = isset( $instance['selectorSecondValue2'] ) ? esc_attr( $instance['selectorSecondValue2'] ) : '';
 $selectorThirdValue2 = isset( $instance['selectorThirdValue2'] ) ? esc_attr( $instance['selectorThirdValue2'] ) : '';
 
+$widgetArray = Array('selectorText1'=>$selectorText1,'selectorTextCSS1'=>$selectorTextCSS1,'selectorFirstValue1'=>$selectorFirstValue1,'selectorSecondValue1'=>$selectorSecondValue1,'selectorThirdValue1'=>$selectorThirdValue1,'selectorText2'=>$selectorText2,'selectorTextCSS2'=>$selectorTextCSS2,'selectorFirstValue2'=>$selectorFirstValue2,'selectorSecondValue2'=>$selectorSecondValue2,'selectorThirdValue2'=>$selectorThirdValue2,'weatherperiod'=>$weatherperiod);
 
 /** Call the Weather setup function to do the work for admin and sort it alphabetically **/
 $weatherperiod=0; // Getting only 24hr values;
@@ -333,19 +364,25 @@ ksort($weatherArray); //Sort the Array Alphabetically
 
 
 ?>
-<p>
-      	<label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Widget Title'); ?></label> - (Blank for None)
-      	<input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo $title; ?>" />
-    </p>
+<div style="border: 1px solid black; background-color: white; padding: 5px 7px 5px 10%;">
+    <?php
+    $output = selectorFunction1($widgetArray,$weatherArray);
+    echo $output;
+    ?>
+    </div>
 
 
 
 
+<ul>
+<li>
+<label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Widget Title'); ?></label> - (Blank for None)
+<input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo $title; ?>" />
+</li>    
+<li>Live Updating: <input id="<?php echo $this->get_field_id('useAjax'); ?>" name="<?php echo $this->get_field_name('useAjax'); ?>" type="checkbox" value="1" <?php checked( '1', $useAjax ); ?>></li>
 
-<p>Enable Ajax Live Updates: <input id="<?php echo $this->get_field_id('useAjax'); ?>" name="<?php echo $this->get_field_name('useAjax'); ?>" type="checkbox" value="1" <?php checked( '1', $useAjax ); ?>></p>
-
-<p>Show Live Update Status: <input id="<?php echo $this->get_field_id('showUpdates'); ?>" name="<?php echo $this->get_field_name('showUpdates'); ?>" type="checkbox" value="1" <?php checked( '1', $showUpdates ); ?></p>
-
+<li>Show Update Status: <input id="<?php echo $this->get_field_id('showUpdates'); ?>" name="<?php echo $this->get_field_name('showUpdates'); ?>" type="checkbox" value="1" <?php checked( '1', $showUpdates ); ?></li>
+</ul>
 <!--	<p>
       	<input id="<?php echo $this->get_field_id('showUpdates'); ?>" name="<?php echo $this->get_field_name('showUpdates'); ?>" type="checkbox" value="1" <?php checked( '1', $showUpdates ); ?>
     	<label for="<?php echo $this->get_field_id('showUpdates'); ?>"><?php _e('This is a checkbox'); ?></label>
@@ -358,7 +395,7 @@ ksort($weatherArray); //Sort the Array Alphabetically
 -->
 
 	<p>
-	<label for="<?php echo $this->get_field_id('weatherperiod'); ?>"><?php _e('Weather Period'); ?></label>
+	<label for="<?php echo $this->get_field_id('weatherperiod'); ?>"><?php _e('Data Period'); ?></label>
 		<select name="<?php echo $this->get_field_name('weatherperiod'); ?>" id="<?php echo $this->get_field_id('weatherperiod'); ?>">
 			<?php
 			
@@ -374,14 +411,14 @@ ksort($weatherArray); //Sort the Array Alphabetically
 		</select>
 		</p>
 		
-	<p><strong>First Weather Parameter:<br/><span style="font-size:7pt">Up to three weather variables can be set for each parameters.  Mix and match weather values and units to build your desired output.  <br/>(eg. outsideTemp+tempUnit or windirection+wind+windunit)</span></strong><br/>
-	<label for="<?php echo $this->get_field_id('selectorText1'); ?>"><?php _e('Description'); ?></label>
-      	<input id="<?php echo $this->get_field_id('selectorText1'); ?>" name="<?php echo $this->get_field_name('selectorText1'); ?>" type="text" value="<?php echo $selectorText1; ?>" /><br/>
+	<p><strong title="Up to three weather variables can be set for each widget.  Mix and match weather values and units to build your desired output.  <br/>(eg. outsideTemp+tempUnit or windirection+wind+windunit)">First Weather Widget:</strong><br/>
+	<label for="<?php echo $this->get_field_id('selectorText1'); ?>"><?php _e('Descriptor:'); ?></label>
+      	<input size="10" id="<?php echo $this->get_field_id('selectorText1'); ?>" name="<?php echo $this->get_field_name('selectorText1'); ?>" type="text" value="<?php echo $selectorText1; ?>" /> <br/><label for="<?php echo $this->get_field_id('selectorTextCSS1'); ?>"><?php _e('Color:'); ?></label>
+      	<input size="14" id="<?php echo $this->get_field_id('selectorTextCSS1'); ?>" name="<?php echo $this->get_field_name('selectorTextCSS1'); ?>" type="text" value="<?php echo $selectorTextCSS1; ?>" />
 		</p>
 	
 		<p>
-		
-		<label for="<?php echo $this->get_field_id('selectorFirstValue1'); ?>"><?php _e('  First Value:'); ?></label>
+		<label for="<?php echo $this->get_field_id('selectorFirstValue1'); ?>"><?php _e(''); ?></label>
 		<select name="<?php echo $this->get_field_name('selectorFirstValue1'); ?>" id="<?php echo $this->get_field_id('selectorFirstValue1'); ?>">
 			<?php
 			$options = $weatherArray;
@@ -394,7 +431,7 @@ ksort($weatherArray); //Sort the Array Alphabetically
 			?>
 		</select>
 		
-		<label for="<?php echo $this->get_field_id('selectorSecondValue1'); ?>"><?php _e('Second Value:'); ?></label>
+		<label for="<?php echo $this->get_field_id('selectorSecondValue1'); ?>"><?php _e(''); ?></label>
 		<select name="<?php echo $this->get_field_name('selectorSecondValue1'); ?>" id="<?php echo $this->get_field_id('selectorSecondValue1'); ?>">
 			<?php
 			$options = $weatherArray;
@@ -407,7 +444,7 @@ ksort($weatherArray); //Sort the Array Alphabetically
 			
 			?>
 		</select>
-		<label for="<?php echo $this->get_field_id('selectorThirdValue1'); ?>"><?php _e('Third Value:'); ?></label>
+		<label for="<?php echo $this->get_field_id('selectorThirdValue1'); ?>"><?php _e(''); ?></label>
 		<select name="<?php echo $this->get_field_name('selectorThirdValue1'); ?>" id="<?php echo $this->get_field_id('selectorThirdValue1'); ?>">
 			<?php
 			$options = $weatherArray;
@@ -424,13 +461,14 @@ ksort($weatherArray); //Sort the Array Alphabetically
 		
 	</p>
 	
-	<p><strong>Second Weather Parameter:</strong><br/>
-	<label for="<?php echo $this->get_field_id('selectorText2'); ?>"><?php _e('Description'); ?></label>
-      	<input id="<?php echo $this->get_field_id('selectorText2'); ?>" name="<?php echo $this->get_field_name('selectorText2'); ?>" type="text" value="<?php echo $selectorText1; ?>" /><br/>
+	<p><strong title="Up to three weather variables can be set for each widget.  Mix and match weather values and units to build your desired output.  <br/>(eg. outsideTemp+tempUnit or windirection+wind+windunit)">Second Weather Widget (Optional):</strong><br/>
+	<label for="<?php echo $this->get_field_id('selectorText2'); ?>"><?php _e('Descriptor:'); ?></label>
+      	<input size="10" id="<?php echo $this->get_field_id('selectorText2'); ?>" name="<?php echo $this->get_field_name('selectorText2'); ?>" type="text" value="<?php echo $selectorText2; ?>" /> <br/><label for="<?php echo $this->get_field_id('selectorTextCSS2'); ?>"><?php _e('Color:'); ?></label>
+      	<input size="14" id="<?php echo $this->get_field_id('selectorTextCSS2'); ?>" name="<?php echo $this->get_field_name('selectorTextCSS2'); ?>" type="text" value="<?php echo $selectorTextCSS2; ?>" />
 		</p>
 		<p>
-		
-		<label for="<?php echo $this->get_field_id('selectorFirstValue2'); ?>"><?php _e('  First Value:'); ?></label>
+
+		<label for="<?php echo $this->get_field_id('selectorFirstValue2'); ?>"><?php _e(''); ?></label>
 		<select name="<?php echo $this->get_field_name('selectorFirstValue2'); ?>" id="<?php echo $this->get_field_id('selectorFirstValue2'); ?>">
 			<?php
 			$options = $weatherArray;
@@ -443,7 +481,7 @@ ksort($weatherArray); //Sort the Array Alphabetically
 			?>
 		</select>
 		
-		<label for="<?php echo $this->get_field_id('selectorSecondValue2'); ?>"><?php _e('Second Value:'); ?></label>
+		<label for="<?php echo $this->get_field_id('selectorSecondValue2'); ?>"><?php _e(''); ?></label>
 		<select name="<?php echo $this->get_field_name('selectorSecondValue2'); ?>" id="<?php echo $this->get_field_id('selectorSecondValue2'); ?>">
 			<?php
 			$options = $weatherArray;
@@ -456,7 +494,7 @@ ksort($weatherArray); //Sort the Array Alphabetically
 			
 			?>
 		</select>
-		<label for="<?php echo $this->get_field_id('selectorThirdValue2'); ?>"><?php _e('Third Value:'); ?></label>
+		<label for="<?php echo $this->get_field_id('selectorThirdValue2'); ?>"><?php _e(''); ?></label>
 		<select name="<?php echo $this->get_field_name('selectorThirdValue2'); ?>" id="<?php echo $this->get_field_id('selectorThirdValue2'); ?>">
 			<?php
 			$options = $weatherArray;
@@ -470,9 +508,9 @@ ksort($weatherArray); //Sort the Array Alphabetically
 			?>
 		</select>
 		
-		
+	
 	</p>
-
+	
     <?php
 }
 
