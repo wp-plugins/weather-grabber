@@ -153,6 +153,7 @@ date_default_timezone_set($timeOffsetSymbol);
 
 
 
+echo $wviewdbtoggle;
 
 if ($weatherArray['sensors'] == 0){ //Checking for Standard (0) vs. Extended (1) sensors/mode...
 	if ($wviewdbtoggle == 1) { // DATABASE OPTION IS CHECKED?
@@ -170,7 +171,7 @@ else {
 		
 		
 }// END OF SENSORS 1
-
+$weatherArray['db']->close();
 /**************************** END OF DATABASE QUERY SECTION *******************/ 
 
 
