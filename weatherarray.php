@@ -3,7 +3,10 @@
 
 function weathersetup($weatherperiod) {
 
-if ($weatherperiod == ''){
+if (0 <= $weatherperiod && $weatherperiod <= 4){
+$weatherperiod = $weatherperiod;
+}
+else {
 $weatherperiod = 0;
 }
 
@@ -151,19 +154,16 @@ date_default_timezone_set($timeOffsetSymbol);
 
 
 
-if ($weatherArray['sensors'] == 0){ //Checking for Standard vs. Extended sensors/mode... 
-									//0 is standard (no UV, Solar, leaf or soil sensors).
-//echo 'standard';
-	if ($wviewdbtoggle == 1) { // CHECKING TO SEE IF THE DATABASE OPTION IS CHECKED
+if ($weatherArray['sensors'] == 0){ //Checking for Standard (0) vs. Extended (1) sensors/mode...
+	if ($wviewdbtoggle == 1) { // DATABASE OPTION IS CHECKED?
 	
-	$weatherArray = dbstandardrun($weatherArray); //LOTS TO DO HERE in dbrun.inc.php
+	$weatherArray = dbstandardrun($weatherArray); //LOTS TO DO dbrun.inc.php
+	
 	}//END DATABASE CHECK
 }// END SENSORS 0 IF
 
-else { // Otherwise Sensors is 1 so include Extended functions
-//echo 'extended';
-		if ($wviewdbtoggle == 1) { //CHECK FOR THE DB AGAIN
-		//echo 'db on';
+else { 
+		if ($wviewdbtoggle == 1) { 
 		$weatherArray = dbextendedrun($weatherArray); //LOTS TO DO HERE in dbrun.inc.php
 		}
 		//$weatherArray = dayTempChillHeat($weatherArray);

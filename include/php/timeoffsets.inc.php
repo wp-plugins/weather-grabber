@@ -53,7 +53,7 @@ if ($selector == 0) { // No Change Time add Today/Yesterday for H:D format
 
 if ($selector == 1) { // Same as above, but without Today and Yesterday monikers... 
 
-	list($hour,$minute) = split('[:]', $input);
+	list($hour,$minute) = explode(":", $input);
 	
 	/* UNCOMMENT THIS IF YOUR STATION/WVIEW is SET TO UTC OR SOMETHING OTHER THAN LOCAL TIME
 	
@@ -168,9 +168,10 @@ function OFFSETtimes($weatherArray) {
 		($weatherArray['almanacPeriod'] != 'SearchGoFile')) {
 		
 		if ($weatherArray['wviewdbtoggle'] == 1) {
-		foreach ($weatherArray['SQLData'][$weatherArray['almanacPeriod']]['ClockTime'] as $key => $value) {
-			$weatherArray['SQLData'][$weatherArray['almanacPeriod']]['ClockTime'][$key] = timeconverter($weatherArray['SQLData'][$weatherArray['almanacPeriod']]['ClockTime'][$key], 4, $weatherArray);
-							}
+		//bug here
+		//  foreach ($weatherArray['SQLData'][$weatherArray['almanacPeriod']]['ClockTime'] as $key => $value) {
+		//	$weatherArray['SQLData'][$weatherArray['almanacPeriod']]['ClockTime'][$key] = timeconverter($weatherArray['SQLData'][$weatherArray['almanacPeriod']]['ClockTime'][$key], 4, $weatherArray);
+		//					}
 			}
 		}
 		
@@ -212,7 +213,7 @@ function OFFSETtimes($weatherArray) {
 		$y = substr($tempdate,0,4);
 		$M = substr($tempdate,4,2);
 		$d = substr($tempdate,6,2);
-		list($h,$m,$s) = split('[:]', $temptime);
+		list($h,$m,$s) = explode(":", $temptime);
 		
 		$weatherArray['stationDate'] = date($formatdate, (mktime($h, $m, $s, $M, $d, $y)));
 		
