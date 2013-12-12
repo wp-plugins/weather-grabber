@@ -4,7 +4,6 @@
 	define('CURRENTHOUR', date('G'));	// Current Hour (24-h format)
 	$graphwidth = 380;
 	$graphheight = 180;
-	require_once('wp-content/themes/alberniweather/include/php/dbConnect.inc.php');
 	require_once('wp-content/themes/alberniweather/include/php/globalvariables.php');
 	require_once('wp-content/themes/alberniweather/sqlvars.php');
 	require_once('wp-content/themes/alberniweather/include/jpgraph/jpgraph.php'); 
