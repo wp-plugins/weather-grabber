@@ -35,6 +35,7 @@ if ($weatherArray['weatherperiod']['Custom'] != TRUE) { //GOOD
 		break;
 		
 		case '3': //Yearly
+		
 			$weatherArray = runDBYearQuery($weatherArray);
 			$weatherArray = runRainYearQuery($weatherArray);
 		break;
@@ -42,7 +43,7 @@ if ($weatherArray['weatherperiod']['Custom'] != TRUE) { //GOOD
 		default; //Everything Else Defaults to just 24hr.
 			
 			
-			$weatherArray = runDB24hrQuery($weatherArray);
+			$weatherArray = runDB24hrQuery($weatherArray);			
 			$weatherArray = runHiLo24hr($weatherArray);
 			$weatherArray = runRain24hrQuery($weatherArray);
 			//Lets Create some of the same Daily Values expressely as 24hr values regardless of stupid TimeZones

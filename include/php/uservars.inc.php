@@ -4,7 +4,7 @@
 // Change these settings for database
 //////////////////////////////////////////////////////////////////////////
 	
-	if ($weatherArray['wviewdbtoggle'] == 1) {
+	
 	
 	class wxg_mysqli extends mysqli {
     public function __construct($mysqlhost, $mysqluser, $mysqlpass, $mysqldbname) {
@@ -24,13 +24,4 @@
         }
     }
 }
-	$weatherArray['db'] = new wxg_mysqli($mysqlhost, $mysqluser, $mysqlpass, $mysqldbname);
-	
-	}
-	
-	
-
-
-
-
 ?>

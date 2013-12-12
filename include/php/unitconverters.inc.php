@@ -753,6 +753,7 @@ function convertdatakphtomps($weatherArray) {
 		$weatherArray['SQLData'][$weatherArray['almanacPeriod']]['hiWindSpeed'] = kphtomps($weatherArray['SQLData'][$weatherArray['almanacPeriod']]['hiWindSpeed']);
 		
 		if (($weatherArray['weatherperiod'] == 'SearchGo') || $weatherArray['weatherperiod'] == 'SearchGoFile') {
+		/* REMOVED UNTIL CUSTOM FEATURES ARE BROUGHT BACK
 		foreach ($weatherArray['SQLDataCustom']['windSpeed'] as $key => $value) {
 			$weatherArray['SQLDataCustom']['windSpeed'][$key] = kphtomps($value);
 		}
@@ -760,7 +761,7 @@ function convertdatakphtomps($weatherArray) {
 		foreach ($weatherArray['SQLDataCustom']['hiWindSpeed'] as $key => $value) {
 			$weatherArray['SQLDataCustom']['hiWindSpeed'][$key] = kphtomps($value);
 		}
-		
+		*/
 		}
 		
 		
