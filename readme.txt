@@ -40,7 +40,8 @@ Requirements:
 Please send questions!
 
 == Screenshots ==
-
+screenshot-1.png
+screenshot-2.pngs
 
 
 == Changelog ==
