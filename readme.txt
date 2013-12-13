@@ -40,13 +40,15 @@ Requirements:
 Please send questions!
 
 == Screenshots ==
-
+screenshot-1.png
+screenshot-2.pngs
 
 
 == Changelog ==
 = 0.8.5 =
 * Tested on WP 3.8
 * Live Updates are BACK baby!
+* Current Conditions Widget
 * More Bug Fixes
 
 = 0.8.4 =
