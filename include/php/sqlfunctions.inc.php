@@ -376,7 +376,6 @@ return $weatherArray;
 function runDB24hrQuery($weatherArray){
 	if ($weatherArray['sensors'] == 0) {
 	$sql = "SELECT ROUND(" . $weatherArray['archiveTableArray']['outTemp'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['inTemp'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['barometer'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['outHumidity'] . ",0),ROUND(" . $weatherArray['archiveTableArray']['inHumidity'] . ",2)," . $weatherArray['archiveTableArray']['rain'] . "," . $weatherArray['archiveTableArray']['rainRate'] . ",ROUND(" . $weatherArray['archiveTableArray']['windSpeed'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['windGust'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['windDir'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['windGustDir'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['dewpoint'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['windchill'] . ",2),ROUND(" . $weatherArray['archiveTableArray']['heatindex'] . ",2)," . $weatherArray['archiveTableArray']['dateTime'] . " from " . $weatherArray['dbtableName'] . " ORDER BY ".$weatherArray['archiveTableArray']['dateTime']." DESC LIMIT 288;";
-	
 	$result = $weatherArray['db']->query($sql);
 	$i = 288;
 	while ($row = mysqli_fetch_array($result)) {

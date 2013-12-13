@@ -8,9 +8,9 @@
 function dbstandardrun($weatherArray) {
 
 
-if ($weatherArray['weatherperiod']['Custom'] != TRUE) { //GOOD
+//if ($weatherArray['weatherperiod']['Custom'] != TRUE) { 
 	
-	switch  ($weatherArray['weatherperiod']) { //GOOD
+	switch  ($weatherArray['weatherperiod']) {
 	
 		case '1': // Weekly - will do 24hr as well
 			$weatherArray = runDB24hrQuery($weatherArray);
@@ -35,6 +35,7 @@ if ($weatherArray['weatherperiod']['Custom'] != TRUE) { //GOOD
 		break;
 		
 		case '3': //Yearly
+		
 			$weatherArray = runDBYearQuery($weatherArray);
 			$weatherArray = runRainYearQuery($weatherArray);
 		break;
@@ -42,7 +43,7 @@ if ($weatherArray['weatherperiod']['Custom'] != TRUE) { //GOOD
 		default; //Everything Else Defaults to just 24hr.
 			
 			
-			$weatherArray = runDB24hrQuery($weatherArray);
+			$weatherArray = runDB24hrQuery($weatherArray);			
 			$weatherArray = runHiLo24hr($weatherArray);
 			$weatherArray = runRain24hrQuery($weatherArray);
 			//Lets Create some of the same Daily Values expressely as 24hr values regardless of stupid TimeZones
@@ -54,7 +55,7 @@ if ($weatherArray['weatherperiod']['Custom'] != TRUE) { //GOOD
 		break;
 		} //END OF SWITCH
 	
-	} //END OF CUSTOM IF
+/*	} //END OF CUSTOM IF
 
 else { // IF WEATHERPERIOD IS NOT CUSTOM THEN DO REGULAR STUFF PLUS CUSTOM JOB
 
@@ -66,13 +67,14 @@ else { // IF WEATHERPERIOD IS NOT CUSTOM THEN DO REGULAR STUFF PLUS CUSTOM JOB
 			$weatherArray = dayRain($weatherArray);
 			$weatherArray = findtrend($weatherArray); 
 	
-	} //END OF CUSTOM ELSE
+	} //END OF CUSTOM ELSE*/
 
 return $weatherArray;
 } // END OF STANDARD DB FUNCTION
 
 
 function dbextendedrun($weatherArray) {//The DB queries for extended sensor support
+
 
 if ($weatherArray['weatherperiod']['Custom'] != TRUE) {
 	

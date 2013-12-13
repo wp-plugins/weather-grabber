@@ -128,6 +128,7 @@ $weatherArray['timeOffsetSymbol'] = $timeOffsetSymbol;
 if ($timeOffsetSign == '+') {
 $weatherArray['mySQLDateMod'] = 'DATE_ADD';
 }
+
 else {
 $weatherArray['mySQLDateMod'] = 'DATE_SUB';
 }
@@ -148,17 +149,14 @@ $weatherArray['almanacPeriod'] = $weatherArray['weatherperiod'];
 
 date_default_timezone_set($timeOffsetSymbol);
 
-
-
-
-
-
+$weatherArray['db'] = new wxg_mysqli($mysqlhost, $mysqluser, $mysqlpass, $mysqldbname);
 
 if ($weatherArray['sensors'] == 0){ //Checking for Standard (0) vs. Extended (1) sensors/mode...
 	if ($wviewdbtoggle == 1) { // DATABASE OPTION IS CHECKED?
 	
 	$weatherArray = dbstandardrun($weatherArray); //LOTS TO DO dbrun.inc.php
 	$weatherArray['db']->close();
+	
 	}//END DATABASE CHECK
 }// END SENSORS 0 IF
 

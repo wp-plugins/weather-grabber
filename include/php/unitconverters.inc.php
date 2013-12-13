@@ -217,15 +217,17 @@ function convertdataBaromtokPa($weatherArray, $check) {
 		}*/
 		
 		
+		
 		//Database Conversions
 		if ($weatherArray['wviewdbtoggle'] == 1) {
 		
-		if ($weatherArray['weatherperiod']['Custom'] != TRUE) {
+		// if ($weatherArray['weatherperiod']['Custom'] != TRUE) {
+		
 		switch  ($weatherArray['weatherperiod']) { 
 		
 			default: // Weekly - will do 24hr as well
-			foreach ($weatherArray['SQLData']['barometer'] as $key=>$value) {
-				$weatherArray['SQLData']['barometer'][$key] = 							BaromtokpA($weatherArray['SQLData']['barometer'][$key]);
+			foreach ($weatherArray['SQLData']['Barometer'] as $key=>$value) {
+				$weatherArray['SQLData']['Barometer'][$key] = 							BaromtokpA($weatherArray['SQLData']['Barometer'][$key]);
 			}
 			break;
 			case '1': // Weekly - will do 24hr as well
@@ -233,8 +235,8 @@ function convertdataBaromtokPa($weatherArray, $check) {
 				$weatherArray['SQLDataWeekly']['barometer'][$key] = BaromtokpA($weatherArray['SQLDataWeekly']['barometer'][$key]);
 			}
 			
-			foreach ($weatherArray['SQLData']['barometer'] as $key=>$value) {
-				$weatherArray['SQLData']['barometer'][$key] = BaromtokpA($weatherArray['SQLData']['barometer'][$key]);
+			foreach ($weatherArray['SQLData']['Barometer'] as $key=>$value) {
+				$weatherArray['SQLData']['Barometer'][$key] = BaromtokpA($weatherArray['SQLData']['Barometer'][$key]);
 			}
 			break;
 	
@@ -243,8 +245,8 @@ function convertdataBaromtokPa($weatherArray, $check) {
 				$weatherArray['SQLDataMonthly']['barometer'][$key] = BaromtokpA($weatherArray['SQLDataMonthly']['barometer'][$key]);
 			}
 			
-			foreach ($weatherArray['SQLData']['barometer'] as $key=>$value) {
-				$weatherArray['SQLData']['barometer'][$key] = BaromtokpA($weatherArray['SQLData']['barometer'][$key]);
+			foreach ($weatherArray['SQLData']['Barometer'] as $key=>$value) {
+				$weatherArray['SQLData']['Barometer'][$key] = BaromtokpA($weatherArray['SQLData']['Barometer'][$key]);
 			}
 			break;
 		
@@ -258,7 +260,7 @@ function convertdataBaromtokPa($weatherArray, $check) {
 		
 		}
 		
-		}
+	//	}
 		
 		}
 		
@@ -753,6 +755,7 @@ function convertdatakphtomps($weatherArray) {
 		$weatherArray['SQLData'][$weatherArray['almanacPeriod']]['hiWindSpeed'] = kphtomps($weatherArray['SQLData'][$weatherArray['almanacPeriod']]['hiWindSpeed']);
 		
 		if (($weatherArray['weatherperiod'] == 'SearchGo') || $weatherArray['weatherperiod'] == 'SearchGoFile') {
+		/* REMOVED UNTIL CUSTOM FEATURES ARE BROUGHT BACK
 		foreach ($weatherArray['SQLDataCustom']['windSpeed'] as $key => $value) {
 			$weatherArray['SQLDataCustom']['windSpeed'][$key] = kphtomps($value);
 		}
@@ -760,7 +763,7 @@ function convertdatakphtomps($weatherArray) {
 		foreach ($weatherArray['SQLDataCustom']['hiWindSpeed'] as $key => $value) {
 			$weatherArray['SQLDataCustom']['hiWindSpeed'][$key] = kphtomps($value);
 		}
-		
+		*/
 		}
 		
 		
