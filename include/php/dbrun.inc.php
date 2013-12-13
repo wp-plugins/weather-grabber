@@ -8,9 +8,9 @@
 function dbstandardrun($weatherArray) {
 
 
-if ($weatherArray['weatherperiod']['Custom'] != TRUE) { //GOOD
+//if ($weatherArray['weatherperiod']['Custom'] != TRUE) { 
 	
-	switch  ($weatherArray['weatherperiod']) { //GOOD
+	switch  ($weatherArray['weatherperiod']) {
 	
 		case '1': // Weekly - will do 24hr as well
 			$weatherArray = runDB24hrQuery($weatherArray);
@@ -55,7 +55,7 @@ if ($weatherArray['weatherperiod']['Custom'] != TRUE) { //GOOD
 		break;
 		} //END OF SWITCH
 	
-	} //END OF CUSTOM IF
+/*	} //END OF CUSTOM IF
 
 else { // IF WEATHERPERIOD IS NOT CUSTOM THEN DO REGULAR STUFF PLUS CUSTOM JOB
 
@@ -67,7 +67,7 @@ else { // IF WEATHERPERIOD IS NOT CUSTOM THEN DO REGULAR STUFF PLUS CUSTOM JOB
 			$weatherArray = dayRain($weatherArray);
 			$weatherArray = findtrend($weatherArray); 
 	
-	} //END OF CUSTOM ELSE
+	} //END OF CUSTOM ELSE*/
 
 return $weatherArray;
 } // END OF STANDARD DB FUNCTION

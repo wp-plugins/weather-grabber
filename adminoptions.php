@@ -49,8 +49,8 @@ add_settings_field(		'wxgrabber_param_file', 		//the unique id of the setting
 					);
 add_settings_field(		'wxgrabber_servertime_file', 	//the unique id of the setting
 						'Web Server Timezone <br/>
-						(Valid Timezones only <a 			
-						href="http://php.net/manual/en/timezones.php">list here</a>)', 						
+						(<a 			
+						href="http://php.net/manual/en/timezones.php">Timezone List</a>)', 						
 														//the Title of the Setting				
 						'wxgrabber_webtime_input', 	//The Function for display
 						'wxgrabber', 					//The Settings Page Name
@@ -58,9 +58,7 @@ add_settings_field(		'wxgrabber_servertime_file', 	//the unique id of the settin
 					);
 
 add_settings_field(		'wxgrabber_time_file', 	//the unique id of the setting
-						'Timezone at Weather Station<br/>
-						(Valid Timezones only <a 
-						href="http://php.net/manual/en/timezones.php">list here</a>)', 							
+						'Timezone at Weather Station<br/>', 							
 														//the Title of the Setting				
 						'wxgrabber_time_input', 	//The Function for display
 						'wxgrabber', 					//The Settings Page Name

@@ -3,8 +3,8 @@ Contributors: chrisale2
 Donate link: http://www.alberniweather.ca/
 Tags: weather, live
 Requires at least: 3.0.1
-Tested up to: 3.7.1
-Stable Tag: 0.8.4
+Tested up to: 3.8
+Stable Tag: 0.8.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -39,17 +39,17 @@ Requirements:
 
 Please send questions!
 
-== Coming Soon ==
-
-Oh it's coming.
-
 == Screenshots ==
 
-1. A shot of the Admin widget interface.
 
-2. The widget on the front page.
 
 == Changelog ==
+= 0.8.5 =
+* Tested on WP 3.8
+* Live Updates are BACK baby!
+* Current Conditions Widget
+* More Bug Fixes
+
 = 0.8.4 =
 * Can now reliably add more than one custom widget!
 * If you had AJAX updates on previously you may need to turn off AJAX updates and Show Updates first before installing or delete the widget you've made and start again.
