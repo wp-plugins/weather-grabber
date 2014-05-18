@@ -39,14 +39,23 @@ add_settings_section(	'wxgrabber_main', 				//the unique id of the field
 						'wxgrabber_main_section_text', 		//The function for Display
 						'wxgrabber' 					//the settings page name 
 					);
-add_settings_field(		'wxgrabber_param_file', 		//the unique id of the setting
-						'Parameter CSV File Name<br/>
-						(Must be updating into your root wordpress website folder)', 
+add_settings_field(		'wxgrabber_param_file:', 		//the unique id of the setting
+						'Param File Name<br/>
+						<em>phpparameterlist.htm</em>', 
 														//the Title of the Setting				
 						'wxgrabber_param_input', 		//The Function for display
 						'wxgrabber', 					//The Settings Page Name
 						'wxgrabber_main'				//The Section to put it in.
 					);
+					
+add_settings_field(		'wxgrabber_forecast_file', 	//the unique id of the setting
+						'Bring in a text forecast through a file?', 
+														//the Title of the Setting				
+						'wxgrabber_forecast_file_input', 	//The Function for display
+						'wxgrabber', 					//The Settings Page Name
+						'wxgrabber_main'				//The Section to put it in.
+					);
+					
 add_settings_field(		'wxgrabber_servertime_file', 	//the unique id of the setting
 						'Web Server Timezone <br/>
 						(<a 			
@@ -210,7 +219,15 @@ $value = $options['currentSys']; //Name of the parameter we want to get and upda
 <?php
 }
 
+function wxgrabber_forecast_file_input() {
+$options = get_option('wxgrabber_options');
+$value = $options['wxgrabberforecastFile']; 
 
+?>
+<input id='wxgrabberforecastFile' name='wxgrabber_options[wxgrabberforecastFile]'
+ type='text' size='40' value='<?php echo esc_attr( $value ); ?>' />
+<?php
+}
 
 function wxgrabber_wviewsensors_input() {
 $options = get_option('wxgrabber_options');

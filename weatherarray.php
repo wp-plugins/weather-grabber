@@ -15,8 +15,13 @@ $weatherArray['wordpressFolder'] = WXGRABBER_PATH;
 
 
 //$jpgraphImages = $options['jpgraphimages']; //Where to put JPGraph Images Old Support for JPGraph Library removed. 
-$wviewparamslist = $options['paramFile']; 	//Location of PHP Parameter File from WP Options
+$wviewparamslist = $options['paramFile']; 	//PHP Parameter File Name from WP Options
+$wviewparamslistPost = 'Post'.$wviewparamslist;	//Location of PHP Parameter File from WP Options
 $wviewparamslist = (ABSPATH . $wviewparamslist);
+$wviewparamslistPost = (ABSPATH . $wviewparamslistPost);
+$wviewparamslistEC = $options['wxgrabberforecastFile']; 	//PHP Forecast File Name if Used
+$wviewparamslistEC = (ABSPATH . $wviewparamslistEC);
+
 $webServerTime = $options['webTime']; //Web Server Timezone from WP Options
 $timeOffsetSymbol = $options['weatherTime']; //Wview Weather Station Timezone from WP Options
 
@@ -100,6 +105,28 @@ else {
 $weatherArray['delayed'] = FALSE;
 }
 
+/*** Grabbing 5 Minute Data from Environment Canada Port File ****/
+
+$weatherdatalistEC = fopen($wviewparamslistEC, "r");
+$weatherdatainitialEC = fgetcsv($weatherdatalistEC, 100000, ";");
+$i = 0;
+
+
+foreach($weatherdatainitialEC as $val) {
+	
+	if($i % 2) {
+		$weatherArray[$previousval] = $val;
+		//echo $val;
+		//echo ';';
+		//Observed at: Port Alberni 08:00 AM PST Thursday 20 December 2012 -0.199.9rising99-5-0.3NE21
+		}
+	else {
+	$previousval = $val;
+	//echo $val;
+	//echo'->';
+	}
+$i++;
+}
 
 
 
