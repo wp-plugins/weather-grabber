@@ -1,4 +1,5 @@
 <div id="bottombox">
+	
 	<div class="leftconditions">
 		<ul>
 			<li class="header">

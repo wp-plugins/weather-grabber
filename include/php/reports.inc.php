@@ -1,6 +1,5 @@
 <?php 
-
-	$box4 = 'Webcam Links and Useful Sites';
+$box4 = 'Webcam Links and Useful Sites';
 				
 switch ($weatherArray[sidebarLink]) {
 

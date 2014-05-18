@@ -1,4 +1,5 @@
 <p>
+
 	<?php 
 	AllGraphs($selector[OutTemp],$TempUnit, $range, $starttime, $endtime, $max);
 	AllGraphs($selector[Barometer],$TempUnit, $range, $starttime, $endtime, $max);

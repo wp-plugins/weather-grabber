@@ -1,5 +1,4 @@
 <?php
-
 $db_path = '/opt/local/var/wview/archive/';
 $db_fname = 'wview-archive.sdb';
 $site_url = 'http://www.clarkwx.net/wview.php';

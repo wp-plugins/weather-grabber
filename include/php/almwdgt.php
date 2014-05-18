@@ -1,47 +1,41 @@
 <?php 
-function outputCurrentDisplay ($widgetArray,$weatherArray) {
+
+function outputAlmDisplay ($widgetArray,$weatherArray) {
 
 
 $output = '';
 
 
-$output = $output . '<table id="cctable" class="frontwdgttable" >
-<tr ><th colspan="4" class="tg-center">Current Conditions</th></tr>
-<tr><td colspan="2" class="tg-center"><span title="Temperature" style="' . $weatherArray['outsideTempCSS'] . '">' . $weatherArray['outsideTemp'] . $weatherArray['tempUnit'] . '<br /> Hour Change: ' . $weatherArray[hourchangetemp] . '  ' . $weatherArray['tempUnit'] . '</span> </td>';
+$output = $output . '<table id="almtable" class="frontwdgttable" >
+<tr ><th colspan="4" class="tg-center">Day Almanac</th></tr>';
+$output = $output . '<tr><td colspan="2" class="tg-center"><span title="Civil Rise"> ' . $weatherArray['civilriseTime'] . '</span> </td>';
 
-$output = $output . '<td colspan="2" class="tg-center"><span title="Barometer" style="' . $weatherArray['barometerCSS'] . '"> ' . $weatherArray['barometer'] . ' ' . $weatherArray['barUnit'] . $weatherArray['baromtrend'] . '</span> </td>
+$output = $output . '<td colspan="2" class="tg-center"><span title="Day Rain Total" style="' . $weatherArray['dailyRainCSS'] . '">' . $weatherArray['dailyRain'] . ' ' . $weatherArray['rainUnit'] . '</span> </td>
   </tr>';
 
+$output = $output . '<tr class="tg-even"><td colspan="2" class="tg-center"><span title="Civil Set"> ' . $weatherArray['civilsetTime'] . '</span> </td>';
 
-/*$output = $output . '<tr><td colspan="4" class="tg-center">Wind</td></tr>';*/
+$output = $output . '<td colspan="2" class="tg-center"><span title="Day Evapo-Transpiration Total" style="' . $weatherArray['ETCSS'] . '">-' . $weatherArray['ET'] . ' ' . $weatherArray['rainUnit'] . '</span> </td></tr>';
 
-$output = $output . '<tr class="tg-even"><td colspan="4" class="tg-center" ><span title="Wind" style="' . $weatherArray['windSpeedCSS'] . '">' . $weatherArray['windDirection'] . ' ' .  $weatherArray['windSpeed'] . ' ' . $weatherArray['windUnit'] . ' <br />gusting to ' . $weatherArray['windGustSpeed'] . ' ' . $weatherArray['windUnit'] . '</span></td></tr>';
+$output = $output . '<tr class="tg-even"><td colspan="2" class="tg-center"><span title="Moon Phase"> ' . $weatherArray['moonPhase'] . '</span> </td>';
 
-$output = $output . '<tr class="tg-even"><td colspan="2" class="tg-center"><span title="Humidity">' . $weatherArray['outsideHumidity'] . ' ' . $weatherArray['humUnit'] . '</span></td>';
+$output = $output . '<td colspan="2" class="tg-center"><span title="Rain Storm Total" style="' . $weatherArray['stormRainCSS'] . '">' . $weatherArray['stormRain'] . ' ' . $weatherArray['rainUnit'] . '</span> </td></tr>';
 
-$output = $output . '<td colspan="2" class="tg-center"><span title="Rain" style="' . $weatherArray['rainRateCSS'] . '"> ' . $weatherArray['rainRate'] . ' ' . $weatherArray['rateUnit'] . '</span></td></tr>';
+$output = $output . '<tr><td colspan="4" class="tg-center"><span title="Day High Temp" style="' . $weatherArray['hiOutsideTempCSS'] . '">' . $weatherArray['hiOutsideTemp'] . $weatherArray['tempUnit'] . $weatherArray['hiOutsideTempTime'] . '</span></td></tr>';
 
-if (($weatherArray['windChill'] == 'N/A') || ($weatherArray['outsideTemp'] == $weatherArray['outsideHeatIndex']))
-{
-$output = $output . '<tr><td colspan="2" class="tg-center"><span title="Feels Like">' . $weatherArray['windChill'] . '</span></td>';
-}
-elseif ($weatherArray['windChill'] != 'N/A')
-{
-$output = $output . '<tr><td colspan="2" class="tg-center"><span title="Feels Like" style="' . $weatherArray['chillCSS'] . '">' . $weatherArray['windChill'] . $weatherArray['tempUnit'] . '</span></td>';
-}
-else
-{
-$output = $output . '<tr><td colspan="2" class="tg-center"><span title="Feels Like" style="' . $weatherArray['heatIndexCSS'] . '">' . $weatherArray['outsideHeatIndex'] . $weatherArray['tempUnit'] . '</span></td>';
-}
+$output = $output . '<tr><td colspan="4" class="tg-center"><span title="Day Low Temp" style="' . $weatherArray['lowOutsideTempCSS'] . '">' . $weatherArray['lowOutsideTemp'] . $weatherArray['tempUnit'] . $weatherArray['lowOutsideTempTime'] . '</span></td></tr>';
 
-$output = $output . '<td colspan="2" class="tg-center"><span title="Dewpoint" style="' . $weatherArray['outsideDewPtCSS'] . '"> ' . $weatherArray['outsideDewPt'] . $weatherArray['tempUnit'] . '</span> </td></tr>';
+$output = $output . '<tr><td colspan="4" class="tg-center"><span title="Day High Barometer" style="' . $weatherArray['hiBarometerCSS'] . '">' . ' ' . $weatherArray['hiBarometer'] . ' ' . $weatherArray['barUnit'] . $weatherArray['hiBarometerTime'] . '</span></td></tr>';
 
-$output = $output . '<tr class="tg-even"><td colspan="2" class="tg-center"><span title="UV Index" style="' . $weatherArray['UVCSS'] . '">UV ' . $weatherArray['UV'] . '</span></td>';
+$output = $output . '<tr><td colspan="4" class="tg-center"><span title="Day Low Barometer" style="' . $weatherArray['lowBarometerCSS'] . '">' . $weatherArray['lowBarometer'] . ' ' . $weatherArray['barUnit'] . $weatherArray['lowBarometerTime'] . '</span></td></tr>';
 
-$output = $output . '<td colspan="2" class="tg-center"><span title="Solar Radiation" style="' . $weatherArray['solarRadCSS'] . '"> ' . $weatherArray['solarRad'] . ' ' . $weatherArray['solarUnit'] . '</span></td></tr>';
+$output = $output . '<tr><td colspan="4" class="tg-center"><span title="Day Low Windchill" style="' . $weatherArray['lowWindchillCSS'] . '">' . $weatherArray['lowWindchill'] . $weatherArray['tempUnit'] . $weatherArray['lowWindchillTime'] . '</span></td></tr>';
+
+$output = $output . '<tr><td colspan="4" class="tg-center"><span title="Day High Heat Index" style="' . $weatherArray['hiHeatindexCSS'] . '">' . $weatherArray['hiHeatindex'] . $weatherArray['tempUnit'] . $weatherArray['hiHeatindexTime'] . '</span></td></tr>';
+
 
 $output = $output . '<tr>
-    <td colspan="4" class="tg-center"> Last Updated: ' . $weatherArray['stationTime'] . '</td></tr></table>';
+    <td colspan="4" class="tg-center"> </td></tr></table>';
 
 
 
@@ -50,7 +44,7 @@ $output = $output . '<tr>
 	
 	/* Now here is the main function that brings everything together from the Admin form and runs it all. */
 	
-	class wxGrabber_current_conditions_widget extends WP_Widget {
+	class wxGrabber_almanac_widget extends WP_Widget {
 
 	
 
@@ -62,8 +56,8 @@ static function install() {
      }
 /*constructor - This creates the widget.  You can create as many of these as you want by copying the function and changing the name to suit the new widget you create. */
 
-public function wxGrabber_current_conditions_widget() {
-parent::WP_Widget(false, $name = 'WXGB - Current Conditions');
+public function wxGrabber_almanac_widget() {
+parent::WP_Widget(false, $name = 'WXGB - Almanac Front Page');
 // Load jQuery
 wp_enqueue_script('jquery');
 }
@@ -175,7 +169,7 @@ SANAjax = function() {
 // Otherwise AJAX is not on and we output HTML method
 } else {
 $weatherArray = weathersetup($widgetArray['weatherperiod']);
-$output = outputCurrentDisplay($widgetArray,$weatherArray);
+$output = outputAlmDisplay($widgetArray,$weatherArray);
 echo $output;
 }    
         
@@ -266,7 +260,7 @@ ksort($weatherArray); //Sort the Array Alphabetically
 
 <div style=" background-color: white; padding: 5px 7px 5px 10%;">
     <?php
-    $output = outputCurrentDisplay($widgetArray,$weatherArray);
+    $output = outputAlmDisplay($widgetArray,$weatherArray);
     echo $output;
     ?>
     </div>

@@ -1,7 +1,4 @@
 <?php 
-
-
-
 function createDayTripleLineGraph($weatherSelector,$graphname,$xTitle,$yTitle,$y2Title,$Title,$dualYaxis) {
 echo 'hi';
 foreach ($weatherSelector[3] as $value) {

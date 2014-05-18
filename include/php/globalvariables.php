@@ -1,4 +1,5 @@
-<?php $firstwviewdata = '20051101000000';
+<?php 
+$firstwviewdata = '20051101000000';
 $wanttime = 1;
 $startYear = 2005;
 putenv("TZ=America/Vancouver");
