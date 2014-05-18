@@ -1,6 +1,6 @@
 <?php 
 
-	$links = '<a href="?sidebarLink=Satellite">Local Satellite &amp; Radar</a> ::
+$links = '<a href="?sidebarLink=Satellite">Local Satellite &amp; Radar</a> ::
 				<a href="?sidebarLink=Animations">Animations/ASCAT</a> :: <a href="?sidebarLink=NOAACharts">North Pacific Forecast Charts</a>';
 				
 switch ($weatherArray[sidebarLink]) {

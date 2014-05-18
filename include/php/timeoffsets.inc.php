@@ -1,5 +1,4 @@
 <?php
-
 /*****************************************
 This Function Converts times from UTC to locale time, You need to change the OFFSET values at the
 top to your settings.  If you are not using UTC you can remove the calls to the unit conversion case functions at near the bottom.

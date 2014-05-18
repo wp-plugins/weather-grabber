@@ -1,5 +1,4 @@
 <?php
-
 function changefreezingColor($weatherArray,$key,$val,$subArray){
 
 $warncoldcolorlow = '#CCFFFF';

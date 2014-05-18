@@ -1,5 +1,4 @@
 <?php
-
 // ******************************************
 // Code written by M. Brooks Clark June 2010 
 // With tweaks by Mark Levine
