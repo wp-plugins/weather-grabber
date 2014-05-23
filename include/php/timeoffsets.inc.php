@@ -1,5 +1,4 @@
 <?php
-
 /*****************************************
 This Function Converts times from UTC to locale time, You need to change the OFFSET values at the
 top to your settings.  If you are not using UTC you can remove the calls to the unit conversion case functions at near the bottom.
@@ -7,15 +6,16 @@ top to your settings.  If you are not using UTC you can remove the calls to the 
 
 function timeconverter($input, $selector, $weatherArray) 
 {
-putenv('TZ=PST');
+//putenv('TZ=PST');
 $formatLong = 'l, M. d Y G:i';
 $formatShort = 'l M. d Y';
+$output = '';
 
-if ($selector == 0) { // No Change Time add Today/Yesterday for H:D format
+if ((strpos($input,':') !== false) && ($selector == 0)) { // No Change Time add Today/Yesterday for H:D format
 
+list($hour,$minute) = explode(":", $input);
 
-	
-	list($hour,$minute) = preg_replace('/[:].*$/', '', $input); 
+	//list($hour,$minute) = preg_replace('/[:].*$/', '', $input); 
 	
 /* If Station/Wview is set to UTC, use commented code
 	if ($hour >= $weatherArray[timeOffsetNum])
@@ -31,7 +31,7 @@ if ($selector == 0) { // No Change Time add Today/Yesterday for H:D format
 	//$hour = ($hour + $weatherArray['offset']);
 	$currentminute = date('i');
 	//$mindifference = $minute - $currentminute;
-	
+
 	if ($hour <= $currenthour) // Take Care of 24 values make them easier to understand
 	{
 		if (($hour == $currenthour)&&($minute > $currentminute))

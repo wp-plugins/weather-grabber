@@ -1,5 +1,4 @@
 <?php
-
 /************ USER DEFINEABLE FUNCTIONS ************
 CAREFUL what you do here, but it should be fairly self explanatory, strings are editable if you like Mostly, you'll only want to edit the first grouping of variables immediately following this message.
 ******************/

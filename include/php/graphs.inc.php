@@ -1,5 +1,4 @@
 <?php 
-	
 	$linkbox = 'Click Graphs for larger versions';
 				
 switch ($weatherArray[sidebarLink]) {

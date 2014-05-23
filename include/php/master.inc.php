@@ -1,4 +1,5 @@
 <?php
+	
 	define('CURRENTYEAR', date('Y'));	// Current Year
 	define('CURRENTDAY', date('d'));	// Current Day
 	define('CURRENTHOUR', date('G'));	// Current Hour (24-h format)
