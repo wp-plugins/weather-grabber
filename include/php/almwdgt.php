@@ -17,6 +17,11 @@ $output = $output . '<tr class="tg-even"><td colspan="2" class="tg-center"><span
 
 $output = $output . '<td colspan="2" class="tg-center"><span title="Day Evapo-Transpiration Total" style="' . $weatherArray['ETCSS'] . '">-' . $weatherArray['ET'] . ' ' . $weatherArray['rainUnit'] . '</span> </td></tr>';
 
+$output = $output . '<tr class="tg-even"><td colspan="2" class="tg-center"><span title="Hours of Light Dawn to Dusk"> ' . $weatherArray['dawnToDuskTime'] . ' Hours</span> </td>';
+
+$output = $output . '<td colspan="2" class="tg-center"><span title="Moon Phase">' . $weatherArray['moonPhase'] . '</span> </td></tr>';
+
+
 $output = $output . '<tr class="tg-even"><td colspan="2" class="tg-center"><span title="Moon Phase"> ' . $weatherArray['moonPhase'] . '</span> </td>';
 
 $output = $output . '<td colspan="2" class="tg-center"><span title="Rain Storm Total" style="' . $weatherArray['stormRainCSS'] . '">' . $weatherArray['stormRain'] . ' ' . $weatherArray['rainUnit'] . '</span> </td></tr>';
@@ -30,6 +35,10 @@ $output = $output . '<tr><td colspan="4" class="tg-center"><span title="Day High
 $output = $output . '<tr><td colspan="4" class="tg-center"><span title="Day Low Barometer" style="' . $weatherArray['lowBarometerCSS'] . '">' . $weatherArray['lowBarometer'] . ' ' . $weatherArray['barUnit'] . $weatherArray['lowBarometerTime'] . '</span></td></tr>';
 
 $output = $output . '<tr><td colspan="4" class="tg-center"><span title="Day Low Windchill" style="' . $weatherArray['lowWindchillCSS'] . '">' . $weatherArray['lowWindchill'] . $weatherArray['tempUnit'] . $weatherArray['lowWindchillTime'] . '</span></td></tr>';
+
+$output = $output . '<tr><td colspan="4" class="tg-center"><span title="Day High Heat Index" style="' . $weatherArray['hiHeatindexCSS'] . '">' . $weatherArray['hiHeatindex'] . $weatherArray['tempUnit'] . $weatherArray['hiHeatindexTime'] . '</span></td></tr>';
+
+$output = $output . '<tr><td colspan="4" class="tg-center"><span title="Day High Wind " style="' . $weatherArray['hiWindSpeedCSS'] . '">' . $weatherArray['dayhighwinddir'] . $weatherArray['hiWindSpeed'] . $weatherArray['windUnit'] . $weatherArray['hiWindSpeedTime'] . '</span></td></tr>';
 
 $output = $output . '<tr><td colspan="4" class="tg-center"><span title="Day High Heat Index" style="' . $weatherArray['hiHeatindexCSS'] . '">' . $weatherArray['hiHeatindex'] . $weatherArray['tempUnit'] . $weatherArray['hiHeatindexTime'] . '</span></td></tr>';
 

@@ -62,7 +62,7 @@ class wxGrabber_main_values_widget extends WP_Widget {
 
 static function install() {
 
-	$defaultoptions = Array('webTime'=>'America/New_York','paramFile'=>'phpparameterlist.htm','weatherTime'=>'America/New_York','wviewdbtoggle'=>'no','wviewsensors'=>'0','currentSys'=>'1','timedelay'=>'0','mysqltable'=>'archive','mysqlpass'=>'passwordhere','mysqluser'=>'username','mysqldbname'=>'yourdatabasename','mysqlhost'=>'localhost');
+	$defaultoptions = Array('webTime'=>'America/New_York','paramFile'=>'phpparameterlist.htm','wxgrabberforecastFile'=>'NA', 'weatherTime'=>'America/New_York','wviewdbtoggle'=>'no','wviewsensors'=>'0','currentSys'=>'1','timedelay'=>'0','mysqltable'=>'archive','mysqlpass'=>'passwordhere','mysqluser'=>'username','mysqldbname'=>'yourdatabasename','mysqlhost'=>'localhost');
     update_option('wxgrabber_options',$defaultoptions);
     
      }

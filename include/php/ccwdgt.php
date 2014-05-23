@@ -7,7 +7,7 @@ $output = '';
 
 $output = $output . '<table id="cctable" class="frontwdgttable" >
 <tr ><th colspan="4" class="tg-center">Current Conditions</th></tr>
-<tr><td colspan="2" class="tg-center"><span title="Temperature" style="' . $weatherArray['outsideTempCSS'] . '">' . $weatherArray['outsideTemp'] . $weatherArray['tempUnit'] . '<br /> Hour Change: ' . $weatherArray[hourchangetemp] . '  ' . $weatherArray['tempUnit'] . '</span> </td>';
+<tr><td colspan="2" class="tg-center"><span title="Temperature" style="' . $weatherArray['outsideTempCSS'] . '">' . $weatherArray['outsideTemp'] . $weatherArray['tempUnit'] . '<br /> Hour Change: ' . $weatherArray['hourchangetemp'] . '  ' . $weatherArray['tempUnit'] . '</span> </td>';
 
 $output = $output . '<td colspan="2" class="tg-center"><span title="Barometer" style="' . $weatherArray['barometerCSS'] . '"> ' . $weatherArray['barometer'] . ' ' . $weatherArray['barUnit'] . $weatherArray['baromtrend'] . '</span> </td>
   </tr>';

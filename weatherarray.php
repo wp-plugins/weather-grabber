@@ -19,14 +19,18 @@ $wviewparamslist = $options['paramFile']; 	//PHP Parameter File Name from WP Opt
 $wviewparamslistPost = 'Post'.$wviewparamslist;	//Location of PHP Parameter File from WP Options
 $wviewparamslist = (ABSPATH . $wviewparamslist);
 $wviewparamslistPost = (ABSPATH . $wviewparamslistPost);
-$wviewparamslistEC = $options['wxgrabberforecastFile']; 	//PHP Forecast File Name if Used
-$wviewparamslistEC = (ABSPATH . $wviewparamslistEC);
-
+if ($options['wxgrabberforecastFile'] != '') {
+$wviewparamslistEConly = $options['wxgrabberforecastFile']; 	//PHP Forecast File Name if Used
+$wviewparamslistEC = (ABSPATH . $wviewparamslistEConly);
+}
+else {
+$wviewparamslistEC = "NA";
+}
 $webServerTime = $options['webTime']; //Web Server Timezone from WP Options
 $timeOffsetSymbol = $options['weatherTime']; //Wview Weather Station Timezone from WP Options
 
 //Now Database Options (Which are optional so may or may not have anything to use.
-$wviewdbtoggle = $options['wviewdbtoggle']; // Is the DB Being used or not.
+$wviewdbtoggle = $options['wviewdbtoggle']; // 
 $weatherArray['wviewdbtoggle'] = $wviewdbtoggle;
 $userdbTableName = $options['mysqltable']; //Wview mySQL Table Name
 $weatherArray['dbtableName'] = $userdbTableName; //This sets the name of the database table you are using
@@ -107,6 +111,8 @@ $weatherArray['delayed'] = FALSE;
 
 /*** Grabbing 5 Minute Data from Environment Canada Port File ****/
 
+if ( $wviewparamslistEConly != "" && $wviewparamslistEConly != "NA" && !file_exists($wviewparamslistEC) ) {
+
 $weatherdatalistEC = fopen($wviewparamslistEC, "r");
 $weatherdatainitialEC = fgetcsv($weatherdatalistEC, 100000, ";");
 $i = 0;
@@ -127,7 +133,7 @@ foreach($weatherdatainitialEC as $val) {
 	}
 $i++;
 }
-
+}
 
 
 // NOW THAT WE HAVE DATA WE CAN START DOING STUFF.  LETS GET ALL THE FILES
@@ -176,11 +182,10 @@ $weatherArray['almanacPeriod'] = $weatherArray['weatherperiod'];
 
 date_default_timezone_set($timeOffsetSymbol);
 
-$weatherArray['db'] = new wxg_mysqli($mysqlhost, $mysqluser, $mysqlpass, $mysqldbname);
 
 if ($weatherArray['sensors'] == 0){ //Checking for Standard (0) vs. Extended (1) sensors/mode...
 	if ($wviewdbtoggle == 1) { // DATABASE OPTION IS CHECKED?
-	
+	$weatherArray['db'] = new wxg_mysqli($mysqlhost, $mysqluser, $mysqlpass, $mysqldbname);	
 	$weatherArray = dbstandardrun($weatherArray); //LOTS TO DO dbrun.inc.php
 	$weatherArray['db']->close();
 	
@@ -189,6 +194,7 @@ if ($weatherArray['sensors'] == 0){ //Checking for Standard (0) vs. Extended (1)
 
 else { 
 		if ($wviewdbtoggle == 1) { 
+		$weatherArray['db'] = new wxg_mysqli($mysqlhost, $mysqluser, $mysqlpass, $mysqldbname);
 		$weatherArray = dbextendedrun($weatherArray); //LOTS TO DO HERE in dbrun.inc.php
 		$weatherArray['db']->close();
 		}
