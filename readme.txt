@@ -4,7 +4,7 @@ Donate link: http://www.alberniweather.ca/
 Tags: weather, live
 Requires at least: 3.0.1
 Tested up to: 3.9.1
-Stable Tag: 0.8.10
+Stable Tag: 0.8.11
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 

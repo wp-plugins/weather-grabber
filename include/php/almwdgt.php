@@ -15,16 +15,27 @@ $output = $output . '<td colspan="2" class="tg-center"><span title="Day Rain Tot
 
 $output = $output . '<tr class="tg-even"><td colspan="2" class="tg-center"><span title="Civil Set"> ' . $weatherArray['civilsetTime'] . '</span> </td>';
 
-$output = $output . '<td colspan="2" class="tg-center"><span title="Day Evapo-Transpiration Total" style="' . $weatherArray['ETCSS'] . '">-' . $weatherArray['ET'] . ' ' . $weatherArray['rainUnit'] . '</span> </td></tr>';
+$output = $output . '<td colspan="2" class="tg-center"><span title="Hours of Light Dawn to Dusk"> ' . $weatherArray['dawnToDuskTime'] . ' Hours</span> </td></tr>';
 
-$output = $output . '<tr class="tg-even"><td colspan="2" class="tg-center"><span title="Hours of Light Dawn to Dusk"> ' . $weatherArray['dawnToDuskTime'] . ' Hours</span> </td>';
+if ($weatherArray['wviewdbtoggle'] == 1) {
 
-$output = $output . '<td colspan="2" class="tg-center"><span title="Moon Phase">' . $weatherArray['moonPhase'] . '</span> </td></tr>';
+$output = $output . '<tr><td colspan="2" class="tg-center"><span title="24 hour Rain Amount" style="' . $weatherArray['RainPeriodSumCSS'] . '">' . $weatherArray['SQLData']['RainPeriodSum'] . $weatherArray['rainUnit'] . '</span></td>';
+
+$output = $output . '<td colspan="2" class="tg-center"><span title="Day Evapo-Transpiration Total" style="' . $weatherArray['dailyETCSS'] . '"> -' . $weatherArray['dailyET'] . ' ' . $weatherArray['rainUnit'] . '</span> </td></tr>';
 
 
-$output = $output . '<tr class="tg-even"><td colspan="2" class="tg-center"><span title="Moon Phase"> ' . $weatherArray['moonPhase'] . '</span> </td>';
+}	
+
+
+$output = $output . '<tr><td colspan="2" class="tg-center"><span title="Moon Phase">' . $weatherArray['moonPhase'] . '</span> </td>';
 
 $output = $output . '<td colspan="2" class="tg-center"><span title="Rain Storm Total" style="' . $weatherArray['stormRainCSS'] . '">' . $weatherArray['stormRain'] . ' ' . $weatherArray['rainUnit'] . '</span> </td></tr>';
+
+
+
+
+
+
 
 $output = $output . '<tr><td colspan="4" class="tg-center"><span title="Day High Temp" style="' . $weatherArray['hiOutsideTempCSS'] . '">' . $weatherArray['hiOutsideTemp'] . $weatherArray['tempUnit'] . $weatherArray['hiOutsideTempTime'] . '</span></td></tr>';
 
@@ -40,7 +51,12 @@ $output = $output . '<tr><td colspan="4" class="tg-center"><span title="Day High
 
 $output = $output . '<tr><td colspan="4" class="tg-center"><span title="Day High Wind " style="' . $weatherArray['hiWindSpeedCSS'] . '">' . $weatherArray['dayhighwinddir'] . $weatherArray['hiWindSpeed'] . $weatherArray['windUnit'] . $weatherArray['hiWindSpeedTime'] . '</span></td></tr>';
 
-$output = $output . '<tr><td colspan="4" class="tg-center"><span title="Day High Heat Index" style="' . $weatherArray['hiHeatindexCSS'] . '">' . $weatherArray['hiHeatindex'] . $weatherArray['tempUnit'] . $weatherArray['hiHeatindexTime'] . '</span></td></tr>';
+$output = $output . '<tr><td colspan="4" class="tg-center"><span title="Day High Solar Radiation" style="' . $weatherArray['hiRadiationCSS'] . '">' . $weatherArray['hiRadiation'] . $weatherArray['solarUnit'] . $weatherArray['hiRadiationTime'] . '</span></td></tr>';
+
+$output = $output . '<tr><td colspan="4" class="tg-center"><span title="Day High Rain Rate" style="' . $weatherArray['hiRainRateCSS'] . '">' . $weatherArray['hiRainRate'] . $weatherArray['rateUnit'] . $weatherArray['hiRainRateTime'] . '</span></td></tr>';
+
+$output = $output . '<tr><td colspan="4" class="tg-center"><span title="Day High UV Index" style="' . $weatherArray['hiUVCSS'] . '">' . $weatherArray['hiUV'] . $weatherArray['hiUVTime'] . '</span></td></tr>';
+
 
 
 $output = $output . '<tr>
