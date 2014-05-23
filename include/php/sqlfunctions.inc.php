@@ -1,5 +1,4 @@
 <?php
-
 function dayRain($weatherArray){
 	
 putenv("TZ=".$weatherArray['timeOffsetSymbol']."");

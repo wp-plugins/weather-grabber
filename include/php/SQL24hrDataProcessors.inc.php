@@ -1,4 +1,5 @@
 <?php
+
 function sql24hrProcessors($weatherArray) {
 $i = 0;
 $weatherArray['dailyRain'] = 0; //first reset the daily rain value

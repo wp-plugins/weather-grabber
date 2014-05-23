@@ -1,4 +1,5 @@
 <?php
+
 /**************
 This file includes all data processing applications for the WVIEW template.
 This file is loaded automatically by Wordpress

@@ -1,4 +1,6 @@
-<?php get_header(); 
+<?php 
+get_header(); 
+
 //THESE FIRST TWO LINES ARE THE "MEAT" OF THE SYSTEM AND RUN THE BACKEND DATA CRUNCHING.  YOU SOULD HAVE THESE TWO LINES IN ANY PAGE YOU WANT WEATHER DATA FROM EITHER WVIEW DIRECTLY OR MYSQL
 	$weatherperiod = 0;
 	$weatherArray = unitConverter($weatherperiod);

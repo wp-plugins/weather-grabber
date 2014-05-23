@@ -1,51 +1,44 @@
 <?php 
-
-
 function outputCurrentDisplay ($widgetArray,$weatherArray) {
 
 
 $output = '';
-/*
-$output = '<style type="text/css">
-.tg-table-light { border-collapse: collapse; border-spacing: 0; }
-.tg-table-light td, .tg-table-light th { background-color: #fff; border: 1px #bbb solid; color: #333; font-family: sans-serif; font-size: 100%; padding: 10px; vertical-align: top; }
-.tg-table-light .tg-even td  { background-color: #eee; }
-.tg-table-light th  { background-color: #ddd; color: #333; font-size: 110%; font-weight: bold; }
-.tg-table-light tr:hover td, .tg-table-light tr.even:hover td  { color: #222; background-color: #FCFBE3; }
-.tg-bf { font-weight: bold; } .tg-it { font-style: italic; }
-.tg-left { text-align: left; } .tg-right { text-align: right; } .tg-center { text-align: center; }
-</style>';*/
 
-$output = $output . '<table class="tg-table-light"><tr ><th colspan="4" class="tg-center">Current Conditions</th></tr><tr><td class="tg-right">Temp:</td><td class="tg-left"><span style="' . $weatherArray['outsideTempCSS'] . '">' . $weatherArray['outsideTemp'] . $weatherArray['tempUnit'] . $weatherArray['TempTrend5min'] . '</span> </td>';
 
-$output = $output . '<td class="tg-right">Barom:</td><td class="tg-left"><span style=""> ' . $weatherArray['barometer'] . $weatherArray['barUnit'] . $weatherArray['baromtrend'] . '</span> </td>
+$output = $output . '<table id="cctable" class="frontwdgttable" >
+<tr ><th colspan="4" class="tg-center">Current Conditions</th></tr>
+<tr><td colspan="2" class="tg-center"><span title="Temperature" style="' . $weatherArray['outsideTempCSS'] . '">' . $weatherArray['outsideTemp'] . $weatherArray['tempUnit'] . '<br /> Hour Change: ' . $weatherArray['hourchangetemp'] . '  ' . $weatherArray['tempUnit'] . '</span> </td>';
+
+$output = $output . '<td colspan="2" class="tg-center"><span title="Barometer" style="' . $weatherArray['barometerCSS'] . '"> ' . $weatherArray['barometer'] . ' ' . $weatherArray['barUnit'] . $weatherArray['baromtrend'] . '</span> </td>
   </tr>';
- $output = $output . '<tr class="tg-even"><td class="tg-right">Hum:</td><td class="tg-left"><span>' . $weatherArray['outsideHumidity'] . $weatherArray['humUnit'] . '</span></td>';
 
-$output = $output . '<td class="tg-right">Dewpt:</td><td class="tg-left"><span style="' . $weatherArray['outsideDewPtCSS'] . '"> ' . $weatherArray['outsideDewPt'] . $weatherArray['tempUnit'] . '</span> </td></tr>';
 
-$output = $output . '<tr><td colspan="4" class="tg-center">Wind</td></tr>';
+/*$output = $output . '<tr><td colspan="4" class="tg-center">Wind</td></tr>';*/
 
-$output = $output . '<tr class="tg-even"><td colspan="4" class="tg-center" ><span>' . $weatherArray['windDirection'] . ' ' .  $weatherArray['windSpeed'] . ' ' . $weatherArray['windUnit'] . ' gusting to ' . $weatherArray['windGustSpeed'] . ' ' . $weatherArray['windUnit'] . '</span></td></tr>';
+$output = $output . '<tr class="tg-even"><td colspan="4" class="tg-center" ><span title="Wind" style="' . $weatherArray['windSpeedCSS'] . '">' . $weatherArray['windDirection'] . ' ' .  $weatherArray['windSpeed'] . ' ' . $weatherArray['windUnit'] . ' <br />gusting to ' . $weatherArray['windGustSpeed'] . ' ' . $weatherArray['windUnit'] . '</span></td></tr>';
+
+$output = $output . '<tr class="tg-even"><td colspan="2" class="tg-center"><span title="Humidity">' . $weatherArray['outsideHumidity'] . ' ' . $weatherArray['humUnit'] . '</span></td>';
+
+$output = $output . '<td colspan="2" class="tg-center"><span title="Rain" style="' . $weatherArray['rainRateCSS'] . '"> ' . $weatherArray['rainRate'] . ' ' . $weatherArray['rateUnit'] . '</span></td></tr>';
 
 if (($weatherArray['windChill'] == 'N/A') || ($weatherArray['outsideTemp'] == $weatherArray['outsideHeatIndex']))
 {
-$output = $output . '<tr><td class="tg-right">Feels like:</td><td class="tg-left"><span>' . $weatherArray['windChill'] . '</span></td>';
+$output = $output . '<tr><td colspan="2" class="tg-center"><span title="Feels Like">' . $weatherArray['windChill'] . '</span></td>';
 }
 elseif ($weatherArray['windChill'] != 'N/A')
 {
-$output = $output . '<tr><td class="tg-right">Feels:</td><td class="tg-left"><span>' . $weatherArray['windChill'] . $weatherArray['tempUnit'] . '</span></td>';
+$output = $output . '<tr><td colspan="2" class="tg-center"><span title="Feels Like" style="' . $weatherArray['chillCSS'] . '">' . $weatherArray['windChill'] . $weatherArray['tempUnit'] . '</span></td>';
 }
 else
 {
-$output = $output . '<tr><td class="tg-right">Feels:</td><td class="tg-left"><span>' . $weatherArray['outsideHeatIndex'] . $weatherArray['tempUnit'] . '</span></td>';
+$output = $output . '<tr><td colspan="2" class="tg-center"><span title="Feels Like" style="' . $weatherArray['heatIndexCSS'] . '">' . $weatherArray['outsideHeatIndex'] . $weatherArray['tempUnit'] . '</span></td>';
 }
 
-$output = $output . '<td class="tg-right">Rain:</td><td class="tg-left"><span style=""> ' . $weatherArray['dailyRain'] . $weatherArray['rainUnit'] . '</span></td></tr>';
+$output = $output . '<td colspan="2" class="tg-center"><span title="Dewpoint" style="' . $weatherArray['outsideDewPtCSS'] . '"> ' . $weatherArray['outsideDewPt'] . $weatherArray['tempUnit'] . '</span> </td></tr>';
 
-$output = $output . '<tr class="tg-even"><td class="tg-right">UV:</td><td class="tg-left"><span style=""> ' . $weatherArray['UV'] . '</span></td>';
+$output = $output . '<tr class="tg-even"><td colspan="2" class="tg-center"><span title="UV Index" style="' . $weatherArray['UVCSS'] . '">UV ' . $weatherArray['UV'] . '</span></td>';
 
-$output = $output . '<td class="tg-right">Solar:</td><td class="tg-left"><span style=""> ' . $weatherArray['solarRad'] . $weatherArray['solarUnit'] . '</span></td></tr>';
+$output = $output . '<td colspan="2" class="tg-center"><span title="Solar Radiation" style="' . $weatherArray['solarRadCSS'] . '"> ' . $weatherArray['solarRad'] . ' ' . $weatherArray['solarUnit'] . '</span></td></tr>';
 
 $output = $output . '<tr>
     <td colspan="4" class="tg-center"> Last Updated: ' . $weatherArray['stationTime'] . '</td></tr></table>';
