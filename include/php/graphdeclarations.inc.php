@@ -1,5 +1,4 @@
 <?php
-
 function Rain24hr($weatherArray){
 $graphnamewext = 'images/csimcache/dayrainphp.png';
 $graphname = 'images/csimcache/dayrainphp';

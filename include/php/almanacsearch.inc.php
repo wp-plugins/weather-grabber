@@ -1,5 +1,6 @@
 <div id="bottombox" style="width:790px; margin-left:155px;">
 
+	
 	<?php include("searchform.inc.php"); ?>
 	
 	

@@ -1,75 +1,88 @@
 <?php 
-/********************************************************
- Admin Screen Form Function
-********************************************************/
 
-function selectorFunction1 ($widgetArray,$weatherArray) {
-	$output = '';
-	// Output our first set of Weather Values
-	// First the Text if they'd like something describing the value
-	
-	if ($widgetArray['selectorText1'] != '') {
-	$output = '<td style="border:1px dotted black; border-right:none;"><strong style="color:'. $widgetArray['selectorTextCSS1'] .';">' . $widgetArray['selectorText1'] . '</strong></td>';
-	$border1 = 'border-left:none;';
-	}
-	else {
-	$border1 = '';
-	}
-	
-	//Now the Value itself in the first table row
-	if ($widgetArray['selectorFirstValue1'] != 'none' && $widgetArray['selectorFirstValue1'] != '' ) {
-	$output = $output . '<td style="border:1px dotted black; '. $border1 . 'padding: 1px; padding-left: 3px;">'.$weatherArray[$widgetArray['selectorFirstValue1']].'';
-	}
-	//Now the Unit if desired
-	if ($widgetArray['selectorSecondValue1'] != 'none' && $widgetArray['selectorSecondValue1'] != '') {
-	$output = $output . $weatherArray[$widgetArray['selectorSecondValue1']].'';
-	}
-	//Now the Extra if desired
-	if ($widgetArray['selectorThirdValue1'] != 'none' && $widgetArray['selectorThirdValue1'] != '') {
-	$output = $output . $weatherArray[$widgetArray['selectorThirdValue1']].'</td>';
-	}
-	
-	if ($widgetArray['selectorText2'] != '') {
-	$output = $output . '<td style="margin-left:5px;border-top:1px dotted black;border-bottom:1px dotted black;"><strong style="color:'. $widgetArray['selectorTextCSS2'] .';">' . $widgetArray['selectorText2'] . '</strong></td>';
-	$border2 = 'border-left:none;';
-	}
-	else {
-	$border2 = '';
-	}
-	
-	//Now the Value itself in the first table row
-	if ($widgetArray['selectorFirstValue2'] != 'none' && $widgetArray['selectorFirstValue2'] != '') {
-	$output = $output . '<td style="border:1px dotted black; '. $border2 . 'padding: 1px; padding-left: 3px;">'.$weatherArray[$widgetArray['selectorFirstValue2']].'';
-	}
-	//Now the Unit if desired
-	if ($widgetArray['selectorSecondValue2'] != 'none' && $widgetArray['selectorSecondValue2'] != '' ) {
-	$output = $output . $weatherArray[$widgetArray['selectorSecondValue2']].'';
-	}
-	//Now the Extra if desired
-	if ($widgetArray['selectorThirdValue2'] != 'none' && $widgetArray['selectorThirdValue2'] != '') {
-	$output = $output . $weatherArray[$widgetArray['selectorThirdValue2']].'</td>';
-	}
+function outputAlmDisplay ($widgetArray,$weatherArray) {
+
+
+$output = '';
+
+
+$output = $output . '<table id="almtable" class="frontwdgttable" >
+<tr ><th colspan="4" class="tg-center">Day Almanac</th></tr>';
+$output = $output . '<tr><td colspan="2" class="tg-center"><span title="Civil Rise"> ' . $weatherArray['civilriseTime'] . '</span> </td>';
+
+$output = $output . '<td colspan="2" class="tg-center"><span title="Day Rain Total" style="' . $weatherArray['dailyRainCSS'] . '">' . $weatherArray['dailyRain'] . ' ' . $weatherArray['rainUnit'] . '</span> </td>
+  </tr>';
+
+$output = $output . '<tr class="tg-even"><td colspan="2" class="tg-center"><span title="Civil Set"> ' . $weatherArray['civilsetTime'] . '</span> </td>';
+
+$output = $output . '<td colspan="2" class="tg-center"><span title="Hours of Light Dawn to Dusk"> ' . $weatherArray['dawnToDuskTime'] . ' Hours</span> </td></tr>';
+
+if ($weatherArray['wviewdbtoggle'] == 1) {
+
+$output = $output . '<tr><td colspan="2" class="tg-center"><span title="24 hour Rain Amount" style="' . $weatherArray['RainPeriodSumCSS'] . '">' . $weatherArray['SQLData']['RainPeriodSum'] . $weatherArray['rainUnit'] . '</span></td>';
+
+$output = $output . '<td colspan="2" class="tg-center"><span title="Day Evapo-Transpiration Total" style="' . $weatherArray['dailyETCSS'] . '"> -' . $weatherArray['dailyET'] . ' ' . $weatherArray['rainUnit'] . '</span> </td></tr>';
+
+
+}	
+
+
+$output = $output . '<tr><td colspan="2" class="tg-center"><span title="Moon Phase">' . $weatherArray['moonPhase'] . '</span> </td>';
+
+$output = $output . '<td colspan="2" class="tg-center"><span title="Rain Storm Total" style="' . $weatherArray['stormRainCSS'] . '">' . $weatherArray['stormRain'] . ' ' . $weatherArray['rainUnit'] . '</span> </td></tr>';
+
+
+
+
+
+
+
+$output = $output . '<tr><td colspan="4" class="tg-center"><span title="Day High Temp" style="' . $weatherArray['hiOutsideTempCSS'] . '">' . $weatherArray['hiOutsideTemp'] . $weatherArray['tempUnit'] . $weatherArray['hiOutsideTempTime'] . '</span></td></tr>';
+
+$output = $output . '<tr><td colspan="4" class="tg-center"><span title="Day Low Temp" style="' . $weatherArray['lowOutsideTempCSS'] . '">' . $weatherArray['lowOutsideTemp'] . $weatherArray['tempUnit'] . $weatherArray['lowOutsideTempTime'] . '</span></td></tr>';
+
+$output = $output . '<tr><td colspan="4" class="tg-center"><span title="Day High Barometer" style="' . $weatherArray['hiBarometerCSS'] . '">' . ' ' . $weatherArray['hiBarometer'] . ' ' . $weatherArray['barUnit'] . $weatherArray['hiBarometerTime'] . '</span></td></tr>';
+
+$output = $output . '<tr><td colspan="4" class="tg-center"><span title="Day Low Barometer" style="' . $weatherArray['lowBarometerCSS'] . '">' . $weatherArray['lowBarometer'] . ' ' . $weatherArray['barUnit'] . $weatherArray['lowBarometerTime'] . '</span></td></tr>';
+
+$output = $output . '<tr><td colspan="4" class="tg-center"><span title="Day Low Windchill" style="' . $weatherArray['lowWindchillCSS'] . '">' . $weatherArray['lowWindchill'] . $weatherArray['tempUnit'] . $weatherArray['lowWindchillTime'] . '</span></td></tr>';
+
+$output = $output . '<tr><td colspan="4" class="tg-center"><span title="Day High Heat Index" style="' . $weatherArray['hiHeatindexCSS'] . '">' . $weatherArray['hiHeatindex'] . $weatherArray['tempUnit'] . $weatherArray['hiHeatindexTime'] . '</span></td></tr>';
+
+$output = $output . '<tr><td colspan="4" class="tg-center"><span title="Day High Wind " style="' . $weatherArray['hiWindSpeedCSS'] . '">' . $weatherArray['dayhighwinddir'] . $weatherArray['hiWindSpeed'] . $weatherArray['windUnit'] . $weatherArray['hiWindSpeedTime'] . '</span></td></tr>';
+
+$output = $output . '<tr><td colspan="4" class="tg-center"><span title="Day High Solar Radiation" style="' . $weatherArray['hiRadiationCSS'] . '">' . $weatherArray['hiRadiation'] . $weatherArray['solarUnit'] . $weatherArray['hiRadiationTime'] . '</span></td></tr>';
+
+$output = $output . '<tr><td colspan="4" class="tg-center"><span title="Day High Rain Rate" style="' . $weatherArray['hiRainRateCSS'] . '">' . $weatherArray['hiRainRate'] . $weatherArray['rateUnit'] . $weatherArray['hiRainRateTime'] . '</span></td></tr>';
+
+$output = $output . '<tr><td colspan="4" class="tg-center"><span title="Day High UV Index" style="' . $weatherArray['hiUVCSS'] . '">' . $weatherArray['hiUV'] . $weatherArray['hiUVTime'] . '</span></td></tr>';
+
+
+
+$output = $output . '<tr>
+    <td colspan="4" class="tg-center"> </td></tr></table>';
+
+
 
 	return $output;
 	}//END selectorFunction1
 	
+	/* Now here is the main function that brings everything together from the Admin form and runs it all. */
 	
-/********************************************************
- Widget Class Declaration and Member Functions
-********************************************************/
+	class wxGrabber_almanac_widget extends WP_Widget {
+
 	
-class wxGrabber_main_values_widget extends WP_Widget {
 
 static function install() {
 
-	$defaultoptions = Array('webTime'=>'America/New_York','paramFile'=>'phpparameterlist.htm','wxgrabberforecastFile'=>'NA', 'weatherTime'=>'America/New_York','wviewdbtoggle'=>'no','wviewsensors'=>'0','currentSys'=>'1','timedelay'=>'0','mysqltable'=>'archive','mysqlpass'=>'passwordhere','mysqluser'=>'username','mysqldbname'=>'yourdatabasename','mysqlhost'=>'localhost');
+	$defaultoptions = Array('webTime'=>'America/New_York','paramFile'=>'phpparameterlist.htm','weatherTime'=>'America/New_York','wviewdbtoggle'=>'no','wviewsensors'=>'0','currentSys'=>'1','timedelay'=>'0','mysqltable'=>'archive','mysqlpass'=>'passwordhere','mysqluser'=>'username','mysqldbname'=>'yourdatabasename','mysqlhost'=>'localhost');
     update_option('wxgrabber_options',$defaultoptions);
     
      }
 /*constructor - This creates the widget.  You can create as many of these as you want by copying the function and changing the name to suit the new widget you create. */
 
-public function wxGrabber_main_values_widget() {
-parent::WP_Widget(false, $name = 'WXGB - Custom Weather Values');
+public function wxGrabber_almanac_widget() {
+parent::WP_Widget(false, $name = 'WXGB - Almanac Front Page');
 // Load jQuery
 wp_enqueue_script('jquery');
 }
@@ -143,7 +156,7 @@ $widgetArray = Array('selectorText1'=>$selectorText1,'selectorTextCSS1'=>$select
     
     
     echo '<span id="' . $widgetIDUpdater . '">';
-	if ($useAjax == 1) { 	
+	if ($useAjax == 22222221) { 	
 	
     ?>
     
@@ -180,7 +193,9 @@ SANAjax = function() {
 
 // Otherwise AJAX is not on and we output HTML method
 } else {
-echo mainwxgbfunc($widgetArray);
+$weatherArray = weathersetup($widgetArray['weatherperiod']);
+$output = outputAlmDisplay($widgetArray,$weatherArray);
+echo $output;
 }    
         
 //Now we close the container for the live stuff
@@ -227,7 +242,9 @@ function update($new_instance, $old_instance) {
 
 
  /** @see WP_Widget::form */
+ 
 function form($instance) {	
+
 $title = isset( $instance['title'] ) ? esc_attr( $instance['title'] ) : '';
 $text = isset( $instance['text'] ) ? esc_attr( $instance['text'] ) : '';
 $checkbox = isset( $instance['checkbox'] ) ? esc_attr( $instance['checkbox'] ) : '';
@@ -258,15 +275,23 @@ ksort($weatherArray); //Sort the Array Alphabetically
 
 
 ?>
-<div style="border: 1px solid black; background-color: white; padding: 5px 7px 5px 10%;">
+
+
+
+
+
+
+
+
+<div style=" background-color: white; padding: 5px 7px 5px 10%;">
     <?php
-    $output = selectorFunction1($widgetArray,$weatherArray);
+    $output = outputAlmDisplay($widgetArray,$weatherArray);
     echo $output;
     ?>
     </div>
 
 
-
+<!--
 
 <ul>
 <li>
@@ -277,6 +302,8 @@ ksort($weatherArray); //Sort the Array Alphabetically
 
 <li>Show Update Status: <input id="<?php echo $this->get_field_id('showUpdates'); ?>" name="<?php echo $this->get_field_name('showUpdates'); ?>" type="checkbox" value="1" <?php checked( '1', $showUpdates ); ?></li>
 </ul>
+
+-->
 <!--	<p>
       	<input id="<?php echo $this->get_field_id('showUpdates'); ?>" name="<?php echo $this->get_field_name('showUpdates'); ?>" type="checkbox" value="1" <?php checked( '1', $showUpdates ); ?>
     	<label for="<?php echo $this->get_field_id('showUpdates'); ?>"><?php _e('This is a checkbox'); ?></label>
@@ -288,6 +315,7 @@ ksort($weatherArray); //Sort the Array Alphabetically
     </p>
 -->
 
+<!--
 	<p>
 	<label for="<?php echo $this->get_field_id('weatherperiod'); ?>"><?php _e('Data Period'); ?></label>
 		<select name="<?php echo $this->get_field_name('weatherperiod'); ?>" id="<?php echo $this->get_field_id('weatherperiod'); ?>">
@@ -404,9 +432,9 @@ ksort($weatherArray); //Sort the Array Alphabetically
 		
 	
 	</p>
-	
+-->	
     <?php
 }
 
-} //END OF WIDGET CLASS
+} //END OF THE MAIN  WIDGET CLASS
 ?>

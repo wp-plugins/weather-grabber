@@ -2,6 +2,7 @@
 
 
 //$weatherArray[sidebarLink] = $_GET['sidebarLink'];
+
 if (isset($_GET['almanacPeriod'])) {
 $weatherArray['almanacPeriod'] = $_GET['almanacPeriod'];
 }

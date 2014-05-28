@@ -1,6 +1,5 @@
 <?php 
-
-	$box4 = '<h5 style="font-style:italic;">Click Images for Larger Versions</h5>';
+$box4 = '<h5 style="font-style:italic;">Click Images for Larger Versions</h5>';
 				
 switch ($weatherArray[sidebarLink]) {
 

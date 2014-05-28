@@ -1,4 +1,5 @@
 <h5 class="headingindex"><br/>
+
 Latest Observations Received from Port Alberni, BC on <br/>
 <?php 
 // THIS GRABS THE LATEST TIME IN THE DATABASE SET... $LATESTENTRY IS IN SQLVARS.PHP
