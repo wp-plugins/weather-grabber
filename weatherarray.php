@@ -19,12 +19,14 @@ $wviewparamslist = $options['paramFile']; 	//PHP Parameter File Name from WP Opt
 $wviewparamslistPost = 'Post'.$wviewparamslist;	//Location of PHP Parameter File from WP Options
 $wviewparamslist = (ABSPATH . $wviewparamslist);
 $wviewparamslistPost = (ABSPATH . $wviewparamslistPost);
+
 if ($options['wxgrabberforecastFile'] != '') {
 $wviewparamslistEConly = $options['wxgrabberforecastFile']; 	//PHP Forecast File Name if Used
 $wviewparamslistEC = (ABSPATH . $wviewparamslistEConly);
+	
 }
 else {
-$wviewparamslistEC = "NA";
+$wviewparamslistEConly = "NA";
 }
 $webServerTime = $options['webTime']; //Web Server Timezone from WP Options
 $timeOffsetSymbol = $options['weatherTime']; //Wview Weather Station Timezone from WP Options
@@ -111,7 +113,7 @@ $weatherArray['delayed'] = FALSE;
 
 /*** Grabbing 5 Minute Data from Environment Canada Port File ****/
 
-if ( $wviewparamslistEConly != "" && $wviewparamslistEConly != "NA" && !file_exists($wviewparamslistEC) ) {
+if ( $wviewparamslistEConly != "NA" && file_exists($wviewparamslistEC) ) {
 
 $weatherdatalistEC = fopen($wviewparamslistEC, "r");
 $weatherdatainitialEC = fgetcsv($weatherdatalistEC, 100000, ";");
@@ -133,6 +135,9 @@ foreach($weatherdatainitialEC as $val) {
 	}
 $i++;
 }
+}
+else {
+
 }
 
 
