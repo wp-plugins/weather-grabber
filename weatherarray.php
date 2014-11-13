@@ -195,6 +195,9 @@ if ($weatherArray['sensors'] == 0){ //Checking for Standard (0) vs. Extended (1)
 	$weatherArray['db']->close();
 	
 	}//END DATABASE CHECK
+	else {
+	$weatherArray = findtrend($weatherArray); 
+	}
 }// END SENSORS 0 IF
 
 else { 
