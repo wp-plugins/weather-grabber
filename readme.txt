@@ -3,8 +3,8 @@ Contributors: chrisale2
 Donate link: http://www.alberniweather.ca/
 Tags: weather, live
 Requires at least: 3.0.1
-Tested up to: 3.9.1
-Stable Tag: 0.8.12
+Tested up to: 4.0
+Stable Tag: 0.9.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,6 +44,10 @@ Please send questions!
 
 
 == Changelog ==
+= 0.9.5 =
+* Continued improving Conditions and Almanac Widgets
+* Returned to Background-Color for warning labels for legibility
+* More Bug Fixes
 
 = 0.8.9 =
 * Added Current Conditions and Almanac Widgets

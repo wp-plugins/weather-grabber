@@ -62,15 +62,11 @@ foreach($weatherdatainitial as $val) {
 	
 	if($i % 2) {
 $weatherArray[$previousval] = $val;
-//echo $previousval;
-//echo $weatherArray[$previousval];
-		//echo $val;
-		//echo ';';
+
 		}
 	else {
 	$previousval = $val;
-	//echo $val;
-	//echo'->';
+	
 	}
 $i++;
 }
@@ -124,14 +120,12 @@ foreach($weatherdatainitialEC as $val) {
 	
 	if($i % 2) {
 		$weatherArray[$previousval] = $val;
-		//echo $val;
-		//echo ';';
+		
 		//Observed at: Port Alberni 08:00 AM PST Thursday 20 December 2012 -0.199.9rising99-5-0.3NE21
 		}
 	else {
 	$previousval = $val;
-	//echo $val;
-	//echo'->';
+	
 	}
 $i++;
 }
@@ -195,6 +189,9 @@ if ($weatherArray['sensors'] == 0){ //Checking for Standard (0) vs. Extended (1)
 	$weatherArray['db']->close();
 	
 	}//END DATABASE CHECK
+	else {
+	$weatherArray = findtrend($weatherArray); 
+	}
 }// END SENSORS 0 IF
 
 else { 
@@ -241,6 +238,7 @@ else {
 			//Calculate Freezing Level first before any temp conversions
 			$weatherArray = calculateFreezingLevel($weatherArray);
 			
+			
 			$weatherArray = setcssalert($weatherArray);
 			
 		
@@ -267,7 +265,6 @@ else {
 			
 		case '2': //Defining US Imperial System Units
 
-			$weatherArray = setcssalert($weatherArray);
 			
 			$weatherArray['tempUnit'] = $weatherArray['Units']['TempUnits'][1];
 			$weatherArray['humUnit'] = $weatherArray['Units']['HumidUnits'][0];
