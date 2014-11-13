@@ -27,7 +27,7 @@ First we need to define Units we want to be able to use.. each type of unit is i
 
 function unitSystemfunc($weatherArray) {
 
-	$weatherArray['Units']['TempUnits'] = Array('&deg;C','&deg;F','K');
+	$weatherArray['Units']['TempUnits'] = Array('&deg; C','&deg; F','K');
 	
 	$weatherArray['Units']['RainUnits'] = Array('mm','cm','in');
 	

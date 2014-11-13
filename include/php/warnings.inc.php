@@ -21,8 +21,8 @@ $freezinglevlower = '#88c';
 $freezinglevlowest = '#88d';
 
 $CSSIdent = 'CSS'; // We're adding this string to the regular weatherArray variable to create a new array item that has the CSS background colour... default is "no".
-$CSSstyletag = 'color: ';
-$CSSdefaultvalue = '';
+$CSSstyletag = 'margin:1px;padding:1px;background-color:';
+$CSSdefaultvalue = 'none;';
 $CSSdefault = $CSSstyletag . $CSSdefaultvalue;
 $newName = $key . $CSSIdent; //Create the new $weatherArray variable.
 $weatherArray[$newName] = $CSSdefault;
@@ -68,8 +68,8 @@ $freezinglevlower = '#00FF00';
 $freezinglevlowest = '#00FF00';
 
 $CSSIdent = 'CSS'; // We're adding this string to the regular weatherArray variable to create a new array item that has the CSS background colour... default is "no".
-$CSSstyletag = 'color: ';
-$CSSdefaultvalue = '';
+$CSSstyletag = 'margin:1px;padding:1px;background-color:';
+$CSSdefaultvalue = 'none;';
 $CSSdefault = $CSSstyletag . $CSSdefaultvalue;
 $newName = $key . $CSSIdent; //Create the new $weatherArray variable.
 $weatherArray[$newName] = $CSSdefault;
@@ -151,14 +151,14 @@ $freezinglevlower = '#00FF00';
 $freezinglevlowest = '#00FF00';
 
 $CSSIdent = 'CSS'; // We're adding this string to the regular weatherArray variable to create a new array item that has the CSS background colour... default is "no".
-$CSSstyletag = 'color: ';
-$CSSdefaultvalue = '';
+$CSSstyletag = 'margin:1px;padding:1px;background-color:';
+$CSSdefaultvalue = 'none;';
 $CSSdefault = $CSSstyletag . $CSSdefaultvalue;
 $newName = $key . $CSSIdent; //Create the new $weatherArray variable.
 $weatherArray[$newName] = $CSSdefault;
 //////////////WindSpeed Warning Check/////////////////////////
 
-if ($key == 'windSpeed' || $key == 'intervalAvgWindSpeed'){
+if ($key == 'windGustSpeed' || $key == 'windSpeed' || $key == 'intervalAvgWindSpeed'){
 	if ($val >= 20 && $val < 45) {
 		$weatherArray[$newName] = $CSSstyletag . $windlevelmoderate;
 	}
@@ -237,8 +237,8 @@ $freezinglevlowest = '#00FF00';
 
 
 $CSSIdent = 'CSS'; // We're adding this string to the regular weatherArray variable to create a new array item that has the CSS background colour... default is "no".
-$CSSstyletag = 'color: ';
-$CSSdefaultvalue = '';
+$CSSstyletag = 'margin:1px;padding:1px;background-color:';
+$CSSdefaultvalue = 'none;';
 $CSSdefault = $CSSstyletag . $CSSdefaultvalue;
 $newName = $key . $CSSIdent; //Create the new $weatherArray variable.
 $weatherArray[$newName] = $CSSdefault;
@@ -375,30 +375,30 @@ return $weatherArray;
 }
 function changeTempColor($weatherArray,$key,$val,$subArray){
 
-$warncoldcolorlow = '#CCFFFF';
-$warncoldcolormed = '#AAAAFF';
-$warncoldcolorhigh = '#7777FF';
-$warncolorlow = '#EEEE66';
-$warncolormed = '#FFBB44';
-$warncolorhigh = '#FF4444';
-$windlevelmoderate = '#ffff22';
-$windlevelstrong = '#ffbb33';
-$windlevelgale = '#ff8833';
-$windlevelstorm = '#ff33bb';
-$windlevelhurricane = '#ff2222';
-$currentraincolor ='#CCFFFF';
-$windpowerlow = '#44FF44';
-$windpowergood = '#22FF22';
-$windpowerbest = '#00FF00';
-$freezinglevlow = '#00FF00';
-$freezinglevlower = '#00FF00';
-$freezinglevlowest = '#00FF00';
+$warncoldcolorlow = '#cff';
+$warncoldcolormed = '#aaf';
+$warncoldcolorhigh = '#77f';
+$warncolorlow = '#ee6';
+$warncolormed = '#fb4';
+$warncolorhigh = '#f44';
+$windlevelmoderate = '#ff2';
+$windlevelstrong = '#fb3';
+$windlevelgale = '#f83';
+$windlevelstorm = '#f3b';
+$windlevelhurricane = '#f22';
+$currentraincolor ='#cff';
+$windpowerlow = '#4f4';
+$windpowergood = '#2f2';
+$windpowerbest = '#0f0';
+$freezinglevlow = '#0f0';
+$freezinglevlower = '#0f0';
+$freezinglevlowest = '#0f0';
 $greyout = '#eee';
 $greyouteven = '#111';
 
 $CSSIdent = 'CSS'; // We're adding this string to the regular weatherArray variable to create a new array item that has the CSS background colour... default is "no".
-$CSSstyletag = 'color: ';
-$CSSdefaultvalue = '';
+$CSSstyletag = 'margin:1px;padding:1px;background-color:';
+$CSSdefaultvalue = 'none;';
 $CSSdefault = $CSSstyletag . $CSSdefaultvalue;
 $newName = $key . $CSSIdent; //Create the new $weatherArray variable.
 $weatherArray[$newName] = $CSSdefault;
@@ -408,6 +408,8 @@ $weatherArray[$newName] = $CSSdefault;
 
 if ($val <= 0 && $val > -5) {
 $weatherArray[$newName] = $CSSstyletag . $warncoldcolorlow;
+
+
 }
 
 elseif ($val <= -5 && $val > -10) {
@@ -448,6 +450,18 @@ if ($key != 'windChill') {
 		$weatherArray[$newName] = $CSSstyletag . $warncolorhigh;
 		}
 	}
+if ($key == 'windChill') {
+	//////////////Temperature Hot Warning/////////////////////////
+	if ($val >= -5 && $val < 0) {
+		$weatherArray[$newName] = $CSSstyletag . $warncoldcolorlow;
+		}
+	elseif ($val >= -10 && $val < -5) {
+		$weatherArray[$newName] = $CSSstyletag . $warncoldcolormed;
+		}
+	elseif ($val < -10) {
+		$weatherArray[$newName] = $CSSstyletag . $warncoldcolorhigh;
+		}
+}
 
 return $weatherArray;
 
@@ -461,8 +475,8 @@ $warncolormed = '#FFBB44';
 $warncolorhigh = '#FF4444';
 
 $CSSIdent = 'CSS'; // We're adding this string to the regular weatherArray variable to create a new array item that has the CSS background colour... default is "no".
-$CSSstyletag = 'color: ';
-$CSSdefaultvalue = '';
+$CSSstyletag = 'margin:1px;padding:1px;background-color:';
+$CSSdefaultvalue = 'none;';
 $CSSdefault = $CSSstyletag . $CSSdefaultvalue;
 $newName = $key . $CSSIdent; //Create the new $weatherArray variable.
 $weatherArray[$newName] = $CSSdefault;
@@ -494,8 +508,8 @@ $warncolormed = '#FFBB44';
 $warncolorhigh = '#FF4444';
 
 $CSSIdent = 'CSS'; // We're adding this string to the regular weatherArray variable to create a new array item that has the CSS background colour... default is "no".
-$CSSstyletag = 'color: ';
-$CSSdefaultvalue = '';
+$CSSstyletag = 'margin:1px;padding:1px;background-color:';
+$CSSdefaultvalue = 'none;';
 $CSSdefault = $CSSstyletag . $CSSdefaultvalue;
 $newName = $key . $CSSIdent; //Create the new $weatherArray variable.
 $weatherArray[$newName] = $CSSdefault;
@@ -528,8 +542,8 @@ $warncolorUVhigh = '#FFBB44';
 $warncolorUVveryhigh = '#FF4444';
 $warncolorUVextreme = '#bb33bb';
 $CSSIdent = 'CSS'; // We're adding this string to the regular weatherArray variable to create a new array item that has the CSS background colour... default is "no".
-$CSSstyletag = 'color: ';
-$CSSdefaultvalue = '';
+$CSSstyletag = 'margin:1px;padding:1px;background-color:';
+$CSSdefaultvalue = 'none;';
 $CSSdefault = $CSSstyletag . $CSSdefaultvalue;
 $newName = $key . $CSSIdent; //Create the new $weatherArray variable.
 $weatherArray[$newName] = $CSSdefault;
@@ -565,8 +579,8 @@ $warncolormed = '#FFBB44';
 $warncolorhigh = '#FF4444';
 
 $CSSIdent = 'CSS'; // We're adding this string to the regular weatherArray variable to create a new array item that has the CSS background colour... default is "no".
-$CSSstyletag = 'color: ';
-$CSSdefaultvalue = '';
+$CSSstyletag = 'margin:1px;padding:1px;background-color:';
+$CSSdefaultvalue = 'none;';
 $CSSdefault = $CSSstyletag . $CSSdefaultvalue;
 $newName = $key . $CSSIdent; //Create the new $weatherArray variable.
 $weatherArray[$newName] = $CSSdefault;
@@ -614,7 +628,6 @@ foreach ($weatherArray as $key => $val) {
 		} //end of FreezingLevel CSS Styling
 		
 	if (stristr($key, 'temp') || stristr($key, 'chill') || stristr($key, 'dew') || stristr($key, 'heat')){ // Searching for temperature, windchill, dewpoint, and heat values
-	
 		if (stristr($key, 'Time') === FALSE){// The Following Conditions get rid of the array keys that have to do with times, or are intervals, instead of bare temperatures
 			if (stristr($key, 'date') === FALSE){
 				if (stristr($key, 'change') === FALSE){
@@ -1124,7 +1137,7 @@ return $weatherArray;
 
 function hidechillheat($weatherArray) {
 $CSSstyletag = '';
-$CSSdefaultvalue = '';
+$CSSdefaultvalue = 'none;';
 
 	if ($weatherArray['windChill'] == $weatherArray['outsideTemp']) {
 				$weatherArray['windChillCSS'] = $CSSstyletag . $CSSdefaultvalue;
