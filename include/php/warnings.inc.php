@@ -254,9 +254,7 @@ if ($key == 'dailyRain' || $key == 'RainPeriodSum' ){
 		else {
 		$weatherArray[$newName] = $CSSstyletag . $currentraincolor;
 		}
-		//echo $weatherArray[$newName];
-		//echo $newName;
-		//echo $weatherArray[RainPeriodSumCSS];
+	
 	}
 	
 	if ($val >= 20 && $val < 40) {
@@ -267,9 +265,7 @@ if ($key == 'dailyRain' || $key == 'RainPeriodSum' ){
 		
 		$weatherArray[$newName] = $CSSstyletag . $warncolorlow;
 		}
-		//echo $weatherArray[$subArray][$newName];
-		//echo $newName;
-		//echo $weatherArray[RainPeriodSumCSS];
+		
 	}
 
 	if ($val >= 40 && $val < 80) {
@@ -461,6 +457,7 @@ if ($key == 'windChill') {
 	elseif ($val < -10) {
 		$weatherArray[$newName] = $CSSstyletag . $warncoldcolorhigh;
 		}
+		
 }
 
 return $weatherArray;
@@ -584,8 +581,7 @@ $CSSdefaultvalue = 'none;';
 $CSSdefault = $CSSstyletag . $CSSdefaultvalue;
 $newName = $key . $CSSIdent; //Create the new $weatherArray variable.
 $weatherArray[$newName] = $CSSdefault;
-//echo $key;
-//echo $val;
+
 //////////////Current ET/////////////////////////
 	if ($val < 1) {
 		$weatherArray[$newName] = $CSSstyletag . $CSSdefaultvalue;
@@ -651,8 +647,7 @@ foreach ($weatherArray as $key => $val) {
 					if (stristr($key, 'avg') === FALSE){
 						if (stristr($key, 'unit') === FALSE){
 		
-		//echo $val;
-		//echo $key;
+	
 		
 		
 		$weatherArray = changeRainColor($weatherArray,$key,$val,$subArray);
@@ -665,12 +660,14 @@ foreach ($weatherArray as $key => $val) {
 		
 		if (stristr($key, 'wind')){ // Searching for Wind
 	
-		if (stristr($key, 'time') === FALSE){// The Following Conditions get rid of the array keys that have to do with times, or are intervals, instead of bare temperatures
+		if (stristr($key, 'time') === FALSE){// The Following Conditions get rid of the array keys that have to do with times, or are intervals, instead of bare wind
 			if (stristr($key, 'date') === FALSE){
 				if (stristr($key, 'change') === FALSE){
 					if (stristr($key, 'unit') === FALSE){
+						if (stristr($key, 'chill') === FALSE){
 		
 		$weatherArray = changeWindColor($weatherArray,$key,$val,$subArray);
+							}
 						}
 					}
 				}
@@ -683,7 +680,7 @@ foreach ($weatherArray as $key => $val) {
 			if (stristr($key, 'date') === FALSE){
 				if (stristr($key, 'change') === FALSE){
 					if (stristr($key, 'unit') === FALSE){
-		//echo $key;
+		
 		$weatherArray = changeBarColor($weatherArray,$key,$val,$subArray);
 						}
 					}
@@ -697,7 +694,7 @@ foreach ($weatherArray as $key => $val) {
 			if (stristr($key, 'date') === FALSE){
 				if (stristr($key, 'change') === FALSE){
 					if (stristr($key, 'unit') === FALSE){
-		//echo $key;
+	
 		$weatherArray = changesolarRadColor($weatherArray,$key,$val,$subArray);
 						}
 					}
@@ -711,7 +708,7 @@ foreach ($weatherArray as $key => $val) {
 			if (stristr($key, 'date') === FALSE){
 				if (stristr($key, 'change') === FALSE){
 					if (stristr($key, 'unit') === FALSE){
-		//echo $key;
+		
 		$weatherArray = changesolarRadColor($weatherArray,$key,$val,$subArray);
 						}
 					}
@@ -725,7 +722,7 @@ foreach ($weatherArray as $key => $val) {
 			if (stristr($key, 'date') === FALSE){
 				if (stristr($key, 'change') === FALSE){
 					if (stristr($key, 'unit') === FALSE){
-		//echo $key;
+		
 		$weatherArray = changeSolarWindPotentialColor($weatherArray,$key,$val,$subArray);
 						}
 					}
@@ -739,7 +736,7 @@ foreach ($weatherArray as $key => $val) {
 			if (stristr($key, 'date') === FALSE){
 				if (stristr($key, 'change') === FALSE){
 					if (stristr($key, 'unit') === FALSE){
-		//echo $key;
+		
 		//echo $val;
 		$weatherArray = changeUVColor($weatherArray,$key,$val,$subArray);
 						}
@@ -786,7 +783,7 @@ foreach ($weatherArray as $key => $val) {
 				} //end of SQL Temperature CSS Styling
 				
 				if (stristr($key2, 'rain')){ // Searching for Rain
-				if (stristr($key2, 'time') === FALSE){// The Following Conditions get rid of the array keys that have to do with times, or are intervals, instead of bare temperatures
+				if (stristr($key2, 'time') === FALSE){// The Following Conditions get rid of the array keys that have to do with times, or are intervals, instead of bare rain
 					if (stristr($key2, 'date') === FALSE){
 						if (stristr($key2, 'change') === FALSE){
 							if (stristr($key2, 'avg') === FALSE){
@@ -804,12 +801,14 @@ foreach ($weatherArray as $key => $val) {
 				} //end of Rain CSS Styling
 		
 				if (stristr($key2, 'wind')){ // Searching for Wind
-				if (stristr($key2, 'time') === FALSE){// The Following Conditions get rid of the array keys that have to do with times, or are intervals, instead of bare temperatures
+				if (stristr($key2, 'time') === FALSE){// The Following Conditions get rid of the array keys that have to do with times, or are intervals, and windchill instead of bare wind
 					if (stristr($key2, 'date') === FALSE){
 						if (stristr($key2, 'change') === FALSE){
 							if (stristr($key2, 'unit') === FALSE){
+								if (stristr($key2, 'chill') === FALSE){
 				
 				$weatherArray = changeWindColor($weatherArray,$key2,$val2[287],$subArray);
+									}
 								}
 							}
 						}
@@ -822,7 +821,7 @@ foreach ($weatherArray as $key => $val) {
 					if (stristr($key2, 'date') === FALSE){
 						if (stristr($key2, 'change') === FALSE){
 							if (stristr($key2, 'unit') === FALSE){
-				//echo $key;
+				
 				$weatherArray = changeBarColor($weatherArray,$key2,$val2[287],$subArray);
 								}
 							}
@@ -836,7 +835,7 @@ foreach ($weatherArray as $key => $val) {
 					if (stristr($key2, 'date') === FALSE){
 						if (stristr($key2, 'change') === FALSE){
 							if (stristr($key2, 'unit') === FALSE){
-				//echo $key;
+				
 				$weatherArray = changesolarRadColor($weatherArray,$key2,$val2[287],$subArray);
 								}
 							}
@@ -850,7 +849,7 @@ foreach ($weatherArray as $key => $val) {
 					if (stristr($key2, 'date') === FALSE){
 						if (stristr($key2, 'change') === FALSE){
 							if (stristr($key2, 'unit') === FALSE){
-				//echo $key;
+				
 				$weatherArray = changesolarRadColor($weatherArray,$key2,$val2[287],$subArray);
 								}
 							}
@@ -936,7 +935,7 @@ if ($weatherArray[almanacPeriod] != 'Daily') {
 					if (stristr($key2, 'date') === FALSE){
 						if (stristr($key2, 'change') === FALSE){
 							if (stristr($key2, 'unit') === FALSE){
-				//echo $key;
+				
 				$weatherArray = changeBarColor($weatherArray,$key2,$val2[287],$subArray);
 								}
 							}
@@ -950,7 +949,7 @@ if ($weatherArray[almanacPeriod] != 'Daily') {
 					if (stristr($key2, 'date') === FALSE){
 						if (stristr($key2, 'change') === FALSE){
 							if (stristr($key2, 'unit') === FALSE){
-				//echo $key;
+				
 				$weatherArray = changesolarRadColor($weatherArray,$key2,$val2[287],$subArray);
 								}
 							}
@@ -964,7 +963,7 @@ if ($weatherArray[almanacPeriod] != 'Daily') {
 					if (stristr($key2, 'date') === FALSE){
 						if (stristr($key2, 'change') === FALSE){
 							if (stristr($key2, 'unit') === FALSE){
-				//echo $key;
+				
 				$weatherArray = changesolarRadColor($weatherArray,$key2,$val2[287],$subArray);
 								}
 							}
@@ -1055,7 +1054,7 @@ if ($weatherArray[almanacPeriod] != 'Daily') {
 					if (stristr($key2, 'date') === FALSE){
 						if (stristr($key2, 'change') === FALSE){
 							if (stristr($key2, 'unit') === FALSE){
-				//echo $key;
+				
 				$weatherArray = changeBarColor($weatherArray,$key2,$val2[287],$subArray);
 								}
 							}
@@ -1069,7 +1068,7 @@ if ($weatherArray[almanacPeriod] != 'Daily') {
 					if (stristr($key2, 'date') === FALSE){
 						if (stristr($key2, 'change') === FALSE){
 							if (stristr($key2, 'unit') === FALSE){
-				//echo $key;
+				
 				$weatherArray = changesolarRadColor($weatherArray,$key2,$val2[287],$subArray);
 								}
 							}
@@ -1083,7 +1082,7 @@ if ($weatherArray[almanacPeriod] != 'Daily') {
 					if (stristr($key2, 'date') === FALSE){
 						if (stristr($key2, 'change') === FALSE){
 							if (stristr($key2, 'unit') === FALSE){
-				//echo $key;
+				
 				$weatherArray = changesolarRadColor($weatherArray,$key2,$val2[287],$subArray);
 								}
 							}
@@ -1147,7 +1146,7 @@ $CSSdefaultvalue = 'none;';
 				$weatherArray['outsideHeatIndexCSS'] = $CSSstyletag . $CSSdefaultvalue;
 				$weatherArray['outsideHeatIndex'] = 'N/A';
 				}
-				
+
 	return $weatherArray;
 }
 
