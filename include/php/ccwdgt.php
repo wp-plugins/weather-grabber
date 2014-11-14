@@ -41,7 +41,7 @@ $output = $output . '<tr class="tg-even"><td colspan="2" class="tg-center" style
 $output = $output . '<td colspan="2" class="tg-center" style="' . $weatherArray['solarRadCSS'] . '"><span title="Solar Radiation" ><strong>Solar</strong><br/>' . $weatherArray['solarRad'] . ' ' . $weatherArray['solarUnit'] . '</span></td></tr>';
 
 $output = $output . '<tr>
-    <td colspan="4" class="tg-center"> Last Updated: ' . $weatherArray['stationTime'] . '</td></tr></table>';
+    <td colspan="4" class="tg-center"> Last Updated: ' . $weatherArray['stationTime'] . $weatherArray['stationECTime'] . '</td></tr></table>';
 
 
 

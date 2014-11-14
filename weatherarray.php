@@ -110,7 +110,6 @@ $weatherArray['delayed'] = FALSE;
 /*** Grabbing 5 Minute Data from Environment Canada Port File ****/
 
 if ( $wviewparamslistEConly != "NA" && file_exists($wviewparamslistEC) ) {
-
 $weatherdatalistEC = fopen($wviewparamslistEC, "r");
 $weatherdatainitialEC = fgetcsv($weatherdatalistEC, 100000, ";");
 $i = 0;
@@ -121,7 +120,6 @@ foreach($weatherdatainitialEC as $val) {
 	if($i % 2) {
 		$weatherArray[$previousval] = $val;
 		
-		//Observed at: Port Alberni 08:00 AM PST Thursday 20 December 2012 -0.199.9rising99-5-0.3NE21
 		}
 	else {
 	$previousval = $val;
@@ -129,8 +127,26 @@ foreach($weatherdatainitialEC as $val) {
 	}
 $i++;
 }
+//NOW IF THE LIVE DATA IS DELAYED TOO LONG LETS USE THE EC DATA INSTEAD
+
 }
 else {
+
+}
+$weatherArray['stationECTime'] = '';
+if ($weatherArray['delayed'] == TRUE) {
+
+$weatherArray['outsideTemp'] = $weatherArray['ECTemp'];
+$weatherArray['windSpeed'] = $weatherArray['ECWind'];
+$weatherArray['barometer'] = $weatherArray['ECPressure']*10;
+$weatherArray['outsideHumidity'] = $weatherArray['ECHumidity'];
+$weatherArray['outsideDewPt'] = $weatherArray['ECDew'];
+$weatherArray['windChill'] = $weatherArray['ECChill'];
+$weatherArray['baromtrend'] = $weatherArray['ECTrend'];
+$weatherArray['windSpeed'] = $weatherArray['ECWind'];
+$weatherArray['windDirection'] = ' ';
+$weatherArray['windChill'] = $weatherArray['ECChill'];
+$weatherArray['stationECTime'] = '<br/><span style="background-color:#f99; color: black;">Station Reports Delayed<br/>' . $weatherArray['timedif'] .' minutes <br/>Showing Nearest Official Station</span></br>' . $weatherArray['ECTime'];
 
 }
 
