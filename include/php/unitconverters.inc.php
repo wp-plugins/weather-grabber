@@ -828,17 +828,21 @@ function convertdatakmttonautmiles($weatherArray) {
 
 function findtrend($weatherArray){
 if ($weatherArray['wviewdbtoggle'] == 1) {
-if ($weatherArray['SQLData']['OutTemp'][287] < $weatherArray['SQLData']['OutTemp'][286]) {
-	$weatherArray['TempTrend5min'] = ' &darr;';
-	}
+	if ($weatherArray['SQLData']['OutTemp'][287] < $weatherArray['SQLData']['OutTemp'][286]) {
+		$weatherArray['TempTrend5min'] = ' &darr;';
+		}
 
-elseif ($weatherArray['SQLData']['OutTemp'][287] > $weatherArray['SQLData']['OutTemp'][286]){
-	$weatherArray['TempTrend5min'] = ' &uarr;';
+	elseif ($weatherArray['SQLData']['OutTemp'][287] > $weatherArray['SQLData']['OutTemp'][286]){
+		$weatherArray['TempTrend5min'] = ' &uarr;';
+		}
+	else {
+		$weatherArray['TempTrend5min'] = ' &harr;';
 	}
+	
+}
 else {
-	$weatherArray['TempTrend5min'] = ' &harr;';
-	}
-	}
+$weatherArray['TempTrend5min'] = '&nbsp;';
+}
 return $weatherArray;
 }
 
