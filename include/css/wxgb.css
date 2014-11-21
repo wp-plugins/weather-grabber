@@ -2,7 +2,7 @@
 CSS Style for Weather-Grabber Plugin
 Theme URI: http://www.alberniweather.ca/developer
 Description: This stylesheet was created to support the WView weather application for Davis and other automatic Weather station systems.  
-Version: 0.8.6
+Version: 0.9.9
 Author: Chris Alemany
 Author URI: http://www.alberniweather.ca/
 */
@@ -61,3 +61,15 @@ text-align: left;
 .frontwdgttable .tg-center { 
 text-align: center; 
 }
+
+.almtablefull table{
+padding: 1px 
+margin:1px 
+border:0; 
+width:95%;
+text-align:center;
+vertical-align:top;
+height:30px;
+}
+
+

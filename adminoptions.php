@@ -56,6 +56,14 @@ add_settings_field(		'wxgrabber_forecast_file', 	//the unique id of the setting
 						'wxgrabber_main'				//The Section to put it in.
 					);
 					
+add_settings_field(	'wxgrabber_fire_file:', 		//the unique id of the setting
+						'Fire Info Name (optional)<br/>
+						<em>firefile.txt</em>',			//the Title of the Setting				
+						'wxgrabber_fire_input', 		//The Function for display
+						'wxgrabber', 					//The Settings Page Name
+						'wxgrabber_main'	
+						);
+					
 add_settings_field(		'wxgrabber_servertime_file', 	//the unique id of the setting
 						'Web Server Timezone <br/>
 						(<a 			
@@ -225,6 +233,16 @@ $value = $options['wxgrabberforecastFile'];
 
 ?>
 <input id='wxgrabberforecastFile' name='wxgrabber_options[wxgrabberforecastFile]'
+ type='text' size='40' value='<?php echo esc_attr( $value ); ?>' />
+<?php
+}
+
+function wxgrabber_fire_input() {
+$options = get_option('wxgrabber_options');
+$value = $options['wxgrabberfireFile']; 
+
+?>
+<input id='wxgrabberfireFile' name='wxgrabber_options[wxgrabberfireFile]'
  type='text' size='40' value='<?php echo esc_attr( $value ); ?>' />
 <?php
 }

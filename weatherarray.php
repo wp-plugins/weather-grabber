@@ -62,15 +62,11 @@ foreach($weatherdatainitial as $val) {
 	
 	if($i % 2) {
 $weatherArray[$previousval] = $val;
-//echo $previousval;
-//echo $weatherArray[$previousval];
-		//echo $val;
-		//echo ';';
+
 		}
 	else {
 	$previousval = $val;
-	//echo $val;
-	//echo'->';
+	
 	}
 $i++;
 }
@@ -114,7 +110,6 @@ $weatherArray['delayed'] = FALSE;
 /*** Grabbing 5 Minute Data from Environment Canada Port File ****/
 
 if ( $wviewparamslistEConly != "NA" && file_exists($wviewparamslistEC) ) {
-
 $weatherdatalistEC = fopen($wviewparamslistEC, "r");
 $weatherdatainitialEC = fgetcsv($weatherdatalistEC, 100000, ";");
 $i = 0;
@@ -124,19 +119,34 @@ foreach($weatherdatainitialEC as $val) {
 	
 	if($i % 2) {
 		$weatherArray[$previousval] = $val;
-		//echo $val;
-		//echo ';';
-		//Observed at: Port Alberni 08:00 AM PST Thursday 20 December 2012 -0.199.9rising99-5-0.3NE21
+		
 		}
 	else {
 	$previousval = $val;
-	//echo $val;
-	//echo'->';
+	
 	}
 $i++;
 }
+//NOW IF THE LIVE DATA IS DELAYED TOO LONG LETS USE THE EC DATA INSTEAD
+
 }
 else {
+
+}
+$weatherArray['stationECTime'] = '';
+if ($weatherArray['delayed'] == TRUE) {
+
+$weatherArray['outsideTemp'] = $weatherArray['ECTemp'];
+$weatherArray['windSpeed'] = $weatherArray['ECWind'];
+$weatherArray['barometer'] = $weatherArray['ECPressure']*10;
+$weatherArray['outsideHumidity'] = $weatherArray['ECHumidity'];
+$weatherArray['outsideDewPt'] = $weatherArray['ECDew'];
+$weatherArray['windChill'] = $weatherArray['ECChill'];
+$weatherArray['baromtrend'] = $weatherArray['ECTrend'];
+$weatherArray['windSpeed'] = $weatherArray['ECWind'];
+$weatherArray['windDirection'] = ' ';
+$weatherArray['windChill'] = $weatherArray['ECChill'];
+$weatherArray['stationECTime'] = '<br/><span style="background-color:#f99; color: black;">Station Reports Delayed<br/>' . $weatherArray['timedif'] .' minutes <br/>Showing Nearest Official Station</span></br>' . $weatherArray['ECTime'];
 
 }
 
@@ -195,6 +205,9 @@ if ($weatherArray['sensors'] == 0){ //Checking for Standard (0) vs. Extended (1)
 	$weatherArray['db']->close();
 	
 	}//END DATABASE CHECK
+	else {
+	$weatherArray = findtrend($weatherArray); 
+	}
 }// END SENSORS 0 IF
 
 else { 
@@ -241,6 +254,7 @@ else {
 			//Calculate Freezing Level first before any temp conversions
 			$weatherArray = calculateFreezingLevel($weatherArray);
 			
+			
 			$weatherArray = setcssalert($weatherArray);
 			
 		
@@ -267,7 +281,6 @@ else {
 			
 		case '2': //Defining US Imperial System Units
 
-			$weatherArray = setcssalert($weatherArray);
 			
 			$weatherArray['tempUnit'] = $weatherArray['Units']['TempUnits'][1];
 			$weatherArray['humUnit'] = $weatherArray['Units']['HumidUnits'][0];
