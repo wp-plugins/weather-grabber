@@ -49,6 +49,9 @@ Please send questions!
 
 
 == Changelog ==
+= 0.9.9 =
+* Added to the in-page Almanac and Current Conditions outputs.
+
 = 0.9.8 =
 * Added to the in-page Almanac and Current Conditions outputs.
 * All Daily and Hourly values now represented.
