@@ -85,6 +85,16 @@ $output = $output . 'Rain Rate<br /><span title="Rain" > ' . $weatherArray['rain
 $output = $output . '<td colspan="1" class="tg-center" style="' . $weatherArray['dailyRainCSS'] . '"><span title="Day\'s Rain" >Day\'s Rain<br />' . $weatherArray['dailyRain'] . ' ' . $weatherArray['rainUnit'] . '</span></td>';
 $output = $output . '<td colspan="1" class="tg-center" style="' . $weatherArray['ETCSS'] . '"><span title="Evapotranspiration" >Evapo-Transpiration<br />' . $weatherArray['ET'] . ' ' . $weatherArray['rainUnit'] . '</span></td>';
 $output = $output . '<td colspan="1" class="tg-center"><span title="Freezing Level">Freezing Level<br />' . $weatherArray['freezingLevel'] . ' ' . $weatherArray['cumulusBaseUnit'] . '</span></td></tr>';
+
+$output = $output . '<tr>';
+$output = $output . '<td colspan="1" class="tg-center"><span title="Station Pressure" >Station Pressure<br />' . $weatherArray['stationPressure'] . $weatherArray['barUnit'] . '</span></td>';
+$output = $output . '<td colspan="1" class="tg-center"><span title="Altimeter" >Altimeter<br />' . $weatherArray['altimeter'] .'m</span></td>';
+
+$output = $output . '<td colspan="1" class="tg-center">&nbsp;</td>';
+
+$output = $output . '<td colspan="1" class="tg-center"><span title="Rainy Season Total Rain" >Rainy Season Total<br/>(since ' . $weatherArray['rainSeasonStart'] . ')<br />' . $weatherArray['totalRain'] . ' ' . $weatherArray['rainUnit'] .'</span></td>';
+$output = $output . '</tr>';
+
 $output = $output . '<tr>';
 
 $output = $output . '<td colspan="4" class="tg-center">';
@@ -274,25 +284,14 @@ $output = $output . '</tr>';
 $output = $output . '<tr>';
 $output = $output . '<td colspan="1" class="tg-center"><span title="Inside House Temp" >Inside Temp<br />' . $weatherArray['insideTemp'] . $weatherArray['tempUnit'] . '</span></td>';
 $output = $output . '<td colspan="1" class="tg-center"><span title="Inside Humidity" >Inside Humid<br />' . $weatherArray['insideHumidity'] . $weatherArray['humUnit'] .'</span></td>';
-
-$output = $output . '</tr>';
-
-$output = $output . '<tr>';
-$output = $output . '<td colspan="1" class="tg-center"><span title="Station Pressure" >Station Pressure<br />' . $weatherArray['stationPressure'] . $weatherArray['barUnit'] . '</span></td>';
-$output = $output . '<td colspan="1" class="tg-center"><span title="Altimeter" >Altimeter<br />' . $weatherArray['altimeter'] .'m</span></td>';
-
-$output = $output . '<td colspan="1" class="tg-center"><span title="Rainy Season Total Rain" >Total Rain for Rainy Season (since ' . $weatherArray['rainSeasonStart'] . ')<br />' . $weatherArray['totalRain'] . ' ' . $weatherArray['rainUnit'] .'</span></td>';
-$output = $output . '</tr>';
-
-$output = $output . '<tr>';
 $output = $output . '<td colspan="1" class="tg-center"><span title="Station Receive Signal Percentage" >Station Receiving Signal<br />' . $weatherArray['rxCheckPercent'] . $weatherArray['humUnit'] . '</span></td>';
 $output = $output . '<td colspan="1" class="tg-center"><span title="Transmit Battery Status" >Transmitter Battery Status<br />' . $weatherArray['txBatteryStatus'] .'</span></td>';
-
-$output = $output . '<td colspan="1" class="tg-center"><span title="Console Battery Voltage" >Console<br/>Battery<br />' . $weatherArray['consBatteryVoltage'] . 'V </td>';
 $output = $output . '</tr>';
 
-
-
+$output = $output . '<tr>';
+$output = $output . '<th colspan="3" class="tg-center">&nbsp;</th>';
+$output = $output . '<td colspan="1" class="tg-center"><span title="Console Battery Voltage" >Console<br/>Battery<br />' . $weatherArray['consBatteryVoltage'] . 'V </td>';
+$output = $output . '</tr>';
 $output = $output . '</table>';
 
 	return $output;
