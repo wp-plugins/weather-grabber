@@ -49,7 +49,7 @@ Please send questions!
 
 
 == Changelog ==
-= 0.9.9.1 =
+= 0.9.10 =
 * Added to and cleaned up the in-page Almanac and Current Conditions outputs.
 
 = 0.9.9 =
