@@ -8,7 +8,6 @@ $output = $output . '<th colspan="4" class="tg-center"> Current Conditions</th>'
 
 $output = $output . '</tr>';
 $output = $output . '<tr>';
-
 $output = $output . '<td colspan="4" class="tg-center"> Last Updated: '. $weatherArray['stationDate'] . ' ' . $weatherArray['stationTime'];
 $output = $output . '</td>';
 $output = $output . '</tr>';
