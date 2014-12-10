@@ -42,11 +42,13 @@ function dbstandardrun($weatherArray) {
 		default; //Everything Else Defaults to just 24hr.
 			
 			
-			$weatherArray = runDB24hrQuery($weatherArray);			
+			$weatherArray = runDB24hrQuery($weatherArray);	
 			$weatherArray = runHiLo24hr($weatherArray);
 			$weatherArray = runRain24hrQuery($weatherArray);
+			
 			//Lets Create some of the same Daily Values expressely as 24hr values regardless of stupid TimeZones
 			$weatherArray = sql24hrProcessors($weatherArray); // holds functions processing 24hr data from MySQL database
+			
 			$weatherArray = dayRain($weatherArray);
 			$weatherArray = findtrend($weatherArray); 
 			

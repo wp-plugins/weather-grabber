@@ -4,7 +4,7 @@ Donate link: http://www.alberniweather.ca/
 Tags: weather, live
 Requires at least: 3.0.1
 Tested up to: 4.0
-Stable Tag: 0.9.9.1
+Stable Tag: 0.9.11
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -49,6 +49,9 @@ Please send questions!
 
 
 == Changelog ==
+= 0.9.11 =
+* Fixed some rain and database use bugs 
+
 = 0.9.10 =
 * Added to and cleaned up the in-page Almanac and Current Conditions outputs.
 

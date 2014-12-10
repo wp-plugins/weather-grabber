@@ -2,8 +2,6 @@
 
 function sql24hrProcessors($weatherArray) {
 $i = 0;
-$weatherArray['dailyRain'] = 0; //first reset the daily rain value
-$weatherArray['dailyET'] = 0; // reset the daily ET value
 
 
 // Doing 24hr High Lows from Database
@@ -14,97 +12,100 @@ if ( isset($weatherArray['SQLData']) ) {
 if ( isset($weatherArray['SQLData']['Rain24HourlySum'])) {
 while ($i < 288) {
 
-/*  Commenting this out for now until everything else is working
+//  Commenting this out for now until everything else is working
 		
+
 $weatherArray['dailyRain'] = $weatherArray['dailyRain'] + $weatherArray['SQLData']['Rain24HourlySum'][$i]; // First we'll do daily rain
 
 
-$weatherArray['dailyET'] = $weatherArray['dailyET'] + $weatherArray['SQLData']['ET24HourlySum'][$i]; // Next we'll do daily ET
+$weatherArray['ET'] = $weatherArray['ET'] + $weatherArray['SQLData']['ET24HourlySum'][$i]; // Next we'll do daily ET
 
 
 //Now We Do Low Outside Temp
 
-	if($weatherArray['SQLData'][OutTemp][$i] <= $weatherArray[lowOutsideTemp]) {
-		$weatherArray[lowOutsideTemp] = $weatherArray['SQLData'][OutTemp][$i];
-		$weatherArray[lowOutsideTempTime] = date('H:i',$weatherArray['SQLData'][RecordTime][$i]);
+	if($weatherArray['SQLData']['OutTemp'][$i] <= $weatherArray['lowOutsideTemp']) {
+		$weatherArray['lowOutsideTemp'] = $weatherArray['SQLData']['OutTemp'][$i];
+		$weatherArray['lowOutsideTempTime'] = date('H:i',$weatherArray['SQLData']['RecordTime'][$i]);
 		}
 		
 //Now We Do Low WindChill Temp
 
-	if($weatherArray['SQLData'][WindChill][$i] <= $weatherArray[lowWindchill]) {
-		$weatherArray[lowWindchill] = $weatherArray['SQLData'][WindChill][$i];
-		$weatherArray[lowWindchillTime] = date('H:i',$weatherArray['SQLData'][RecordTime][$i]);
+	if($weatherArray['SQLData']['WindChill'][$i] <= $weatherArray['lowWindchill']) {
+		$weatherArray['lowWindchill'] = $weatherArray['SQLData']['WindChill'][$i];
+		$weatherArray['lowWindchillTime'] = date('H:i',$weatherArray['SQLData']['RecordTime'][$i]);
 		}
 		
 //Now We Do High Barometer
 
-	if($weatherArray['SQLData'][Barometer][$i] >= $weatherArray[hiBarometer]) {
-		$weatherArray[hiBarometer] = $weatherArray['SQLData'][Barometer][$i];
-		$weatherArray[hiBarometerTime] = date('H:i',$weatherArray['SQLData'][RecordTime][$i]);
+	if($weatherArray['SQLData']['Barometer'][$i] >= $weatherArray['hiBarometer']) {
+		$weatherArray['hiBarometer'] = $weatherArray['SQLData']['Barometer'][$i];
+		$weatherArray['hiBarometerTime'] = date('H:i',$weatherArray['SQLData']['RecordTime'][$i]);
 		}
 
 //Now We Do Low Barometer
 
-	if($weatherArray['SQLData'][Barometer][$i] <= $weatherArray[lowBarometer]) {
-		$weatherArray[lowBarometer] = $weatherArray['SQLData'][Barometer][$i];
-		$weatherArray[lowBarometerTime] = date('H:i',$weatherArray['SQLData'][RecordTime][$i]);
+
+	if($weatherArray['SQLData']['Barometer'][$i] <= $weatherArray['lowBarometer']) {
+		$weatherArray['lowBarometer'] = $weatherArray['SQLData']['Barometer'][$i];
+		$weatherArray['lowBarometerTime'] = date('H:i',$weatherArray['SQLData']['RecordTime'][$i]);
 		}
+		
 		
 //Now We Do High Rain Rate
 
-	if(($weatherArray['SQLData'][HiRainRate][$i] >= $weatherArray[hiRainRate])&&($weatherArray['SQLData'][HiRainRate][$i] > 0)) {
-		$weatherArray[hiRainRate] = $weatherArray['SQLData'][HiRainRate][$i];
-		$weatherArray[hiRainRateTime] = date('H:i',$weatherArray['SQLData'][RecordTime][$i]);
+	if(($weatherArray['SQLData']['HiRainRate'][$i] >= $weatherArray['hiRainRate'])&&($weatherArray['SQLData']['HiRainRate'][$i] > 0)) {
+		$weatherArray['hiRainRate'] = $weatherArray['SQLData']['HiRainRate'][$i];
+		$weatherArray['hiRainRateTime'] = date('H:i',$weatherArray['SQLData']['RecordTime'][$i]);
 		}	
 		
 	//Now We Do High Dewpoint
 
-	if($weatherArray['SQLData'][Dewpoint][$i] >= $weatherArray[hiDewpoint]) {
-		$weatherArray[hiDewpoint] = $weatherArray['SQLData'][Dewpoint][$i];
-		$weatherArray[hiDewpointTime] = date('H:i',$weatherArray['SQLData'][RecordTime][$i]);
+	if($weatherArray['SQLData']['Dewpoint'][$i] >= $weatherArray['hiDewpoint']) {
+		$weatherArray['hiDewpoint'] = $weatherArray['SQLData']['Dewpoint'][$i];
+		$weatherArray['hiDewpointTime'] = date('H:i',$weatherArray['SQLData']['RecordTime'][$i]);
 		}	
 		
 	//Now We Do Low Dewpoint 
 
-	if($weatherArray['SQLData'][Dewpoint][$i] <= $weatherArray[lowDewpoint]) {
-		$weatherArray[lowDewpoint] = $weatherArray['SQLData'][Dewpoint][$i];
-		$weatherArray[lowDewpointTime] = date('H:i',$weatherArray['SQLData'][RecordTime][$i]);
+	if($weatherArray['SQLData']['Dewpoint'][$i] <= $weatherArray['lowDewpoint']) {
+		$weatherArray['lowDewpoint'] = $weatherArray['SQLData']['Dewpoint'][$i];
+		$weatherArray['lowDewpointTime'] = date('H:i',$weatherArray['SQLData']['RecordTime'][$i]);
 		}	
 		
 		//Now We Do High Humidity 
 
-	if($weatherArray['SQLData'][OutHumid][$i] >= $weatherArray[hiHumidity]) {
-		$weatherArray[hiHumidity] = $weatherArray['SQLData'][OutHumid][$i];
-		$weatherArray[hiHumTime] = date('H:i',$weatherArray['SQLData'][RecordTime][$i]);
+	if($weatherArray['SQLData']['OutHumid'][$i] >= $weatherArray['hiHumidity']) {
+		$weatherArray['hiHumidity'] = $weatherArray['SQLData']['OutHumid'][$i];
+		$weatherArray['hiHumTime'] = date('H:i',$weatherArray['SQLData']['RecordTime'][$i]);
 		}
 		
 		//Now We Do Low Humidity 
 
-	if($weatherArray['SQLData'][OutHumid][$i] <= $weatherArray[lowHumidity]) {
-		$weatherArray[lowHumidity] = $weatherArray['SQLData'][OutHumid][$i];
-		$weatherArray[lowHumTime] = date('H:i',$weatherArray['SQLData'][RecordTime][$i]);
+	if($weatherArray['SQLData']['OutHumid'][$i] <= $weatherArray['lowHumidity']) {
+		$weatherArray['lowHumidity'] = $weatherArray['SQLData']['OutHumid'][$i];
+		$weatherArray['lowHumTime'] = date('H:i',$weatherArray['SQLData']['RecordTime'][$i]);
 		}
 		
 	//Now We Do Low Humidity 
 
-	if($weatherArray['SQLData'][HeatIndex][$i] >= $weatherArray[hiHeatindex]) {
-		$weatherArray[hiHeatindex] = $weatherArray['SQLData'][HeatIndex][$i];
-		$weatherArray[hiHeatindexTime] = date('H:i',$weatherArray['SQLData'][RecordTime][$i]);
+	if($weatherArray['SQLData']['HeatIndex'][$i] >= $weatherArray['hiHeatindex']) {
+		$weatherArray['hiHeatindex'] = $weatherArray['SQLData']['HeatIndex'][$i];
+		$weatherArray['hiHeatindexTime'] = date('H:i',$weatherArray['SQLData']['RecordTime'][$i]);
 		}
 	//Now we do High Solar Radiation
 	
-	if($weatherArray['SQLData'][SolarRadSQL][$i] >= $weatherArray[hiRadiation]) {
-		$weatherArray[hiRadiation] = $weatherArray['SQLData'][SolarRadSQL][$i];
-		$weatherArray[hiRadiationTime] = date('H:i',$weatherArray['SQLData'][RecordTime][$i]);
+	if($weatherArray['SQLData']['SolarRadSQL'][$i] >= $weatherArray['hiRadiation']) {
+		$weatherArray['hiRadiation'] = $weatherArray['SQLData']['SolarRadSQL'][$i];
+		$weatherArray['hiRadiationTime'] = date('H:i',$weatherArray['SQLData']['RecordTime'][$i]);
 		}
 		
 	//Now we do High UV Radiation
 	
-	if($weatherArray['SQLData'][UVSQL][$i] >= $weatherArray[hiUV]) {
-		$weatherArray[hiUV] = $weatherArray['SQLData'][UVSQL][$i];
-		$weatherArray[hiUVTime] = date('H:i',$weatherArray['SQLData'][RecordTime][$i]);
+	if($weatherArray['SQLData']['UVSQL'][$i] >= $weatherArray['hiUV']) {
+		$weatherArray['hiUV'] = $weatherArray['SQLData']['UVSQL'][$i];
+		$weatherArray['hiUVTime'] = date('H:i',$weatherArray['SQLData']['RecordTime'][$i]);
 		}
-		*/
+		
 	$i++;
 }
 } //End of ET/RAIN Check

@@ -27,7 +27,7 @@ if ($weatherArray['wviewdbtoggle'] == 1) {
 
 $output = $output . '<td colspan="2" class="tg-center" style="' . $weatherArray['RainPeriodSumCSS'] . '"><span title="24 hour Rain Amount" ><strong>24hr Rain</strong><br/>' . $weatherArray['SQLData']['RainPeriodSum'] . ' ' . $weatherArray['rainUnit'] . '</span></td>';
 
-$output = $output . '<td colspan="2" class="tg-center" style="' . $weatherArray['dailyETCSS'] . '"><span title="Day Evapo-Transpiration Total" ><strong>Day ET</strong><br/> -' . $weatherArray['dailyET'] . ' ' . $weatherArray['rainUnit'] . '</span> </td>';
+$output = $output . '<td colspan="2" class="tg-center" style="' . $weatherArray['ETCSS'] . '"><span title="Day Evapo-Transpiration Total" ><strong>Day ET</strong><br/> -' . $weatherArray['ET'] . ' ' . $weatherArray['rainUnit'] . '</span> </td>';
 $output = $output . '</tr>';
 
 }	
@@ -59,7 +59,7 @@ $output = $output . '<tr>';
 $output = $output . '<td colspan="4" class="tg-center" style="' . $weatherArray['hiHeatindexCSS'] . '"><span title="Day High Heat Index" ><strong>Day High Heat Index</strong><br/>' . $weatherArray['hiHeatindex'] . $weatherArray['tempUnit'] . $weatherArray['hiHeatindexTime'] . '</span></td>';
 $output = $output . '</tr>';
 $output = $output . '<tr>';
-$output = $output . '<td colspan="4" class="tg-center" style="' . $weatherArray['hiWindSpeedCSS'] . '"><span title="Day High Wind " ><strong>Day High Wind Gust</strong><br/>' . $weatherArray['dayhighwinddir'] . $weatherArray['hiWindSpeed'] . $weatherArray['windUnit'] . $weatherArray['hiWindSpeedTime'] . '</span></td>';
+$output = $output . '<td colspan="4" class="tg-center" style="' . $weatherArray['windGustSpeedCSS'] . '"><span title="Day High Wind Gust " ><strong>Day High Wind Gust</strong><br/>' . $weatherArray['dayhighwinddir'] . $weatherArray['hiWindGust'] . $weatherArray['windUnit'] . $weatherArray['hiWindSpeedTime'] . '</span></td>';
 $output = $output . '</tr>';
 $output = $output . '<tr>';
 $output = $output . '<td colspan="4" class="tg-center" style="' . $weatherArray['hiRadiationCSS'] . '"><span title="Day High Solar Radiation" ><strong>Day High Solar Radiation</strong><br/>' . $weatherArray['hiRadiation'] . $weatherArray['solarUnit'] . $weatherArray['hiRadiationTime'] . '</span></td>';

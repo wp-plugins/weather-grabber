@@ -95,6 +95,7 @@ else {
 $timeOffsetSign = '-';
 }
 
+
 //$timeServerOffsetNum = 3; //Hours Difference from your Server
 
 //Now we're checking to make sure nothing is delayed...
@@ -193,16 +194,21 @@ $weatherArray['currenttime'] = $currenttime;
 //Now We'll check what time period we will be running.  Default is 24hr values but there are also weekly, monthly, yearly and Custom
 $weatherArray['weatherperiod'] = $weatherperiod;
 $weatherArray['almanacPeriod'] = $weatherArray['weatherperiod'];
-
-
 date_default_timezone_set($timeOffsetSymbol);
 
 
 if ($weatherArray['sensors'] == 0){ //Checking for Standard (0) vs. Extended (1) sensors/mode...
 	if ($wviewdbtoggle == 1) { // DATABASE OPTION IS CHECKED?
+	$weatherArray['SQLData']['Rain24HourlySum'] = 0;
+	$weatherArray['SQLData']['ET24HourlySum'] = 0;
+	$weatherArray['SQLData']['SolarRadSQL'] = 0;
+	$weatherArray['SQLData']['UVSQL'] = 0;
+	
 	$weatherArray['db'] = new wxg_mysqli($mysqlhost, $mysqluser, $mysqlpass, $mysqldbname);	
+	
 	$weatherArray = dbstandardrun($weatherArray); //LOTS TO DO dbrun.inc.php
 	$weatherArray['db']->close();
+	
 	
 	}//END DATABASE CHECK
 	else {
@@ -212,6 +218,10 @@ if ($weatherArray['sensors'] == 0){ //Checking for Standard (0) vs. Extended (1)
 
 else { 
 		if ($wviewdbtoggle == 1) { 
+	$weatherArray['SQLData']['Rain24HourlySum'] = 0;
+	$weatherArray['SQLData']['ET24HourlySum'] = 0;
+	$weatherArray['SQLData']['SolarRadSQL'] = 0;
+	$weatherArray['SQLData']['UVSQL'] = 0;
 		$weatherArray['db'] = new wxg_mysqli($mysqlhost, $mysqluser, $mysqlpass, $mysqldbname);
 		$weatherArray = dbextendedrun($weatherArray); //LOTS TO DO HERE in dbrun.inc.php
 		$weatherArray['db']->close();

@@ -380,20 +380,20 @@ function runDB24hrQuery($weatherArray){
 	while ($row = mysqli_fetch_array($result)) {
 			$i--;
 			
-				$weatherArray['SQLData']['OutTemp'][$i] = $row[0];
-				$weatherArray['SQLData']['InTemp'][$i] = $row[1];
-				$weatherArray['SQLData']['Barometer'][$i] = $row[2];
+				$weatherArray['SQLData']['OutTemp'][$i] = round(FtoC($row[0]),2);
+				$weatherArray['SQLData']['InTemp'][$i] = round(FtoC($row[1]),2);
+				$weatherArray['SQLData']['Barometer'][$i] = BaromIntomb($row[2]);
 				$weatherArray['SQLData']['OutHumid'][$i] = $row[3];
 				$weatherArray['SQLData']['InHumid'][$i] = $row[4];
 				$weatherArray['SQLData']['rain'][$i] = InchtoMM($row[5]);
 				$weatherArray['SQLData']['HiRainRate'][$i] = InchtoMM($row[6]);
-				$weatherArray['SQLData']['WindSpeed'][$i] = $row[7];
-				$weatherArray['SQLData']['hiWindSpeed'][$i] = $row[8];
+				$weatherArray['SQLData']['WindSpeed'][$i] = mphtokph($row[7]);
+				$weatherArray['SQLData']['hiWindSpeed'][$i] = mphtokph($row[8]);
 				$weatherArray['SQLData']['WindDir'][$i] = $row[9];
 				$weatherArray['SQLData']['HiWindDir'][$i] = $row[10];
-				$weatherArray['SQLData']['Dewpoint'][$i] = $row[11];
-				$weatherArray['SQLData']['WindChill'][$i] = $row[12];
-				$weatherArray['SQLData']['HeatIndex'][$i] = $row[13];
+				$weatherArray['SQLData']['Dewpoint'][$i] = round(FtoC($row[11]),2);
+				$weatherArray['SQLData']['WindChill'][$i] = round(FtoC($row[12]),2);
+				$weatherArray['SQLData']['HeatIndex'][$i] = round(FtoC($row[13]),2);
 				$weatherArray['SQLData']['RecordTime'][$i] = $row[14];
 				
 			
