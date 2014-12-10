@@ -1,0 +1,87 @@
+/*  
+CSS Style for Weather-Grabber Plugin
+Theme URI: http://www.alberniweather.ca/developer
+Description: This stylesheet created to support the WView weather application for Davis and other automatic Weather station systems.  
+Version: 0.9.12
+Author: Chris Alemany
+Author URI: http://www.alberniweather.ca/
+*/
+
+.frontwdgttable.tg-table-light { 
+border-collapse: collapse; 
+border-spacing: 0; 
+white-space:pre;
+word-wrap: normal;
+
+}
+
+.frontwdgttable.tg-table-light td, .frontwdgttable.tg-table-light th { 
+background-color: #fff; 
+color: #333; 
+font-family: sans-serif; 
+font-size: 7pt; 
+padding: 10px; 
+vertical-align: top; 
+}
+
+.frontwdgttable.tg-table-light .tg-even td  { 
+background-color: #eee; 
+
+}
+
+.frontwdgttable.tg-table-light th  { 
+background-color: #ddd; 
+color: #333; 
+font-size: 8pt; 
+font-weight: bold; 
+}
+
+.frontwdgttable.tg-table-light tr:hover td, .frontwdgttable.tg-table-light tr.even:hover td  { 
+color: #222; 
+background-color: #FCFBE3; 
+}
+
+.frontwdgttable .tg-bf { 
+font-weight: bold; 
+} 
+
+.frontwdgttable .tg-it { 
+font-style: italic; 
+}
+
+.frontwdgttable .tg-left { 
+text-align: right; 
+} 
+
+.frontwdgttable .tg-right { 
+text-align: left; 
+} 
+
+.frontwdgttable .tg-center { 
+text-align: center; 
+}
+
+.almtablefull table{
+padding: 1px 
+margin:1px 
+border:0; 
+width:95%;
+text-align:center;
+vertical-align:top;
+height:30px;
+}
+
+.thunder a:link, .thunder a:hover, .thunder a:visited {
+color: orange;
+text-decoration: underline;
+}
+
+.thunder a:link, .thunder a:hover, .thunder a:visited {
+color: orange;
+text-decoration: underline;
+}
+.warning, .warning a:link, .warning a:hover, .warning a:visited  {
+color: red;
+text-decoration: underline;
+font-size: bigger;
+}
