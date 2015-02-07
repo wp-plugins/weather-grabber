@@ -14,6 +14,9 @@ while ($i < 288) {
 
 //  Commenting this out for now until everything else is working
 		
+if (!isset($weatherArray['SQLData']['Rain24HourlySum'][$i])) {
+    $weatherArray['SQLData']['Rain24HourlySum'][$i] = 0;
+}
 
 $weatherArray['dailyRain'] = $weatherArray['dailyRain'] + $weatherArray['SQLData']['Rain24HourlySum'][$i]; // First we'll do daily rain
 
@@ -27,6 +30,14 @@ $weatherArray['ET'] = $weatherArray['ET'] + $weatherArray['SQLData']['ET24Hourly
 		$weatherArray['lowOutsideTemp'] = $weatherArray['SQLData']['OutTemp'][$i];
 		$weatherArray['lowOutsideTempTime'] = date('H:i',$weatherArray['SQLData']['RecordTime'][$i]);
 		}
+		
+//Now We Do High Wind
+
+/*	if($weatherArray['SQLData']['Wind'][$i] >= $weatherArray['hiBarometer']) {
+		$weatherArray['hiBarometer'] = $weatherArray['SQLData']['Barometer'][$i];
+		$weatherArray['hiBarometerTime'] = date('H:i',$weatherArray['SQLData']['RecordTime'][$i]);
+		}
+*/
 		
 //Now We Do Low WindChill Temp
 
@@ -163,6 +174,61 @@ if (($weatherArray['dayhighwinddir'] > 0)&&($weatherArray['dayhighwinddir'] <= 1
  }
 		elseif (($weatherArray['dayhighwinddir']>349)&&($weatherArray['dayhighwinddir']<=360)) { 
 			$weatherArray['dayhighwinddir'] = 'N'; 
+	}
+} //End if for dayhighwind check
+
+if ( $weatherArray['dayhighwindgustdir'] ) {
+
+if (($weatherArray['dayhighwindgustdir'] > 0)&&($weatherArray['dayhighwindgustdir'] <= 11)) {
+			$weatherArray['dayhighwindgustdir'] = 'N';
+			}
+		elseif (($weatherArray['dayhighwindgustdir']>11)&&($weatherArray['dayhighwindgustdir']<=34)) { 
+			$weatherArray['dayhighwindgustdir'] = 'NNE'; 
+ }
+		elseif (($weatherArray['dayhighwindgustdir']>34)&&($weatherArray['dayhighwindgustdir']<=56)) { 
+			$weatherArray['dayhighwindgustdir'] = 'NE'; 
+ }
+		elseif (($weatherArray['dayhighwindgustdir']>56)&&($weatherArray['dayhighwindgustdir']<=79)) { 
+			$weatherArray['dayhighwindgustdir'] = 'ENE'; 
+ }
+		elseif (($weatherArray['dayhighwindgustdir']>79)&&($weatherArray['dayhighwindgustdir']<=101)) { 
+			$weatherArray['dayhighwindgustdir'] = 'E'; 
+ }
+		elseif (($weatherArray['dayhighwindgustdir']>101)&&($weatherArray['dayhighwindgustdir']<=124)) { 
+			$weatherArray['dayhighwindgustdir'] = 'ESE'; 
+ }
+		elseif (($weatherArray['dayhighwindgustdir']>124)&&($weatherArray['dayhighwindgustdir']<=146)) { 
+			$weatherArray['dayhighwindgustdir'] = 'SE'; 
+ }
+		elseif (($weatherArray['dayhighwindgustdir']>146)&&($weatherArray['dayhighwindgustdir']<=169)) { 
+			$weatherArray['dayhighwindgustdir'] = 'SSE'; 
+ }
+		elseif (($weatherArray['dayhighwindgustdir']>169)&&($weatherArray['dayhighwindgustdir']<=191)) { 
+			$weatherArray['dayhighwindgustdir'] = 'S'; 
+ }
+		elseif (($weatherArray['dayhighwindgustdir']>191)&&($weatherArray['dayhighwindgustdir']<=214)) { 
+			$weatherArray['dayhighwindgustdir'] = 'SSW'; 
+ }
+		elseif (($weatherArray['dayhighwindgustdir']>214)&&($weatherArray['dayhighwindgustdir']<=236)) { 
+			$weatherArray['dayhighwindgustdir'] = 'SW'; 
+ }
+		elseif (($weatherArray['dayhighwindgustdir']>236)&&($weatherArray['dayhighwindgustdir']<=259)) { 
+			$weatherArray['dayhighwindgustdir'] = 'WSW'; 
+ }
+		elseif (($weatherArray['dayhighwindgustdir']>259)&&($weatherArray['dayhighwindgustdir']<=281)) { 
+			$weatherArray['dayhighwindgustdir'] = 'W'; 
+ }
+		elseif (($weatherArray['dayhighwindgustdir']>281)&&($weatherArray['dayhighwindgustdir']<=304)) { 
+			$weatherArray['dayhighwindgustdir'] = 'WNW'; 
+ }
+		elseif (($weatherArray['dayhighwindgustdir']>304)&&($weatherArray['dayhighwindgustdir']<=326)) { 
+			$weatherArray['dayhighwindgustdir'] = 'NW'; 
+ }
+		elseif (($weatherArray['dayhighwindgustdir']>326)&&($weatherArray['dayhighwindgustdir']<=349)) { 
+			$weatherArray['dayhighwindgustdir'] = 'NNW'; 
+ }
+		elseif (($weatherArray['dayhighwindgustdir']>349)&&($weatherArray['dayhighwindgustdir']<=360)) { 
+			$weatherArray['dayhighwindgustdir'] = 'N'; 
 	}
 } //End if for dayhigh check
 

@@ -59,7 +59,7 @@ $output = $output . '<tr>';
 $output = $output . '<td colspan="4" class="tg-center" style="' . $weatherArray['hiHeatindexCSS'] . '"><span title="Day High Heat Index" ><strong>Day High Heat Index</strong><br/>' . $weatherArray['hiHeatindex'] . $weatherArray['tempUnit'] . $weatherArray['hiHeatindexTime'] . '</span></td>';
 $output = $output . '</tr>';
 $output = $output . '<tr>';
-$output = $output . '<td colspan="4" class="tg-center" style="' . $weatherArray['windGustSpeedCSS'] . '"><span title="Day High Wind Gust " ><strong>Day High Wind Gust</strong><br/>' . $weatherArray['dayhighwinddir'] . $weatherArray['hiWindGust'] . $weatherArray['windUnit'] . $weatherArray['hiWindSpeedTime'] . '</span></td>';
+$output = $output . '<td colspan="4" class="tg-center" style="' . $weatherArray['hiWindGustSpeedCSS'] . '"><span title="Day High Wind Gust" ><strong>Day High Wind Gust</strong><br/>' . $weatherArray['dayhighwindgustdir'] . ' ' . $weatherArray['hiWindGustSpeed'] . $weatherArray['windUnit'] . $weatherArray['hiWindGustSpeedTime'] . '</span></td>';
 $output = $output . '</tr>';
 $output = $output . '<tr>';
 $output = $output . '<td colspan="4" class="tg-center" style="' . $weatherArray['hiRadiationCSS'] . '"><span title="Day High Solar Radiation" ><strong>Day High Solar Radiation</strong><br/>' . $weatherArray['hiRadiation'] . $weatherArray['solarUnit'] . $weatherArray['hiRadiationTime'] . '</span></td>';
