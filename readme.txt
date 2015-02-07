@@ -3,8 +3,8 @@ Contributors: chrisale2
 Donate link: http://www.alberniweather.ca/
 Tags: weather, live
 Requires at least: 3.0.1
-Tested up to: 4.0.1
-Stable Tag: 0.9.12
+Tested up to: 4.1
+Stable Tag: 0.9.13
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -49,6 +49,12 @@ Please send questions!
 
 
 == Changelog ==
+= 0.9.13 =
+* Fixed Wind Gust bugs and cleaned up some CSS code
+
+= 0.9.12 =
+* General Bugs
+
 = 0.9.11 =
 * Fixed some rain and database use bugs 
 

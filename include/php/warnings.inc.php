@@ -1,24 +1,24 @@
 <?php
 function changefreezingColor($weatherArray,$key,$val,$subArray){
 
-$warncoldcolorlow = '#CCFFFF';
-$warncoldcolormed = '#9999FF';
-$warncoldcolorhigh = '#4444FF';
-$warncolorlow = '#EEEE66';
-$warncolormed = '#FFBB44';
-$warncolorhigh = '#FF4444';
-$windlevelmoderate = '#ffff22';
-$windlevelstrong = '#ffbb33';
-$windlevelgale = '#ff8833';
-$windlevelstorm = '#ff33bb';
-$windlevelhurricane = '#ff2222';
-$currentraincolor ='#CCFFFF';
-$windpowerlow = '#44FF44';
-$windpowergood = '#22FF22';
-$windpowerbest = '#00FF00';
-$freezinglevlow = '#88b';
-$freezinglevlower = '#88c';
-$freezinglevlowest = '#88d';
+$warncoldcolorlow = '#cff;';
+$warncoldcolormed = '#99f;';
+$warncoldcolorhigh = '#44f;';
+$warncolorlow = '#ee6;';
+$warncolormed = '#fb4;';
+$warncolorhigh = '#f44;';
+$windlevelmoderate = '#ff2;';
+$windlevelstrong = '#fb3;';
+$windlevelgale = '#f83;';
+$windlevelstorm = '#f3b;';
+$windlevelhurricane = '#f22;';
+$currentraincolor ='#cff;';
+$windpowerlow = '#4f4;';
+$windpowergood = '#2f2;';
+$windpowerbest = '#0f0;';
+$freezinglevlow = '#88b;';
+$freezinglevlower = '#88c;';
+$freezinglevlowest = '#88d;';
 
 $CSSIdent = 'CSS'; // We're adding this string to the regular weatherArray variable to create a new array item that has the CSS background colour... default is "no".
 $CSSstyletag = 'margin:1px;padding:1px;background-color:';
@@ -48,24 +48,24 @@ return $weatherArray;
 
 function changeBarColor($weatherArray,$key,$val,$subArray){
 
-$warncoldcolorlow = '#CCFFFF';
-$warncoldcolormed = '#9999FF';
-$warncoldcolorhigh = '#4444FF';
-$warncolorlow = '#EEEE66';
-$warncolormed = '#FFBB44';
-$warncolorhigh = '#FF4444';
-$windlevelmoderate = '#ffff22';
-$windlevelstrong = '#ffbb33';
-$windlevelgale = '#ff8833';
-$windlevelstorm = '#ff33bb';
-$windlevelhurricane = '#ff2222';
-$currentraincolor ='#CCFFFF';
-$windpowerlow = '#44FF44';
-$windpowergood = '#22FF22';
-$windpowerbest = '#00FF00';
-$freezinglevlow = '#00FF00';
-$freezinglevlower = '#00FF00';
-$freezinglevlowest = '#00FF00';
+$warncoldcolorlow = '#cff;';
+$warncoldcolormed = '#99f;';
+$warncoldcolorhigh = '#44f;';
+$warncolorlow = '#ee6;';
+$warncolormed = '#fb4;';
+$warncolorhigh = '#f44;';
+$windlevelmoderate = '#ff2;';
+$windlevelstrong = '#fb3;';
+$windlevelgale = '#f83;';
+$windlevelstorm = '#f3b;';
+$windlevelhurricane = '#f22;';
+$currentraincolor ='#cff;';
+$windpowerlow = '#4f4;';
+$windpowergood = '#2f2;';
+$windpowerbest = '#0f0;';
+$freezinglevlow = '#0f0;';
+$freezinglevlower = '#0f0;';
+$freezinglevlowest = '#0f0;';
 
 $CSSIdent = 'CSS'; // We're adding this string to the regular weatherArray variable to create a new array item that has the CSS background colour... default is "no".
 $CSSstyletag = 'margin:1px;padding:1px;background-color:';
@@ -131,24 +131,24 @@ return $weatherArray;
 
 function changeWindColor($weatherArray,$key,$val,$subArray){
 
-$warncoldcolorlow = '#CCFFFF';
-$warncoldcolormed = '#9999FF';
-$warncoldcolorhigh = '#4444FF';
-$warncolorlow = '#EEEE66';
-$warncolormed = '#FFBB44';
-$warncolorhigh = '#FF4444';
-$windlevelmoderate = '#ffff22';
-$windlevelstrong = '#ffbb33';
-$windlevelgale = '#ff8833';
-$windlevelstorm = '#ff33bb';
-$windlevelhurricane = '#ff2222';
-$currentraincolor ='#CCFFFF';
-$windpowerlow = '#44FF44';
-$windpowergood = '#22FF22';
-$windpowerbest = '#00FF00';
-$freezinglevlow = '#00FF00';
-$freezinglevlower = '#00FF00';
-$freezinglevlowest = '#00FF00';
+$warncoldcolorlow = '#cff;';
+$warncoldcolormed = '#99f;';
+$warncoldcolorhigh = '#44f;';
+$warncolorlow = '#ee6;';
+$warncolormed = '#fb4;';
+$warncolorhigh = '#f44;';
+$windlevelmoderate = '#ff2;';
+$windlevelstrong = '#fb3;';
+$windlevelgale = '#f83;';
+$windlevelstorm = '#f3b;';
+$windlevelhurricane = '#f22;';
+$currentraincolor ='#cff;';
+$windpowerlow = '#4f4;';
+$windpowergood = '#2f2;';
+$windpowerbest = '#0f0;';
+$freezinglevlow = '#0f0;';
+$freezinglevlower = '#0f0;';
+$freezinglevlowest = '#0f0;';
 
 $CSSIdent = 'CSS'; // We're adding this string to the regular weatherArray variable to create a new array item that has the CSS background colour... default is "no".
 $CSSstyletag = 'margin:1px;padding:1px;background-color:';
@@ -158,7 +158,7 @@ $newName = $key . $CSSIdent; //Create the new $weatherArray variable.
 $weatherArray[$newName] = $CSSdefault;
 //////////////WindSpeed Warning Check/////////////////////////
 
-if ($key == 'windGustSpeed' || $key == 'windSpeed' || $key == 'intervalAvgWindSpeed'){
+if ( $key == 'windGustSpeed' || $key == 'windSpeed' || $key == 'intervalAvgWindSpeed'){
 	if ($val >= 20 && $val < 45) {
 		$weatherArray[$newName] = $CSSstyletag . $windlevelmoderate;
 	}
@@ -183,7 +183,8 @@ if ($key == 'windGustSpeed' || $key == 'windSpeed' || $key == 'intervalAvgWindSp
 
 
 //////////////High WindSpeed Warning Check/////////////////////////
-elseif ($key == 'hiWindSpeed'){
+elseif ($key == 'hiWindSpeed' || $key == 'hiWindGustSpeed'){
+
 	if ($val >= 25 && $val < 45) {
 		$weatherArray[$newName] = $CSSstyletag . $windlevelmoderate;
 		}
@@ -207,6 +208,8 @@ elseif ($key == 'hiWindSpeed'){
 		$weatherArray[$newName] = $CSSstyletag . $windlevelhurricane;
 		
 	}
+	
+	
 }
 
 return $weatherArray;
@@ -216,24 +219,24 @@ return $weatherArray;
 
 function changeRainColor($weatherArray,$key,$val,$subArray){
 
-$warncoldcolorlow = '#CCFFFF';
-$warncoldcolormed = '#9999FF';
-$warncoldcolorhigh = '#4444FF';
-$warncolorlow = '#EEEE66';
-$warncolormed = '#FFBB44';
-$warncolorhigh = '#FF4444';
-$windlevelmoderate = '#ffff22';
-$windlevelstrong = '#ffbb33';
-$windlevelgale = '#ff8833';
-$windlevelstorm = '#ff33bb';
-$windlevelhurricane = '#ff2222';
-$currentraincolor ='#CCFFFF';
-$windpowerlow = '#44FF44';
-$windpowergood = '#22FF22';
-$windpowerbest = '#00FF00';
-$freezinglevlow = '#00FF00';
-$freezinglevlower = '#00FF00';
-$freezinglevlowest = '#00FF00';
+$warncoldcolorlow = '#cff;';
+$warncoldcolormed = '#99f;';
+$warncoldcolorhigh = '#44f;';
+$warncolorlow = '#ee6;';
+$warncolormed = '#fb4;';
+$warncolorhigh = '#f44;';
+$windlevelmoderate = '#ff2;';
+$windlevelstrong = '#fb3;';
+$windlevelgale = '#f83;';
+$windlevelstorm = '#f3b;';
+$windlevelhurricane = '#f22;';
+$currentraincolor ='#cff;';
+$windpowerlow = '#4f4;';
+$windpowergood = '#2f2;';
+$windpowerbest = '#0f0;';
+$freezinglevlow = '#0f0;';
+$freezinglevlower = '#0f0;';
+$freezinglevlowest = '#0f0;';
 
 
 $CSSIdent = 'CSS'; // We're adding this string to the regular weatherArray variable to create a new array item that has the CSS background colour... default is "no".
@@ -467,9 +470,9 @@ return $weatherArray;
 
 function changesolarRadColor($weatherArray,$key,$val,$subArray){
 
-$warncolorlow = '#EEEE66';
-$warncolormed = '#FFBB44';
-$warncolorhigh = '#FF4444';
+$warncolorlow = '#ee6;';
+$warncolormed = '#fb4;';
+$warncolorhigh = '#f44;';
 
 $CSSIdent = 'CSS'; // We're adding this string to the regular weatherArray variable to create a new array item that has the CSS background colour... default is "no".
 $CSSstyletag = 'margin:1px;padding:1px;background-color:';
@@ -500,9 +503,9 @@ return $weatherArray;
 
 function changeSolarWindPotentialColor($weatherArray,$key,$val,$subArray){
 
-$warncolorlow = '#EEEE66';
-$warncolormed = '#FFBB44';
-$warncolorhigh = '#FF4444';
+$warncolorlow = '#ee6;';
+$warncolormed = '#fb4;';
+$warncolorhigh = '#f44;';
 
 $CSSIdent = 'CSS'; // We're adding this string to the regular weatherArray variable to create a new array item that has the CSS background colour... default is "no".
 $CSSstyletag = 'margin:1px;padding:1px;background-color:';
@@ -533,11 +536,11 @@ return $weatherArray;
 
 function changeUVColor($weatherArray,$key,$val,$subArray){
 
-$warncolorUVlow = '#99dd99';
-$warncolorUVmed = '#EEEE66';
-$warncolorUVhigh = '#FFBB44';
-$warncolorUVveryhigh = '#FF4444';
-$warncolorUVextreme = '#bb33bb';
+$warncoloruvlow = '#9d9;';
+$warncoloruvmed = '#ee6;';
+$warncoloruvhigh = '#fb4;';
+$warncoloruvveryhigh = '#f44;';
+$warncoloruvextreme = '#b3b;';
 $CSSIdent = 'CSS'; // We're adding this string to the regular weatherArray variable to create a new array item that has the CSS background colour... default is "no".
 $CSSstyletag = 'margin:1px;padding:1px;background-color:';
 $CSSdefaultvalue = 'none;';
@@ -571,9 +574,9 @@ return $weatherArray;
 
 function changeETColor($weatherArray,$key,$val,$subArray){
 
-$warncolorlow = '#EEEE66';
-$warncolormed = '#FFBB44';
-$warncolorhigh = '#FF4444';
+$warncolorlow = '#ee6;';
+$warncolormed = '#fb4;';
+$warncolorhigh = '#f44;';
 
 $CSSIdent = 'CSS'; // We're adding this string to the regular weatherArray variable to create a new array item that has the CSS background colour... default is "no".
 $CSSstyletag = 'margin:1px;padding:1px;background-color:';

@@ -139,6 +139,7 @@ function OFFSETtimes($weatherArray) {
 		$weatherArray['hiRainRateTime'] = timeconverter($weatherArray['hiRainRateTime'], 0, $weatherArray);
 		}
 		
+		$weatherArray['hiWindGustSpeedTime'] = timeconverter($weatherArray['hiWindGustSpeedTime'], 0, $weatherArray);
 		$weatherArray['hiWindSpeedTime'] = timeconverter($weatherArray['hiWindSpeedTime'], 0, $weatherArray);
 		$weatherArray['hiOutsideTempTime'] = timeconverter($weatherArray['hiOutsideTempTime'], 0, $weatherArray);
 		$weatherArray['hiHeatindexTime'] = timeconverter($weatherArray['hiHeatindexTime'], 0, $weatherArray);

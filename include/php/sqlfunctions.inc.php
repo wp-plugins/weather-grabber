@@ -48,14 +48,20 @@ $endtime = time();
 	$result = $weatherArray['db']->query($sql);
 	$i = 0;
 	while ($row = mysqli_fetch_array($result)) {
+				$weatherArray['SQLData']['Rain24HourlySum'] = array();
 				$weatherArray['SQLData']['Rain24HourlySum'][$i] = InchtoMM($row[0]);
+				$weatherArray['SQLData']['Rain24HourlyTime'] = array();
 				$weatherArray['SQLData']['Rain24HourlyTime'][$i] = $row[1];
+				$weatherArray['SQLData']['Rain24HourlyUnixTime'] = array();
 				$weatherArray['SQLData']['Rain24HourlyUnixTime'][$i] = $row[2];
 	//			echo ','.$i.',';
 		//		echo $weatherArray['SQLData']['Rain24HourlySum'][$i];
 				
 				$i++;
 			}
+	
+	
+	
 $result->close();
 
 return $weatherArray;
@@ -67,8 +73,8 @@ function runHiLo24hr($weatherArray){
 	$endtime = time();
 	
 	
-	$sql = "SELECT ROUND((high * 1.609344), 1), whenHigh, FROM_UNIXTIME(timeHigh" . $weatherArray['timeOffsetSign'] . $weatherArray['timeServerOffsetUnixNum'] . ",'%H:%i') FROM windGust WHERE high = (
-SELECT max(high) FROM windGust WHERE dateTime BETWEEN " . $starttime . " AND " . $endtime . ") AND dateTime BETWEEN " . $starttime . " AND " . $endtime . ";";
+	$sql = "SELECT ROUND((high * 1.609344), 1), whenHigh, FROM_UNIXTIME(timeHigh" . $weatherArray['timeOffsetSign'] . $weatherArray['timeServerOffsetUnixNum'] . ",'%H:%i') FROM windSpeed WHERE high = (
+SELECT max(high) FROM windSpeed WHERE dateTime BETWEEN " . $starttime . " AND " . $endtime . ") AND dateTime BETWEEN " . $starttime . " AND " . $endtime . ";";
 
 	//echo $sql;
 	$result = $weatherArray['db']->query($sql);
@@ -76,7 +82,22 @@ SELECT max(high) FROM windGust WHERE dateTime BETWEEN " . $starttime . " AND " .
 	while ($row = mysqli_fetch_array($result)) {
 				$weatherArray['hiWindSpeed'] = $row[0];
 				$weatherArray['dayhighwinddir'] = $row[1];
+				$weatherArray['dayhighwinddirdeg'] = $row[1];
 				$weatherArray['hiWindSpeedTime'] = $row[2];
+				$i++;
+			}
+			
+	$sql = "SELECT ROUND((high * 1.609344), 1), whenHigh, FROM_UNIXTIME(timeHigh" . $weatherArray['timeOffsetSign'] . $weatherArray['timeServerOffsetUnixNum'] . ",'%H:%i') FROM windGust WHERE high = (
+SELECT max(high) FROM windGust WHERE dateTime BETWEEN " . $starttime . " AND " . $endtime . ") AND dateTime BETWEEN " . $starttime . " AND " . $endtime . ";";
+
+	//echo $sql;
+	$result = $weatherArray['db']->query($sql);
+	$i = 0;
+	while ($row = mysqli_fetch_array($result)) {
+				$weatherArray['hiWindGustSpeed'] = $row[0];
+				$weatherArray['dayhighwindgustdir'] = $row[1];
+				$weatherArray['dayhighwindgustdirdeg'] = $row[1];
+				$weatherArray['hiWindGustSpeedTime'] = $row[2];
 				$i++;
 			}
 			
